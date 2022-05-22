@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package logica;
+package utils;
 
 /**
  *
  * @author ecoitino
  */
-public class ControlPedidos {
-    
+public enum NombrePorcesadora {
+    cocina,
+    bar
 }

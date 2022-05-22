@@ -26,6 +26,6 @@ public class Producto {
 
     public UnidadProcesadora getUnidadProcesadora() {
         return unidadProcesadora;
-    }        
+    }
     
 }
