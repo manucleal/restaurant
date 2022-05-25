@@ -11,9 +11,6 @@ import java.util.ArrayList;
  * @author ecoitino
  */
 public class Bar extends UnidadProcesadora {
-    
-    private ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
-    private ArrayList<Gestor> gestores = new ArrayList();
 
     public Bar(String nombre) {
         super(nombre);

@@ -12,9 +12,6 @@ import java.util.ArrayList;
  */
 public class Cocina extends UnidadProcesadora {
     
-    private ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
-    private ArrayList<Gestor> gestores = new ArrayList();
-
     public Cocina(String nombre) {
         super(nombre);
     }
