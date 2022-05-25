@@ -4,13 +4,17 @@
  */
 package logica;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ecoitino
  */
 public abstract class UnidadProcesadora {
     
-    private String nombre;
+    protected String nombre;
+    protected ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
+    protected ArrayList<Gestor> gestores = new ArrayList();
 
     public UnidadProcesadora(String nombre) {
         this.nombre = nombre;
