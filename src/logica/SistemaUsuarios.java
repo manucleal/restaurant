@@ -1,22 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package logica;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author ecoitino
- */
 public class SistemaUsuarios {
     
-    private ArrayList<Mozo> usuariosMozo = new ArrayList();
+    private ArrayList<Mozo> usuariosMozos = new ArrayList();
+    private ArrayList<Gestor> usuariosGestores = new ArrayList();
     private ArrayList<Conexion> conexiones = new ArrayList();
     
     public Conexion loginMozo(String nombreUsuario,String password) {
-        Mozo moso = (Mozo)login(nombreUsuario, password,(ArrayList)usuariosMozo);
+        Mozo moso = (Mozo)login(nombreUsuario, password,(ArrayList)usuariosMozos);
         Conexion conexion = null;
         if(moso != null) {
             conexion = new Conexion(moso);
@@ -39,7 +32,7 @@ public class SistemaUsuarios {
     }
     
     public boolean crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto){
-        usuariosMozo.add(new Mozo(telefono, nombreUsuario, contrasena, nombreCompleto));
+        usuariosMozos.add(new Mozo(telefono, nombreUsuario, contrasena, nombreCompleto));
         return true;
     }
     

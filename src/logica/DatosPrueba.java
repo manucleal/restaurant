@@ -15,8 +15,8 @@ public class DatosPrueba {
     
     public static void cargar() {
         
-        Cocina cocina = new Cocina(NombrePorcesadora.cocina.toString());        
-        Bar bar = new Bar(NombrePorcesadora.bar.toString());
+        UnidadProcesadora cocina = new UnidadProcesadora(NombrePorcesadora.cocina.toString());        
+        UnidadProcesadora bar = new UnidadProcesadora(NombrePorcesadora.bar.toString());
         
         Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, cocina);
         Producto producto2 = new Producto("2A", "gin tonic", 250, 20, bar);
