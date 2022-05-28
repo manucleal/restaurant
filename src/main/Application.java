@@ -5,6 +5,7 @@
 package main;
 
 import logica.DatosPrueba;
+import vistaEscritorio.Menu;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Application {
      */
     public static void main(String[] args) {
         DatosPrueba.cargar();
+        new Menu().setVisible(true);
     }
     
 }

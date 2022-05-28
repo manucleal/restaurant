@@ -19,7 +19,9 @@ public abstract class Usuario {
     public String getPassword() {
         return password;
     }
-    
-    
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }        
     
 }
