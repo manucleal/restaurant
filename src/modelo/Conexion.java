@@ -1,7 +1,5 @@
 package modelo;
 
-import logica.Usuario;
-
 public class Conexion {
     
     private Usuario usuario;

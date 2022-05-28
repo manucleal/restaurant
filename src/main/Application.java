@@ -4,7 +4,7 @@
  */
 package main;
 
-import logica.DatosPrueba;
+import modelo.DatosPrueba;
 import vistaEscritorio.Menu;
 
 /**

@@ -1,4 +1,4 @@
-package logica;
+package modelo;
 
 import java.util.ArrayList;
 import observador.Observable;

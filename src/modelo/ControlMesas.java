@@ -1,4 +1,4 @@
-package logica;
+package modelo;
 
 import modelo.Mesa;
 import java.util.ArrayList;
