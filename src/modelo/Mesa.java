@@ -1,7 +1,5 @@
 package modelo;
 
-import logica.Servicio;
-
 public class Mesa {
     
     private int numero;

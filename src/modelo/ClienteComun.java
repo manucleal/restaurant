@@ -1,4 +1,4 @@
-package logica;
+package modelo;
 
 public class ClienteComun extends Cliente {
 

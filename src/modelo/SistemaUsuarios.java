@@ -1,8 +1,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import logica.Gestor;
-import logica.Usuario;
 
 public class SistemaUsuarios {
     
