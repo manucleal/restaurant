@@ -11,21 +11,21 @@ import java.awt.Frame;
  *
  * @author ecoitino
  */
-public class LoginMozo extends Login {
+public class VistaLoginGestor extends VistaLogin {
 
-    public LoginMozo(Frame parent, boolean modal) {
-        super(parent, modal, "Login Mozo");
-        controladorLogin = new ControladorLogin(this, null);
-    }    
-    
+    public VistaLoginGestor(Frame parent, boolean modal) {
+        super(parent, modal, "Login Gestor");
+        controladorLogin = new ControladorLogin(null, this);
+    }        
+
     @Override
     public void login(String nombreUsuario, String password) {
-        controladorLogin.loginMozo(nombreUsuario, password);
+        controladorLogin.loginGestor(nombreUsuario, password);
     }
 
     @Override
     public void llamarProxmoCasoUso(Object obj) {
-        controladorLogin.atencionMesas(obj);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
 }

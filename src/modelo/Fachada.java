@@ -22,7 +22,7 @@ public class Fachada {
         return sistemaUsuarios.loginMozo(nombreUsuario, password);
     }
     
-    public Conexion loginGesgor(String nombreUsuario, String password) {
+    public Conexion loginGestor(String nombreUsuario, String password) {
         return sistemaUsuarios.loginGestor(nombreUsuario, password);
     }
     

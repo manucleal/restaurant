@@ -5,7 +5,7 @@
 package main;
 
 import modelo.DatosPrueba;
-import vistaEscritorio.Menu;
+import vistaEscritorio.VistaMenu;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Application {
      */
     public static void main(String[] args) {
         DatosPrueba.cargar();
-        new Menu().setVisible(true);
+        new VistaMenu().setVisible(true);
     }
     
 }

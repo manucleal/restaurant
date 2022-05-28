@@ -12,13 +12,13 @@ import javax.swing.JOptionPane;
  *
  * @author ecoitino
  */
-public abstract class Login extends javax.swing.JDialog implements VistaLoginInterface {
+public abstract class VistaLogin extends javax.swing.JDialog implements VistaLoginInterface {
 
     public ControladorLogin controladorLogin;
     /**
      * Creates new form Login
      */
-    public Login(java.awt.Frame parent, boolean modal, String title) {
+    public VistaLogin(java.awt.Frame parent, boolean modal, String title) {
         super(parent, modal);
         initComponents();
         setTitle(title);
