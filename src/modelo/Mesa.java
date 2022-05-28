@@ -1,4 +1,6 @@
-package logica;
+package modelo;
+
+import logica.Servicio;
 
 public class Mesa {
     
@@ -7,15 +9,11 @@ public class Mesa {
     private Servicio servicio;
     private Transferencia transferencia;
 
-    public Mesa(int numero, Mozo mozo) {
+    public Mesa(int numero) {
         this.numero = numero;
-        //this.mozo = mozo;
     }
 
     public void setNumero(int numero) {
         this.numero = numero;
-    }
-    
-    
-    
+    } 
 }

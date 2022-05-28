@@ -1,6 +1,7 @@
-package logica;
+package modelo;
 
 import java.util.ArrayList;
+import logica.Usuario;
 
 public class Mozo extends Usuario {
     

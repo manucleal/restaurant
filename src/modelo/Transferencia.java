@@ -1,4 +1,6 @@
-package logica;
+package modelo;
+
+import modelo.Mozo;
 
 class Transferencia {
     

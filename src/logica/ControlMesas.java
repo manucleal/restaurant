@@ -1,5 +1,6 @@
 package logica;
 
+import modelo.Mesa;
 import java.util.ArrayList;
 
 public class ControlMesas {
