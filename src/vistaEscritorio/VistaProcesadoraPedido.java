@@ -6,26 +6,32 @@
 package vistaEscritorio;
 
 import controlador.ControladorProcesadoraPedido;
+import controlador.VistaProcesadoraPedidoInterface;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
+import modelo.ItemServicio;
 
 /**
  *
  * @author diecu
  */
-public class VistaProcesadoraPedido extends javax.swing.JDialog {
+public class VistaProcesadoraPedido extends javax.swing.JDialog implements VistaProcesadoraPedidoInterface {
 
-    ControladorProcesadoraPedido controlador;
-    
+    private ControladorProcesadoraPedido controlador;
+    private ArrayList<ItemServicio> itemsSinProcesar;
+
     /**
      * Creates new form VistaProcesadoraPedido
      */
-    public VistaProcesadoraPedido(java.awt.Frame parent, boolean modal,Conexion conexion) {
+    public VistaProcesadoraPedido(java.awt.Frame parent, boolean modal, Conexion conexion, ArrayList<ItemServicio> items) {
         super(parent, modal);
         initComponents();
-        this.controlador = new ControladorProcesadoraPedido(this,conexion);
+        this.controlador = new ControladorProcesadoraPedido(this, conexion);
+        this.itemsSinProcesar = items;
         setLocationRelativeTo(null);
-        setTitle("Gestor -"+conexion.getUsuario().getNombreCompleto());
+        setTitle("Gestor -" + conexion.getUsuario().getNombreCompleto());
     }
 
     /**
@@ -37,6 +43,9 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTItemsSinProcesar = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -44,15 +53,34 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog {
             }
         });
 
+        jTItemsSinProcesar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Producto", "Cantidad", "Observaciones", "Nro mesa", "Mozo"
+            }
+        ));
+        jScrollPane2.setViewportView(jTItemsSinProcesar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         pack();
@@ -63,15 +91,34 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog {
         this.controlador.logout();
     }//GEN-LAST:event_formWindowClosing
 
-    public void mostrarError(String message) {
-        JOptionPane.showConfirmDialog(this, message);
+    @Override
+    public void mostrarError(String msg) {
+        JOptionPane.showConfirmDialog(this, msg);
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    @Override
+    public void actualizarYMostrsarItemsSinProcesar(ArrayList<ItemServicio> items) {
+        this.itemsSinProcesar = items;
+        DefaultTableModel datos = new DefaultTableModel();
+        jTItemsSinProcesar.removeAll();
+        int contador = 0;
+        for (ItemServicio i : this.itemsSinProcesar) {
+            datos.setValueAt(i.getProducto().getNombre(), contador, 0);
+            datos.setValueAt(i.getCantidad(), contador, 1);
+            datos.setValueAt(i.getDescripcion(), contador, 2);
+            datos.setValueAt(i.getServicio().getMesa().getNumero(), contador, 3);
+            datos.setValueAt(i.getServicio().getMesa().getMozo().getNombreCompleto(), contador, 4);
 
+            contador++;
+        }
+        jTItemsSinProcesar.setModel(datos);
+    }
 
+            /**
+             * @param args the command line arguments
+             */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTItemsSinProcesar;
     // End of variables declaration//GEN-END:variables
 }

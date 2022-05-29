@@ -33,12 +33,9 @@ public class DatosPrueba {
         } catch (UnidadProcesadoraException ex) {
             System.out.println("No se cargaron unidades procesadoras");
         }
-        
-        UnidadProcesadora cocina = new UnidadProcesadora(NombrePorcesadora.cocina.toString());        
-        UnidadProcesadora bar = new UnidadProcesadora(NombrePorcesadora.bar.toString());
-        
-        Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, cocina);
-        Producto producto2 = new Producto("2A", "gin tonic", 250, 20, bar);
+               
+        Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, logica.getProcesadoras().get(0));
+        Producto producto2 = new Producto("2A", "gin tonic", 250, 20, logica.getProcesadoras().get(1));
              
         Mozo mozo1 = logica.crearUsuarioMozo("099250364", "Emanuel", "emanuel123", "Emanuel Coitiño");
         Mozo mozo2 = logica.crearUsuarioMozo("098869788", "Fausto", "fausto123", "Fausto Perillo");        

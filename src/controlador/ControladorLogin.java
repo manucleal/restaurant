@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.Fachada;
+import modelo.Gestor;
 import modelo.LoginException;
 import modelo.UnidadProcesadora;
 import modelo.UnidadProcesadoraException;
@@ -71,7 +72,7 @@ public class ControladorLogin {
     ////////////////////////// el profe lo tiene en la vista los new pero me parece logico que esten en el controlador como colocaron ustedes
     ////////////////////////// pero no se porque tendriamos el llamarProximo caso de uso en vista y no se hace directamente en controlador
     public void consolaPedidos(Object o){
-        new VistaProcesadoraPedido(null, false,((Conexion) o)).setVisible(true);
+        new VistaProcesadoraPedido(null, false,((Conexion) o),((Gestor)((Conexion) o).getUsuario()).getProcesadora().getItemsSinSerTomados()).setVisible(true);
     }
 
 }
