@@ -45,6 +45,7 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jTItemsSinProcesar = new javax.swing.JTable();
+        btnTomarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -66,21 +67,31 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         ));
         jScrollPane2.setViewportView(jTItemsSinProcesar);
 
+        btnTomarPedido.setBackground(new java.awt.Color(76, 35, 64));
+        btnTomarPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnTomarPedido.setText("Tomar Pedido");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(282, 282, 282)
+                .addComponent(btnTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(286, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTomarPedido)
+                .addContainerGap(307, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,6 +129,7 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
              * @param args the command line arguments
              */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTomarPedido;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTItemsSinProcesar;
     // End of variables declaration//GEN-END:variables
