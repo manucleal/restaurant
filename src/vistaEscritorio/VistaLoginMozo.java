@@ -11,20 +11,20 @@ import java.awt.Frame;
  *
  * @author ecoitino
  */
-public class LoginMozo extends Login {
+public class VistaLoginMozo extends VistaLogin {
 
-    public LoginMozo(Frame parent, boolean modal) {
+    public VistaLoginMozo(Frame parent, boolean modal) {
         super(parent, modal, "Login Mozo");
         controladorLogin = new ControladorLogin(this, null);
     }    
     
     @Override
-    public void login(String nombreUsuario, String password) {
+    protected void login(String nombreUsuario, String password) {
         controladorLogin.loginMozo(nombreUsuario, password);
     }
 
     @Override
-    public void llamarProxmoCasoUso(Object obj) {
+    public void llamarProximoCasoUso(Object obj) {
         controladorLogin.atencionMesas(obj);
     }
 

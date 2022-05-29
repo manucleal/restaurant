@@ -12,13 +12,14 @@ import javax.swing.JOptionPane;
  *
  * @author ecoitino
  */
-public abstract class Login extends javax.swing.JDialog implements VistaLoginInterface {
+public abstract class VistaLogin extends javax.swing.JDialog implements VistaLoginInterface {
 
-    public ControladorLogin controladorLogin;
+    protected ControladorLogin controladorLogin;
+
     /**
      * Creates new form Login
      */
-    public Login(java.awt.Frame parent, boolean modal, String title) {
+    public VistaLogin(java.awt.Frame parent, boolean modal, String title) {
         super(parent, modal);
         initComponents();
         setTitle(title);
@@ -41,7 +42,7 @@ public abstract class Login extends javax.swing.JDialog implements VistaLoginInt
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        bIngresar.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        bIngresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         bIngresar.setText("Ingresar");
         bIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +52,13 @@ public abstract class Login extends javax.swing.JDialog implements VistaLoginInt
 
         jLabel1.setText("Nombre Usuario:");
 
-        jLabel2.setText("Conrtaseña:");
+        jLabel2.setText("Contraseña:");
+
+        tfNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNombreActionPerformed(evt);
+            }
+        });
 
         tfPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,21 +70,21 @@ public abstract class Login extends javax.swing.JDialog implements VistaLoginInt
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(tfPassword)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(97, 97, 97))
+                            .addComponent(tfPassword))
+                        .addGap(97, 97, 97))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,6 +115,11 @@ public abstract class Login extends javax.swing.JDialog implements VistaLoginInt
         login();
     }//GEN-LAST:event_tfPasswordActionPerformed
 
+    private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
+        // TODO add your handling code here:
+        login();
+    }//GEN-LAST:event_tfNombreActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bIngresar;
     private javax.swing.JLabel jLabel1;
@@ -115,18 +127,19 @@ public abstract class Login extends javax.swing.JDialog implements VistaLoginInt
     private javax.swing.JTextField tfNombre;
     private javax.swing.JPasswordField tfPassword;
     // End of variables declaration//GEN-END:variables
-    
+
     private void login() {
         String nombreUsuario = tfNombre.getText();
         String password = new String(tfPassword.getPassword());
         login(nombreUsuario, password);
     }
-    
+
     @Override
     public void mostrarError(String msg) {
         JOptionPane.showMessageDialog(this, msg);
     }
-    
-    public abstract void login(String nombreUsuario, String password);
-    public abstract void llamarProxmoCasoUso(Object obj);
+
+    protected abstract void login(String nombreUsuario, String password);
+
+    public abstract void llamarProximoCasoUso(Object obj);
 }

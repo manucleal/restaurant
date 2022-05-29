@@ -24,7 +24,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         super(parent, modal);
         setLocationRelativeTo(parent);
         initComponents();
-        controladorMozo = new ControladorMozo(this, conexion);
+        controladorMozo = new ControladorMozo(this,conexion);
     }
 
     /**
