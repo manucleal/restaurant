@@ -6,9 +6,16 @@ package vistaEscritorio;
 
 import controlador.ControladorMozo;
 import controlador.VistaMozoInterface;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import modelo.Conexion;
 import modelo.Mesa;
+
 
 /**
  *
@@ -24,7 +31,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         super(parent, modal);
         setLocationRelativeTo(parent);
         initComponents();
-        controladorMozo = new ControladorMozo(this,conexion);
+        setSize(new Dimension(1000, 600));
+        controladorMozo = new ControladorMozo(this, conexion);
     }
 
     /**
@@ -36,36 +44,176 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelButtons = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        labelMesa = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaMesas = new javax.swing.JList();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jScrollPane1.setViewportView(listaMesas);
+        panelButtons.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        panelButtons.setMinimumSize(new java.awt.Dimension(500, 100));
+        panelButtons.setSize(new java.awt.Dimension(500, 100));
+        panelButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Abrir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cerrar");
+
+        jButton3.setText("Transferir");
+
+        jButton4.setText("Agregar Producto");
+        jButton4.setDoubleBuffered(true);
+
+        labelMesa.setEditable(false);
+        labelMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                labelMesaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Código:");
+
+        jLabel2.setText("Descripción:");
+
+        jLabel3.setText("Cantidad:");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Cantidad", "Descripción", "Precio Unitario", "Sub total", "Comentarios"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMesa)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addGap(16, 16, 16)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelMesa)
+                        .addGap(24, 24, 24)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton4))
+                    .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void labelMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelMesaActionPerformed
+        
+    }//GEN-LAST:event_labelMesaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList listaMesas;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField labelMesa;
+    private javax.swing.JPanel panelButtons;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -75,6 +223,27 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
 
     @Override
     public void mostrarMesas(ArrayList<Mesa> mesas) {
-        listaMesas.setListData(mesas.toArray());
+        panelButtons.setLayout(new GridLayout(2, 3));        
+        for (Mesa mesa : mesas) {
+            Clicklistener click = new Clicklistener();
+            JButton button = new JButton("Mesa " + mesa.getNumero());
+            button.addActionListener(click);            
+            button.setMargin(new Insets(2, 2, 2, 2));
+            button.setOpaque(true);
+            panelButtons.add(button);
+        }
     }
+    
+    @Override
+    public void mostrarLabelMesa(String nombreMesa) {
+        labelMesa.setText(nombreMesa);
+    }
+    
+    private class Clicklistener implements ActionListener {        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controladorMozo.buscarMesa(e, panelButtons);
+        }    
+    }
+    
 }
