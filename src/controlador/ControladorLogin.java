@@ -4,12 +4,18 @@
  */
 package controlador;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.Fachada;
+import modelo.LoginException;
+import modelo.UnidadProcesadora;
+import modelo.UnidadProcesadoraException;
 import vistaEscritorio.VistaLoginGestor;
 import vistaEscritorio.VistaLoginMozo;
 import vistaEscritorio.VistaMozo;
+import vistaEscritorio.VistaProcesadoraPedido;
 
 /**
  *
@@ -26,25 +32,31 @@ public class ControladorLogin {
     }
 
     public void loginMozo(String nombreUsuario, String password) {
-        Object obj = Fachada.getInstancia().loginMozo(nombreUsuario, password);
-        if (obj == null) {
+        try {
+            Conexion conexion = Fachada.getInstancia().loginMozo(nombreUsuario, password);
             vistaMozo.mostrarError("Acceso denegado");
-        } else {
             vistaMozo.dispose();
-            vistaMozo.llamarProxmoCasoUso(obj);
+            //new ControladorMozo(conexion);
+            //vistaMozo.llamarProximoCasoUso(obj);
+        } catch (LoginException ex) {
+            Logger.getLogger(ControladorLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void loginGestor(String nombreUsuario, String password) {
-        if (!nombreUsuario.isEmpty()&& !password.isEmpty()) {
+    public void loginGestor(String nombreUsuario, String password, String unidad) {
+        if (!nombreUsuario.isEmpty() && !password.isEmpty() && !unidad.isEmpty()) {
             try {
-                Object obj = Fachada.getInstancia().loginGestor(nombreUsuario, password);
+                UnidadProcesadora uProcesadora = Fachada.getInstancia().buscarConExceptionProcesadora(unidad);
+                Conexion conexion = Fachada.getInstancia().loginGestor(nombreUsuario, password,uProcesadora);
                 vistaGestor.dispose();
-                vistaGestor.llamarProxmoCasoUso(obj);
-            } catch(Exception ex ) {
-                vistaGestor.mostrarError(ex.getMessage());
-            }
-        }else{
+                new ControladorProcesadoraPedido(conexion);
+                //vistaGestor.llamarProximoCasoUso(obj);
+            } catch (UnidadProcesadoraException uEx) {
+                vistaGestor.mostrarError(uEx.getMessage());
+            }catch (LoginException lEx) {
+                vistaGestor.mostrarError(lEx.getMessage());
+            } 
+        } else {
             vistaGestor.mostrarError("Los campos no pueden ser vacíos.");
         }
     }

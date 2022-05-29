@@ -23,9 +23,9 @@ public class VistaLoginMozo extends VistaLogin {
         controladorLogin.loginMozo(nombreUsuario, password);
     }
 
-    @Override
-    public void llamarProxmoCasoUso(Object obj) {
+    /*@Override
+    public void llamarProximoCasoUso(Object obj) {
         controladorLogin.atencionMesas(obj);
-    }
+    }*/
 
 }
