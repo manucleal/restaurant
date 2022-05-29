@@ -19,13 +19,13 @@ public class VistaLoginMozo extends VistaLogin {
     }    
     
     @Override
-    public void login(String nombreUsuario, String password) {
+    protected void login(String nombreUsuario, String password) {
         controladorLogin.loginMozo(nombreUsuario, password);
     }
 
-    /*@Override
+    @Override
     public void llamarProximoCasoUso(Object obj) {
         controladorLogin.atencionMesas(obj);
-    }*/
+    }
 
 }

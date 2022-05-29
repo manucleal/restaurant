@@ -23,11 +23,10 @@ public class ControladorProcesadoraPedido {
     private VistaProcesadoraPedido vistaProcesadora;
     Fachada logica = Fachada.getInstancia();
 
-    public ControladorProcesadoraPedido(Conexion conexionGestor) {
+    public ControladorProcesadoraPedido(VistaProcesadoraPedido vista,Conexion conexionGestor) {
         this.conexionGestor = conexionGestor;
-        vistaProcesadora = new VistaProcesadoraPedido(null,false,"Gestor - "+conexionGestor.getUsuario().getNombreCompleto(),this);
+        vistaProcesadora = vista;
         vistaProcesadora.setLocationRelativeTo(null);
-        vistaProcesadora.setVisible(true);
     }
 
     public void logout(){

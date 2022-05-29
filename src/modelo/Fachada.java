@@ -11,15 +11,18 @@ import java.util.ArrayList;
  * @author ecoitino
  */
 public class Fachada {
-    
+
     private SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
     private SistemaPedidos sPedidos = new SistemaPedidos();
-    
+
     private static Fachada instancia = new Fachada();
+
     public static Fachada getInstancia() {
         return instancia;
     }
-    private Fachada() {}   
+
+    private Fachada() {
+    }
 
     public ArrayList<UnidadProcesadora> getProcesadoras() {
         return sPedidos.getProcesadoras();
@@ -32,19 +35,21 @@ public class Fachada {
     public UnidadProcesadora buscarConExceptionProcesadora(String nombre) throws UnidadProcesadoraException {
         return sPedidos.buscarConExceptionProcesadora(nombre);
     }
-    
-    public Conexion loginMozo(String nombreUsuario, String password) throws LoginException {
+
+    public Conexion loginMozo(String nombreUsuario, String password)
+            throws LoginException, UnidadProcesadoraException {
         return sistemaUsuarios.loginMozo(nombreUsuario, password);
     }
 
-    public Conexion loginGestor(String nombreUsuario, String password,UnidadProcesadora unidad) throws LoginException {
-        return sistemaUsuarios.loginGestor(nombreUsuario, password,unidad);
+    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad)
+            throws LoginException, UnidadProcesadoraException {
+        return sistemaUsuarios.loginGestor(nombreUsuario, password, unidad);
     }
 
     public void logoutConexionGestor(Conexion conexion) throws LoginException {
         sistemaUsuarios.logoutConexionGestor(conexion);
     }
-    
+
     public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
         return sistemaUsuarios.crearUsuarioMozo(telefono, nombreUsuario, contrasena, nombreCompleto);
     }
@@ -52,6 +57,5 @@ public class Fachada {
     public Gestor crearUsuarioGestor(String nombreUsuario, String contrasena, String nombreCompleto) throws UsuarioException {
         return sistemaUsuarios.crearUsuarioGestor(nombreUsuario, contrasena, nombreCompleto);
     }
-    
-    
+
 }

@@ -7,6 +7,7 @@ package vistaEscritorio;
 
 import controlador.ControladorProcesadoraPedido;
 import javax.swing.JOptionPane;
+import modelo.Conexion;
 
 /**
  *
@@ -19,12 +20,12 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog {
     /**
      * Creates new form VistaProcesadoraPedido
      */
-    public VistaProcesadoraPedido(java.awt.Frame parent, boolean modal,String title, ControladorProcesadoraPedido controlador) {
+    public VistaProcesadoraPedido(java.awt.Frame parent, boolean modal,Conexion conexion) {
         super(parent, modal);
         initComponents();
-        this.controlador = controlador;
+        this.controlador = new ControladorProcesadoraPedido(this,conexion);
         setLocationRelativeTo(null);
-        setTitle(title);
+        setTitle("Gestor -"+conexion.getUsuario().getNombreCompleto());
     }
 
     /**

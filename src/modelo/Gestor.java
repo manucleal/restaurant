@@ -21,7 +21,7 @@ public class Gestor extends Usuario {
     }
     
     public void agregarProcesadora(UnidadProcesadora unidad) throws UnidadProcesadoraException{
-        if(procesadora.equals(unidad))throw new UnidadProcesadoraException("La unidad -" + unidad.getNombre()+"- ya esta guardada en gestor");
+        if(procesadora != null && procesadora.equals(unidad))throw new UnidadProcesadoraException("La unidad -" + unidad.getNombre()+"- ya esta guardada en gestor");
         if(procesadora != null)throw new UnidadProcesadoraException("El gestor ya tiene otra unidad cargada");
         procesadora = unidad;
     }

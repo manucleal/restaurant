@@ -139,7 +139,7 @@ public abstract class VistaLogin extends javax.swing.JDialog implements VistaLog
         JOptionPane.showMessageDialog(this, msg);
     }
 
-    public abstract void login(String nombreUsuario, String password);
+    protected abstract void login(String nombreUsuario, String password);
 
-    //public abstract void llamarProximoCasoUso(Object obj);
+    public abstract void llamarProximoCasoUso(Object obj);
 }

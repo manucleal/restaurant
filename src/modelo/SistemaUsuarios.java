@@ -10,15 +10,18 @@ public class SistemaUsuarios {
     private ArrayList<Conexion> conexionesMozo = new ArrayList();
     private ArrayList<Conexion> conexionesGestor = new ArrayList();
 
-    public Conexion loginMozo(String nombreUsuario, String password) throws LoginException {
+    public Conexion loginMozo(String nombreUsuario, String password)
+            throws LoginException, UnidadProcesadoraException {
+
         Mozo mozo = (Mozo) login(nombreUsuario, password, (ArrayList) usuariosMozos);
-        Conexion conexion = agregarConexion(mozo, conexionesMozo);
+        Conexion conexion = crearConexion(mozo, conexionesMozo);
         conexionesMozo.add(conexion);
         return conexion;
     }
 
-    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) throws LoginException {
-        if (nombreUsuario.isBlank() || password.isBlank()) {
+    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad)
+            throws LoginException, UnidadProcesadoraException {
+        if (nombreUsuario.isBlank() || password.isBlank() || unidad == null) {
             throw new LoginException("Los campos no pueden ser vacíos.");
         }
         Gestor gestor = (Gestor) login(nombreUsuario, password, (ArrayList) usuariosGestores);
@@ -34,15 +37,18 @@ public class SistemaUsuarios {
         throw new LoginException("Nombre de usuario y/o contraseña incorrectos");
     }
 
-    private Conexion agregarConexionGestor(Usuario usuario, UnidadProcesadora unidad, ArrayList<Conexion> lista) throws LoginException {
-        Conexion c = agregarConexion(usuario, lista);
+    private Conexion agregarConexionGestor(Usuario usuario, UnidadProcesadora unidad, ArrayList<Conexion> lista)
+            throws LoginException, UnidadProcesadoraException {
+        Conexion c = crearConexion(usuario, lista);
         lista.add(c);
+                System.out.println("Unidad " + unidad);
         ((Gestor) c.getUsuario()).agregarUltimaFechaConexion(new Date());
-        System.out.println(((Gestor) c.getUsuario()).getFechaUltimoAcceso());
+        ((Gestor) c.getUsuario()).agregarProcesadora(unidad);
+        unidad.agregarGestor(((Gestor) c.getUsuario()));
         return c;
     }
 
-    private Conexion agregarConexion(Usuario usuario, ArrayList<Conexion> lista) throws LoginException {
+    private Conexion crearConexion(Usuario usuario, ArrayList<Conexion> lista) throws LoginException {
         for (Conexion conexion : lista) {
             if (conexion.getUsuario().equals(usuario)) {
                 throw new LoginException("Ud. ya está logueado");
@@ -50,9 +56,11 @@ public class SistemaUsuarios {
         }
         return new Conexion(usuario);
     }
-    
-    public void logoutConexionGestor(Conexion conexion)throws LoginException{
-        if(!conexionesGestor.remove(conexion))throw  new LoginException("No se encontro conexion");
+
+    public void logoutConexionGestor(Conexion conexion) throws LoginException {
+        if (!conexionesGestor.remove(conexion)) {
+            throw new LoginException("No se encontro conexion");
+        }
     }
 
     public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {

@@ -8,7 +8,9 @@ import controlador.ControladorLogin;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import modelo.Conexion;
 import modelo.Fachada;
+import modelo.UnidadProcesadora;
 
 /**
  *
@@ -16,23 +18,31 @@ import modelo.Fachada;
  */
 public class VistaLoginGestor extends VistaLogin {
 
+    private ArrayList<UnidadProcesadora> unidades;
+
     public VistaLoginGestor(Frame parent, boolean modal) {
         super(parent, modal, "Login Gestor");
         controladorLogin = new ControladorLogin(null, this);
         setLocationRelativeTo(null);
-    }        
-
-    @Override
-    public void login(String nombreUsuario, String password) {
-        ArrayList<String> unidades = new ArrayList<String>();
-        Fachada.getInstancia().getProcesadoras().forEach(u -> unidades.add(u.getNombre()));
-        Object unidad = JOptionPane.showInputDialog(this,"Seleccione unidad a trabajar: ",
-   "UNIDADES PROCESADORAS", JOptionPane.DEFAULT_OPTION, null,
-                unidades.toArray(),"Seleccione");
-        System.out.println(unidad+" "+ nombreUsuario+" " + password);
-        if(unidad != null)
-        controladorLogin.loginGestor(nombreUsuario, password, ""+unidad);
     }
 
-    
+    @Override
+    protected void login(String nombreUsuario, String password) {
+        unidades = Fachada.getInstancia().getProcesadoras();
+        Object unidad = JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
+                "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
+                unidades.toArray(), "");
+        ////
+        System.out.println(((UnidadProcesadora)unidad).agregarItem(null) + " " + nombreUsuario + " " + password);
+        ////
+        if (unidad != null) {
+            controladorLogin.loginGestor(nombreUsuario, password, (UnidadProcesadora)unidad);
+        }
+    }
+
+    @Override
+    public void llamarProximoCasoUso(Object o) {
+        controladorLogin.consolaPedidos(o);
+    }
+
 }

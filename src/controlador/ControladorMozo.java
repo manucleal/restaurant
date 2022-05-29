@@ -18,18 +18,17 @@ public class ControladorMozo {
     private Conexion conexion;
     private Mozo mozo;
 
-    public ControladorMozo(VistaMozo vistaMozo, Conexion conexion) {
-        this.vistaMozo = vistaMozo;
+    public ControladorMozo(VistaMozo vista, Conexion conexion) {
+        this.vistaMozo = vista;
         this.conexion = conexion;
-        this.mozo = (Mozo)conexion.getUsuario();
+        this.mozo = (Mozo) conexion.getUsuario();
         inicializarVista();
     }
 
     private void inicializarVista() {
+        vistaMozo.setLocationRelativeTo(null);
         vistaMozo.mostrarNombreUsuario(conexion.getUsuario().getNombreCompleto());
         vistaMozo.mostrarMesas(mozo.getMesas());
     }
-    
-    
-    
+
 }

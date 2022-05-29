@@ -32,37 +32,46 @@ public class ControladorLogin {
     }
 
     public void loginMozo(String nombreUsuario, String password) {
-        try {
-            Conexion conexion = Fachada.getInstancia().loginMozo(nombreUsuario, password);
-            vistaMozo.mostrarError("Acceso denegado");
-            vistaMozo.dispose();
-            //new ControladorMozo(conexion);
-            //vistaMozo.llamarProximoCasoUso(obj);
-        } catch (LoginException ex) {
-            Logger.getLogger(ControladorLogin.class.getName()).log(Level.SEVERE, null, ex);
+        if (!nombreUsuario.isEmpty() && !password.isEmpty()) {
+            try {
+                Conexion conexion = Fachada.getInstancia().loginMozo(nombreUsuario, password);
+                vistaMozo.dispose();
+                vistaMozo.llamarProximoCasoUso(conexion);
+            } catch (LoginException lEx) {
+                vistaMozo.mostrarError(lEx.getMessage());
+            } catch (UnidadProcesadoraException uEx) {
+                vistaMozo.mostrarError(uEx.getMessage());
+            }
+        } else {
+            vistaMozo.mostrarError("Los campos no pueden ser vacíos.");
         }
     }
 
-    public void loginGestor(String nombreUsuario, String password, String unidad) {
-        if (!nombreUsuario.isEmpty() && !password.isEmpty() && !unidad.isEmpty()) {
+    public void loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) {
+        if (!nombreUsuario.isEmpty() && !password.isEmpty() && unidad != null) {
             try {
-                UnidadProcesadora uProcesadora = Fachada.getInstancia().buscarConExceptionProcesadora(unidad);
-                Conexion conexion = Fachada.getInstancia().loginGestor(nombreUsuario, password,uProcesadora);
+                //UnidadProcesadora uProcesadora = Fachada.getInstancia().buscarConExceptionProcesadora(unidad);
+                Conexion conexion = Fachada.getInstancia().loginGestor(nombreUsuario, password, unidad);
                 vistaGestor.dispose();
-                new ControladorProcesadoraPedido(conexion);
+                vistaGestor.llamarProximoCasoUso(conexion);
                 //vistaGestor.llamarProximoCasoUso(obj);
             } catch (UnidadProcesadoraException uEx) {
                 vistaGestor.mostrarError(uEx.getMessage());
-            }catch (LoginException lEx) {
+            } catch (LoginException lEx) {
                 vistaGestor.mostrarError(lEx.getMessage());
-            } 
+            }
         } else {
-            vistaGestor.mostrarError("Los campos no pueden ser vacíos.");
+            vistaGestor.mostrarError("Los campos no pueden ser vacíos..");
         }
     }
 
     public void atencionMesas(Object o) {
         new VistaMozo(null, false, (Conexion) o).setVisible(true);
+    }
+    ////////////////////////// el profe lo tiene en la vista los new pero me parece logico que esten en el controlador como colocaron ustedes
+    ////////////////////////// pero no se porque tendriamos el llamarProximo caso de uso en vista y no se hace directamente en controlador
+    public void consolaPedidos(Object o){
+        new VistaProcesadoraPedido(null, false,((Conexion) o)).setVisible(true);
     }
 
 }
