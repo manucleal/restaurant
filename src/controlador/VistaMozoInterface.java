@@ -17,4 +17,6 @@ public interface VistaMozoInterface {
     
     public void mostrarMesas(ArrayList<Mesa> mesas);
     
+    public void mostrarLabelMesa(String nombreMesa);
+    
 }

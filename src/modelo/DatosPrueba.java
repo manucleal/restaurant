@@ -45,7 +45,7 @@ public class DatosPrueba {
         
         mozo1.agregarMesa(mesa1);
         mozo1.agregarMesa(mesa2);
-        mozo2.agregarMesa(mesa3);
+        mozo1.agregarMesa(mesa3);
         mozo2.agregarMesa(mesa4);
         
         // GESTION
