@@ -33,26 +33,13 @@ public class ControladorMozo {
     private void inicializarVista() {
         vistaMozo.setLocationRelativeTo(null);
         vistaMozo.mostrarNombreUsuario(conexion.getUsuario().getNombreCompleto());
-        vistaMozo.mostrarMesas(modelo.getMesas());        
+        vistaMozo.mostrarMesas(modelo.getMesas());
+        cargarDatosMesaSeleccionada(modelo.getMesas().get(0));
     }
     
-    public void buscarMesa(ActionEvent e, javax.swing.JPanel panel) {
-        Component[] botonesPanel = panel.getComponents();
-            
-        for(Component component : botonesPanel) {
-            JButton botonPresionado = (JButton)e.getSource();
-            JButton botonPanel = (JButton)component;
-            String nombreBotonPresionado = botonPresionado.getActionCommand();
-            if (nombreBotonPresionado.equals(botonPanel.getActionCommand())) {
-                this.mesaSeleccionada = modelo.bucarMesaPorNumero(eliminarNoDigitos(e.getActionCommand()));
-                vistaMozo.mostrarLabelMesa(nombreBotonPresionado);
-                vistaMozo.mostrarDatosServicio(this.mesaSeleccionada.getServicio().getItemsServicio());
-            }
-        }       
-    }
-    
-    private int eliminarNoDigitos(String str) {
-        String aux = str.replaceAll("\\D+","");
-        return Integer.parseInt(aux);
+    public void cargarDatosMesaSeleccionada(Mesa mesa) {                    
+        this.mesaSeleccionada = mesa;
+        vistaMozo.mostrarLabelMesa(mesa.getNumero());
+        vistaMozo.mostrarDatosServicio(mesa.getServicio().getItemsServicio());     
     }
 }

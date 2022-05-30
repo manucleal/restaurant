@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
 import modelo.ItemServicio;
 import modelo.Mesa;
-import modelo.Servicio;
 
 
 /**
@@ -238,7 +237,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         panelButtons.setLayout(new GridLayout(2, 3));        
         for (Mesa mesa : mesas) {
             Clicklistener click = new Clicklistener();
-            JButton button = new JButton("Mesa " + mesa.getNumero());
+            JButtonMesa button = new JButtonMesa("Mesa " + mesa.getNumero());
+            button.setMesa(mesa);
             button.addActionListener(click);            
             button.setMargin(new Insets(2, 2, 2, 2));
             button.setOpaque(true);
@@ -247,8 +247,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }
     
     @Override
-    public void mostrarLabelMesa(String nombreMesa) {
-        labelMesa.setText(nombreMesa);
+    public void mostrarLabelMesa(int nombreMesa) {
+        labelMesa.setText("Mesa " + nombreMesa);
     }
     
     @Override
@@ -276,8 +276,26 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     private class Clicklistener implements ActionListener {        
         @Override
         public void actionPerformed(ActionEvent e) {
-            controladorMozo.buscarMesa(e, panelButtons);
+            JButtonMesa jButtonMesa = (JButtonMesa)e.getSource();
+            Mesa mesa = jButtonMesa.getMesa();
+            controladorMozo.cargarDatosMesaSeleccionada(mesa);
         }    
     }
     
+    private class JButtonMesa extends JButton {
+    
+        private Mesa mesa;
+
+        public JButtonMesa(String text) {
+            super(text);
+        }
+
+        public Mesa getMesa() {
+            return mesa;
+        }
+
+        public void setMesa(Mesa mesa) {
+            this.mesa = mesa;
+        }                    
+    }       
 }
