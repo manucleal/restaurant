@@ -9,8 +9,6 @@ package controlador;
  * @author ecoitino
  */
 public interface VistaLoginInterface {
-  
-    public void llamarProximoCasoUso(Object o);
     
     public void mostrarError(String msg);
     

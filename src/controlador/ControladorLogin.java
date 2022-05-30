@@ -37,10 +37,8 @@ public class ControladorLogin {
                 Conexion conexion = Fachada.getInstancia().loginMozo(nombreUsuario, password);
                 vistaMozo.dispose();
                 vistaMozo.llamarProximoCasoUso(conexion);
-            } catch (LoginException lEx) {
-                vistaMozo.mostrarError(lEx.getMessage());
-            } catch (UnidadProcesadoraException uEx) {
-                vistaMozo.mostrarError(uEx.getMessage());
+            } catch (LoginException | UnidadProcesadoraException e) {
+                vistaMozo.mostrarError(e.getMessage());
             }
         } else {
             vistaMozo.mostrarError("Los campos no pueden ser vacíos.");
@@ -50,15 +48,11 @@ public class ControladorLogin {
     public void loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) {
         if (!nombreUsuario.isEmpty() && !password.isEmpty() && unidad != null) {
             try {
-                //UnidadProcesadora uProcesadora = Fachada.getInstancia().buscarConExceptionProcesadora(unidad);
                 Conexion conexion = Fachada.getInstancia().loginGestor(nombreUsuario, password, unidad);
                 vistaGestor.dispose();
                 vistaGestor.llamarProximoCasoUso(conexion);
-                //vistaGestor.llamarProximoCasoUso(obj);
-            } catch (UnidadProcesadoraException uEx) {
-                vistaGestor.mostrarError(uEx.getMessage());
-            } catch (LoginException lEx) {
-                vistaGestor.mostrarError(lEx.getMessage());
+            } catch (UnidadProcesadoraException | LoginException e) {
+                vistaGestor.mostrarError(e.getMessage());
             }
         } else {
             vistaGestor.mostrarError("Los campos no pueden ser vacíos..");

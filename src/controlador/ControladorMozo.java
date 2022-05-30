@@ -33,7 +33,7 @@ public class ControladorMozo {
     private void inicializarVista() {
         vistaMozo.setLocationRelativeTo(null);
         vistaMozo.mostrarNombreUsuario(conexion.getUsuario().getNombreCompleto());
-        vistaMozo.mostrarMesas(modelo.getMesas());
+        vistaMozo.mostrarMesas(modelo.getMesas());        
     }
     
     public void buscarMesa(ActionEvent e, javax.swing.JPanel panel) {
@@ -46,6 +46,7 @@ public class ControladorMozo {
             if (nombreBotonPresionado.equals(botonPanel.getActionCommand())) {
                 this.mesaSeleccionada = modelo.bucarMesaPorNumero(eliminarNoDigitos(e.getActionCommand()));
                 vistaMozo.mostrarLabelMesa(nombreBotonPresionado);
+                vistaMozo.mostrarDatosServicio(this.mesaSeleccionada.getServicio().getItemsServicio());
             }
         }       
     }

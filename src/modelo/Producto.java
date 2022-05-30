@@ -19,5 +19,11 @@ public class Producto {
     public UnidadProcesadora getUnidadProcesadora() {
         return unidadProcesadora;
     }
+
+    public float getPrecio() {
+        return precio;
+    }
+    
+    
     
 }

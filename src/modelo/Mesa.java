@@ -22,5 +22,10 @@ public class Mesa {
     
     public void setEstaAbierta(boolean abierta) {
         this.estaAbierta = abierta;
-    } 
+    }  
+
+    public Servicio getServicio() {
+        return servicio;
+    }    
+    
 }
