@@ -6,6 +6,7 @@ package vistaEscritorio;
 
 import controlador.ControladorLogin;
 import java.awt.Frame;
+import modelo.Conexion;
 
 /**
  *
@@ -25,7 +26,7 @@ public class VistaLoginMozo extends VistaLogin {
 
     @Override
     public void llamarProximoCasoUso(Object obj) {
-        controladorLogin.atencionMesas(obj);
+        new VistaMozo(null, false, (Conexion) obj).setVisible(true);
     }
 
 }

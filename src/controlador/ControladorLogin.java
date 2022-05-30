@@ -4,9 +4,6 @@
  */
 package controlador;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.LoginException;
@@ -57,15 +54,6 @@ public class ControladorLogin {
         } else {
             vistaGestor.mostrarError("Los campos no pueden ser vacíos..");
         }
-    }
-
-    public void atencionMesas(Object o) {
-        new VistaMozo(null, false, (Conexion) o).setVisible(true);
-    }
-    ////////////////////////// el profe lo tiene en la vista los new pero me parece logico que esten en el controlador como colocaron ustedes
-    ////////////////////////// pero no se porque tendriamos el llamarProximo caso de uso en vista y no se hace directamente en controlador
-    public void consolaPedidos(Object o){
-        new VistaProcesadoraPedido(null, false,((Conexion) o)).setVisible(true);
     }
 
 }

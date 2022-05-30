@@ -42,7 +42,7 @@ public class VistaLoginGestor extends VistaLogin {
 
     @Override
     public void llamarProximoCasoUso(Object o) {
-        controladorLogin.consolaPedidos(o);
+        new VistaProcesadoraPedido(null, false,((Conexion) o)).setVisible(true);
     }
 
 }
