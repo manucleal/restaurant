@@ -12,4 +12,6 @@ public interface VistaLoginInterface {
     
     public void mostrarError(String msg);
     
+    public void cerrar();
+    
 }

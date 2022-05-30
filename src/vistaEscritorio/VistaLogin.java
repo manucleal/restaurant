@@ -138,6 +138,11 @@ public abstract class VistaLogin extends javax.swing.JDialog implements VistaLog
     public void mostrarError(String msg) {
         JOptionPane.showMessageDialog(this, msg);
     }
+    
+    @Override
+    public void cerrar() {
+        this.dispose();
+    }
 
     protected abstract void login(String nombreUsuario, String password);
 

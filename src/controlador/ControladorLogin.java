@@ -32,7 +32,7 @@ public class ControladorLogin {
         if (!nombreUsuario.isEmpty() && !password.isEmpty()) {
             try {
                 Conexion conexion = Fachada.getInstancia().loginMozo(nombreUsuario, password);
-                vistaMozo.dispose();
+                vistaMozo.cerrar();
                 vistaMozo.llamarProximoCasoUso(conexion);
             } catch (LoginException | UnidadProcesadoraException e) {
                 vistaMozo.mostrarError(e.getMessage());
@@ -46,7 +46,7 @@ public class ControladorLogin {
         if (!nombreUsuario.isEmpty() && !password.isEmpty() && unidad != null) {
             try {
                 Conexion conexion = Fachada.getInstancia().loginGestor(nombreUsuario, password, unidad);
-                vistaGestor.dispose();
+                vistaGestor.cerrar();
                 vistaGestor.llamarProximoCasoUso(conexion);
             } catch (UnidadProcesadoraException | LoginException e) {
                 vistaGestor.mostrarError(e.getMessage());
