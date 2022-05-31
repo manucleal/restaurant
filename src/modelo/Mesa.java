@@ -22,11 +22,7 @@ public class Mesa {
     
     public void setEstaAbierta(boolean abierta) {
         this.estaAbierta = abierta;
-    } 
-
-    public int getNumero() {
-        return numero;
-    }
+    }  
 
     public Mozo getMozo() {
         return mozo;
@@ -38,7 +34,6 @@ public class Mesa {
 
     public Transferencia getTransferencia() {
         return transferencia;
-    }
-    
+    }   
     
 }

@@ -5,7 +5,9 @@
 package controlador;
 
 import java.util.ArrayList;
+import modelo.ItemServicio;
 import modelo.Mesa;
+import modelo.Servicio;
 
 /**
  *
@@ -17,6 +19,8 @@ public interface VistaMozoInterface {
     
     public void mostrarMesas(ArrayList<Mesa> mesas);
     
-    public void mostrarLabelMesa(String nombreMesa);
+    public void mostrarLabelMesa(int nombreMesa);
+    
+    public void mostrarDatosServicio(ArrayList<ItemServicio> items);
     
 }

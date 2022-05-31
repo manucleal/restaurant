@@ -13,7 +13,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
+import modelo.ItemServicio;
 import modelo.Mesa;
 
 
@@ -31,7 +33,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         super(parent, modal);
         setLocationRelativeTo(parent);
         initComponents();
-        setSize(new Dimension(1000, 600));
+        setSize(new Dimension(1000, 800));
         controladorMozo = new ControladorMozo(this, conexion);
     }
 
@@ -48,7 +50,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        buttonAgregarProducto = new javax.swing.JButton();
         labelMesa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -57,7 +59,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableDatosServicio = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -77,8 +79,13 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
 
         jButton3.setText("Transferir");
 
-        jButton4.setText("Agregar Producto");
-        jButton4.setDoubleBuffered(true);
+        buttonAgregarProducto.setText("Agregar Producto");
+        buttonAgregarProducto.setDoubleBuffered(true);
+        buttonAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAgregarProductoActionPerformed(evt);
+            }
+        });
 
         labelMesa.setEditable(false);
         labelMesa.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +100,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
 
         jLabel3.setText("Cantidad:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableDatosServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -119,13 +126,13 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane1.setViewportView(tableDatosServicio);
+        if (tableDatosServicio.getColumnModel().getColumnCount() > 0) {
+            tableDatosServicio.getColumnModel().getColumn(0).setResizable(false);
+            tableDatosServicio.getColumnModel().getColumn(1).setResizable(false);
+            tableDatosServicio.getColumnModel().getColumn(2).setResizable(false);
+            tableDatosServicio.getColumnModel().getColumn(3).setResizable(false);
+            tableDatosServicio.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,7 +148,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelMesa)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonAgregarProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -173,7 +180,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addGap(28, 28, 28)
-                        .addComponent(jButton4))
+                        .addComponent(buttonAgregarProducto))
                     .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -199,21 +206,25 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void buttonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgregarProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAgregarProductoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAgregarProducto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField labelMesa;
     private javax.swing.JPanel panelButtons;
+    private javax.swing.JTable tableDatosServicio;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -226,7 +237,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         panelButtons.setLayout(new GridLayout(2, 3));        
         for (Mesa mesa : mesas) {
             Clicklistener click = new Clicklistener();
-            JButton button = new JButton("Mesa " + mesa.getNumero());
+            JButtonMesa button = new JButtonMesa("Mesa " + mesa.getNumero());
+            button.setMesa(mesa);
             button.addActionListener(click);            
             button.setMargin(new Insets(2, 2, 2, 2));
             button.setOpaque(true);
@@ -235,15 +247,55 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }
     
     @Override
-    public void mostrarLabelMesa(String nombreMesa) {
-        labelMesa.setText(nombreMesa);
+    public void mostrarLabelMesa(int nombreMesa) {
+        labelMesa.setText("Mesa " + nombreMesa);
+    }
+    
+    @Override
+    public void mostrarDatosServicio(ArrayList<ItemServicio> items) {
+        DefaultTableModel modelTable = new DefaultTableModel();
+        modelTable.addColumn("Cantidad");
+        modelTable.addColumn("Descripción");
+        modelTable.addColumn("Precio Unitario");
+        modelTable.addColumn("Sub total");
+        modelTable.addColumn( "Comentarios");
+        modelTable.setRowCount(items.size());
+        int contador = 0;
+        
+        for(ItemServicio item : items) {
+            modelTable.setValueAt(item.getCantidad(), contador , 0);
+            modelTable.setValueAt(item.getDescripcion(), contador , 1);
+            modelTable.setValueAt(item.getProducto().getPrecio(), contador , 2);
+            modelTable.setValueAt(item.getSubTotal(), contador , 3);
+            modelTable.setValueAt("", contador , 4);
+            contador++;
+        }
+        tableDatosServicio.setModel(modelTable);
     }
     
     private class Clicklistener implements ActionListener {        
         @Override
         public void actionPerformed(ActionEvent e) {
-            controladorMozo.buscarMesa(e, panelButtons);
+            JButtonMesa jButtonMesa = (JButtonMesa)e.getSource();
+            Mesa mesa = jButtonMesa.getMesa();
+            controladorMozo.cargarDatosMesaSeleccionada(mesa);
         }    
     }
     
+    private class JButtonMesa extends JButton {
+    
+        private Mesa mesa;
+
+        public JButtonMesa(String text) {
+            super(text);
+        }
+
+        public Mesa getMesa() {
+            return mesa;
+        }
+
+        public void setMesa(Mesa mesa) {
+            this.mesa = mesa;
+        }                    
+    }       
 }

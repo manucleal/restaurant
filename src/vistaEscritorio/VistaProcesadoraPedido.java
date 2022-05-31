@@ -25,11 +25,11 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
     /**
      * Creates new form VistaProcesadoraPedido
      */
-    public VistaProcesadoraPedido(java.awt.Frame parent, boolean modal, Conexion conexion, ArrayList<ItemServicio> items) {
+    public VistaProcesadoraPedido(java.awt.Frame parent, boolean modal, Conexion conexion) {
         super(parent, modal);
         initComponents();
         this.controlador = new ControladorProcesadoraPedido(this, conexion);
-        this.itemsSinProcesar = items;
+        this.itemsSinProcesar = null;
         setLocationRelativeTo(null);
         setTitle("Gestor -" + conexion.getUsuario().getNombreCompleto());
     }

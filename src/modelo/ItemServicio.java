@@ -34,6 +34,9 @@ public class ItemServicio {
 
     public Servicio getServicio() {
         return servicio;
-    }
+    }      
     
+    public float getSubTotal() {
+        return cantidad * producto.getPrecio();
+    }
 }

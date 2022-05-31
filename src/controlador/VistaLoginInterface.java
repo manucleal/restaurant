@@ -9,9 +9,13 @@ package controlador;
  * @author ecoitino
  */
 public interface VistaLoginInterface {
-  
-    public void llamarProximoCasoUso(Object o);
+    
+    public void login(String nombreUsuario, String password);
+    
+    public void llamarProximoCasoUso(Object obj);
     
     public void mostrarError(String msg);
     
+    public void cerrar();
+              
 }

@@ -3,14 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import modelo.Fachada;
-import modelo.Mesa;
-import modelo.Mozo;
-import utils.NombrePorcesadora;
-
 /**
  *
  * @author ecoitino
@@ -25,25 +17,33 @@ public class DatosPrueba {
         Mesa mesa2 = new Mesa(2);
         Mesa mesa3 = new Mesa(3);
         Mesa mesa4 = new Mesa(4);
-        
+        UnidadProcesadora cocina = null;
+        UnidadProcesadora barra = null;
+        UnidadProcesadora sushibar = null;
         try {
-            logica.crearUnidadProcesadora("COCINA");
-            logica.crearUnidadProcesadora("BARRA");
-            logica.crearUnidadProcesadora("sushibar");
+            cocina = logica.crearUnidadProcesadora("COCINA");
+            barra = logica.crearUnidadProcesadora("BARRA");
+            sushibar = logica.crearUnidadProcesadora("sushibar");
         } catch (UnidadProcesadoraException ex) {
             System.out.println("No se cargaron unidades procesadoras");
-        }
-               
-        Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, logica.getProcesadoras().get(0));
-        Producto producto2 = new Producto("2A", "gin tonic", 250, 20, logica.getProcesadoras().get(1));
+        }        
+        
+        Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, cocina);
+        Producto producto2 = new Producto("2A", "gin tonic", 250, 20, barra);
              
         Mozo mozo1 = logica.crearUsuarioMozo("099250364", "Emanuel", "emanuel123", "Emanuel Coitiño");
         Mozo mozo2 = logica.crearUsuarioMozo("098869788", "Fausto", "fausto123", "Fausto Perillo");        
         
+        //agregando mesa a mozo
         mozo1.agregarMesa(mesa1);
         mozo1.agregarMesa(mesa2);
         mozo1.agregarMesa(mesa3);
         mozo2.agregarMesa(mesa4);
+        //agregando item a un servicio de una mesa
+        mesa1.getServicio().agregarItemServicio(producto1, 1, "que papa la vida");
+        mesa1.getServicio().agregarItemServicio(producto1, 2, "se pidio despues");
+        mesa2.getServicio().agregarItemServicio(producto2, 1, "vamo arriba");
+        
         
         // GESTION
         //<editor-fold>
