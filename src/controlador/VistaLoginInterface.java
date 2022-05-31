@@ -14,4 +14,6 @@ public interface VistaLoginInterface {
     
     public void cerrar();
     
+    public void llamarProximoCasoUso(Object obj);
+    
 }
