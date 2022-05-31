@@ -19,6 +19,10 @@ public class Gestor extends Usuario {
     public void agregarUltimaFechaConexion(Date fecha){
         this.fechaUltimoAcceso = fecha;
     }
+
+    public UnidadProcesadora getProcesadora() {
+        return procesadora;
+    }
     
     public void agregarProcesadora(UnidadProcesadora unidad) throws UnidadProcesadoraException{
         if(procesadora != null && procesadora.equals(unidad))throw new UnidadProcesadoraException("La unidad -" + unidad.getNombre()+"- ya esta guardada en gestor");

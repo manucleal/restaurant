@@ -19,5 +19,21 @@ public class Producto {
     public UnidadProcesadora getUnidadProcesadora() {
         return unidadProcesadora;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public int getCantidadDisponible() {
+        return cantidadDisponible;
+    }
     
 }
