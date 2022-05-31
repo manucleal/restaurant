@@ -24,8 +24,16 @@ public class Mesa {
         this.estaAbierta = abierta;
     }  
 
+    public Mozo getMozo() {
+        return mozo;
+    }
+
     public Servicio getServicio() {
         return servicio;
-    }    
+    }
+
+    public Transferencia getTransferencia() {
+        return transferencia;
+    }   
     
 }

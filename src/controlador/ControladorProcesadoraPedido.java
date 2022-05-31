@@ -11,15 +11,19 @@ import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Gestor;
 import modelo.LoginException;
+import modelo.UnidadProcesadora;
+import observador.Observable;
+import observador.Observador;
 import vistaEscritorio.VistaProcesadoraPedido;
 
 /**
  *
  * @author diecu
  */
-public class ControladorProcesadoraPedido {
+public class ControladorProcesadoraPedido implements Observador{
 
     private Conexion conexionGestor;
+    private UnidadProcesadora procesadora;
     private VistaProcesadoraPedido vistaProcesadora;
     Fachada logica = Fachada.getInstancia();
 
@@ -27,6 +31,8 @@ public class ControladorProcesadoraPedido {
         this.conexionGestor = conexionGestor;
         vistaProcesadora = vista;
         vistaProcesadora.setLocationRelativeTo(null);
+        procesadora = ((Gestor)conexionGestor.getUsuario()).getProcesadora();
+        procesadora.agregarObservador(this);
     }
 
     public void logout(){
@@ -35,6 +41,13 @@ public class ControladorProcesadoraPedido {
             ((Gestor)(conexionGestor.getUsuario())).quitarProcesadora();
         } catch (LoginException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void actualizar(Object evento, Observable origen) {
+        if(evento.equals(UnidadProcesadora.eventos.nuevoItem)){
+            vistaProcesadora.actualizarYMostrsarItemsSinProcesar(procesadora.getItemsSinSerTomados());
         }
     }
     

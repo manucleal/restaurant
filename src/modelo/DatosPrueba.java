@@ -26,8 +26,7 @@ public class DatosPrueba {
             sushibar = logica.crearUnidadProcesadora("sushibar");
         } catch (UnidadProcesadoraException ex) {
             System.out.println("No se cargaron unidades procesadoras");
-        }
-        
+        }        
         
         Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, cocina);
         Producto producto2 = new Producto("2A", "gin tonic", 250, 20, barra);

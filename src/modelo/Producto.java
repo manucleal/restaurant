@@ -20,10 +20,20 @@ public class Producto {
         return unidadProcesadora;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
     public float getPrecio() {
         return precio;
     }
-    
-    
+
+    public int getCantidadDisponible() {
+        return cantidadDisponible;
+    }
     
 }

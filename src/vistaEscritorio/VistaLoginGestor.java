@@ -32,9 +32,6 @@ public class VistaLoginGestor extends VistaLogin {
         Object unidad = JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
                 "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
                 unidades.toArray(), "");
-        ////
-        System.out.println(((UnidadProcesadora)unidad).agregarItem(null) + " " + nombreUsuario + " " + password);
-        ////
         if (unidad != null) {
             controladorLogin.login(nombreUsuario, password);
         }

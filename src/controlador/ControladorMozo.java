@@ -4,9 +4,6 @@
  */
 package controlador;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
 import modelo.Conexion;
 import modelo.Mesa;
 import modelo.Mozo;
