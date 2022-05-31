@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 public abstract class VistaLogin extends javax.swing.JDialog implements VistaLoginInterface {
 
     protected ControladorLogin controladorLogin;
-
     /**
      * Creates new form Login
      */
@@ -143,6 +142,4 @@ public abstract class VistaLogin extends javax.swing.JDialog implements VistaLog
     public void cerrar() {
         this.dispose();
     }
-
-    protected abstract void login(String nombreUsuario, String password);
 }

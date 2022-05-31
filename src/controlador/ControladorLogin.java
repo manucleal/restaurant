@@ -5,55 +5,36 @@
 package controlador;
 
 import modelo.Conexion;
-import modelo.Fachada;
 import modelo.LoginException;
-import modelo.UnidadProcesadora;
 import modelo.UnidadProcesadoraException;
-import vistaEscritorio.VistaLoginGestor;
-import vistaEscritorio.VistaLoginMozo;
-import vistaEscritorio.VistaMozo;
-import vistaEscritorio.VistaProcesadoraPedido;
+import vistaEscritorio.VistaLogin;
 
 /**
  *
  * @author ecoitino
  */
-public class ControladorLogin {
+public abstract class ControladorLogin {
+    
+    protected VistaLogin vista;
 
-    private VistaLoginMozo vistaMozo;
-    private VistaLoginGestor vistaGestor;
-
-    public ControladorLogin(VistaLoginMozo vistaMozo, VistaLoginGestor vistaGestor) {
-        this.vistaMozo = vistaMozo;
-        this.vistaGestor = vistaGestor;
+    public ControladorLogin(VistaLogin vista) {
+        this.vista = vista;
     }
-
-    public void loginMozo(String nombreUsuario, String password) {
+    
+    public void login(String nombreUsuario, String password) {
         if (!nombreUsuario.isEmpty() && !password.isEmpty()) {
             try {
-                Conexion conexion = Fachada.getInstancia().loginMozo(nombreUsuario, password);
-                vistaMozo.cerrar();
-                vistaMozo.llamarProximoCasoUso(conexion);
+                Conexion conexion = (Conexion)llamarLogin(nombreUsuario, password);
+                vista.cerrar();
+                vista.llamarProximoCasoUso(conexion);
             } catch (LoginException | UnidadProcesadoraException e) {
-                vistaMozo.mostrarError(e.getMessage());
+                vista.mostrarError(e.getMessage());
             }
         } else {
-            vistaMozo.mostrarError("Los campos no pueden ser vacíos.");
+            vista.mostrarError("Los campos no pueden ser vacíos.");
         }
     }
-
-    public void loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) {
-        if (!nombreUsuario.isEmpty() && !password.isEmpty() && unidad != null) {
-            try {
-                Conexion conexion = Fachada.getInstancia().loginGestor(nombreUsuario, password, unidad);
-                vistaGestor.cerrar();
-                vistaGestor.llamarProximoCasoUso(conexion);
-            } catch (UnidadProcesadoraException | LoginException e) {
-                vistaGestor.mostrarError(e.getMessage());
-            }
-        } else {
-            vistaGestor.mostrarError("Los campos no pueden ser vacíos..");
-        }
-    }
+        
+    public abstract Object llamarLogin(String nombreUsuario, String password) throws LoginException, UnidadProcesadoraException;
 
 }

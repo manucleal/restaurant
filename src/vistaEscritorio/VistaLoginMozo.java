@@ -4,7 +4,7 @@
  */
 package vistaEscritorio;
 
-import controlador.ControladorLogin;
+import controlador.ControladorLoginMozo;
 import java.awt.Frame;
 import modelo.Conexion;
 
@@ -16,12 +16,13 @@ public class VistaLoginMozo extends VistaLogin {
 
     public VistaLoginMozo(Frame parent, boolean modal) {
         super(parent, modal, "Login Mozo");
-        controladorLogin = new ControladorLogin(this, null);
+        controladorLogin = new ControladorLoginMozo(this);
+        setLocationRelativeTo(null);
     }    
     
     @Override
-    protected void login(String nombreUsuario, String password) {
-        controladorLogin.loginMozo(nombreUsuario, password);
+    public void login(String nombreUsuario, String password) {
+        controladorLogin.login(nombreUsuario, password);
     }
 
     @Override

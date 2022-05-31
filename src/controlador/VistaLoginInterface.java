@@ -10,10 +10,12 @@ package controlador;
  */
 public interface VistaLoginInterface {
     
-    public void mostrarError(String msg);
-    
-    public void cerrar();
+    public void login(String nombreUsuario, String password);
     
     public void llamarProximoCasoUso(Object obj);
     
+    public void mostrarError(String msg);
+    
+    public void cerrar();
+              
 }
