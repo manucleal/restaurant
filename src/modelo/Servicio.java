@@ -21,6 +21,10 @@ public class Servicio extends Observable {
         itemsServicio.add(new ItemServicio(producto, cantidad, descripcion,this) );
         //avisar(producto.getUnidadProcesadora());
     }
+    
+    public void asignarCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     public Mesa getMesa() {
         return mesa;

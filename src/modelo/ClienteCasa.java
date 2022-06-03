@@ -1,10 +1,10 @@
 package modelo;
 
-public class ClienteCasa extends Cliente {
+public class ClienteCasa extends TipoCliente {
 
-    public ClienteCasa(int id, String nombre, String email) {
-        super(id, nombre, email);
-    }        
+    public ClienteCasa() {
+        super("ClienteCasa");
+    }
 
     @Override
     public void obtenerBeneficio() {

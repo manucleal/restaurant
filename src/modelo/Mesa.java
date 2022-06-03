@@ -34,6 +34,9 @@ public class Mesa {
 
     public Transferencia getTransferencia() {
         return transferencia;
-    }   
-    
+    }
+
+    public boolean estaAbierta() {
+        return estaAbierta;
+    }
 }

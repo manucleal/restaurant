@@ -1,15 +1,21 @@
 package modelo;
 
-public abstract class Cliente {
+public class Cliente {
     
     private int id;
     private String nombre;
     private String email;
+    private TipoCliente tipoCliente;
 
-    public Cliente(int id, String nombre, String email) {
+    public Cliente(int id, String nombre, String email, TipoCliente tipoCliente) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
+        this.tipoCliente = tipoCliente;
+    }
+
+    public TipoCliente getTipoCliente() {
+        return tipoCliente;
     }
 
     public int getId() {
@@ -23,10 +29,5 @@ public abstract class Cliente {
     public String getEmail() {
         return email;
     }        
-    
-    public abstract void obtenerBeneficio();
 
-    boolean validar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

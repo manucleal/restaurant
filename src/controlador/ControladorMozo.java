@@ -39,4 +39,18 @@ public class ControladorMozo {
         vistaMozo.mostrarLabelMesa(mesa.getNumero());
         vistaMozo.mostrarDatosServicio(mesa.getServicio().getItemsServicio());     
     }
+    
+    public void abrirMesa(){
+        if(!mesaSeleccionada.estaAbierta()){
+            mesaSeleccionada.setEstaAbierta(true);
+            vistaMozo.mostrarMensaje("Mesa abierta con éxito");
+        } else {
+            vistaMozo.mostrarMensaje("La mesa ya está abierta");
+        }
+    }
+    
+    //TODO: implmentar CU cerrar una mesa
+    public void cerrarMesa(){
+        mesaSeleccionada.setEstaAbierta(false);
+    }
 }

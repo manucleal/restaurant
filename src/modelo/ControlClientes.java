@@ -13,7 +13,7 @@ public class ControlClientes {
     }
     
     public boolean agregar(Cliente cliente) {
-        if (cliente.validar() && !this.existeCliente(cliente.getId())){
+        if (cliente.getTipoCliente().validar() && !this.existeCliente(cliente.getId())){
             clientes.add(cliente);
             return true;
         }
@@ -25,6 +25,12 @@ public class ControlClientes {
             return cliente.getId() == id;
         }
         return false;
-    }    
+    }
+    
+    public Cliente buscarCliente(int id) {
+        for(Cliente cliente : getClientes()) {
+            cliente.getId() == id ? return cliente : return null;
+        }
+    }   
     
 }
