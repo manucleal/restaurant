@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.ItemServicio;
 import modelo.Mesa;
@@ -47,8 +48,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     private void initComponents() {
 
         panelButtons = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        abrirMesa = new javax.swing.JButton();
+        cerrarMesa = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         buttonAgregarProducto = new javax.swing.JButton();
         labelMesa = new javax.swing.JTextField();
@@ -68,14 +69,19 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         panelButtons.setSize(new java.awt.Dimension(500, 100));
         panelButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Abrir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        abrirMesa.setText("Abrir");
+        abrirMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                abrirMesaActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cerrar");
+        cerrarMesa.setText("Cerrar");
+        cerrarMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarMesaActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Transferir");
 
@@ -150,8 +156,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                             .addComponent(labelMesa)
                             .addComponent(buttonAgregarProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cerrarMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(abrirMesa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -174,9 +180,9 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelMesa)
                         .addGap(24, 24, 24)
-                        .addComponent(jButton1)
+                        .addComponent(abrirMesa)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(cerrarMesa)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addGap(28, 28, 28)
@@ -199,12 +205,19 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelMesaActionPerformed
-        
+         
     }//GEN-LAST:event_labelMesaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void abrirMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirMesaActionPerformed
+        controladorMozo.abrirMesa();
+    }//GEN-LAST:event_abrirMesaActionPerformed
+
+    private void cerrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarMesaActionPerformed
+        //si es cliente abro dialog para ingresar datos, sino cierro mesa
+        if()
+        new CerrarMesaCliente(null,false).setVisible(true);
+        cerrarMesa();
+    }//GEN-LAST:event_cerrarMesaActionPerformed
 
     private void buttonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgregarProductoActionPerformed
         // TODO add your handling code here:
@@ -214,6 +227,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     private javax.swing.JButton buttonAgregarProducto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton abrirMesa;
+    private javax.swing.JButton cerrarMesa;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -272,6 +287,16 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         }
         tableDatosServicio.setModel(modelTable);
     }
+    
+    @Override
+    public void mostrarMensaje(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+
+    private void cerrarMesa() {
+        controladorMozo.cerrarMesa();
+    }
+    
     
     private class Clicklistener implements ActionListener {        
         @Override

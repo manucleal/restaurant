@@ -1,9 +1,9 @@
 package modelo;
 
-public class ClientePreferencial extends Cliente {
+public class ClientePreferencial extends TipoCliente {
 
-    public ClientePreferencial(int id, String nombre, String email) {
-        super(id, nombre, email);
+    public ClientePreferencial() {
+        super("ClientePreferencial");
     }
 
     @Override

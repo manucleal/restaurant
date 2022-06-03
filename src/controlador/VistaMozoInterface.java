@@ -23,4 +23,6 @@ public interface VistaMozoInterface {
     
     public void mostrarDatosServicio(ArrayList<ItemServicio> items);
     
+    public void mostrarMensaje(String msg);
+    
 }
