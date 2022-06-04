@@ -16,6 +16,7 @@ public class Fachada {
 
     private SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
     private SistemaPedidos sPedidos = new SistemaPedidos();
+    private SistemaClientes sClientes = new SistemaClientes();
 
     private static Fachada instancia = new Fachada();
 
@@ -56,6 +57,14 @@ public class Fachada {
 
     public Gestor crearUsuarioGestor(String nombreUsuario, String contrasena, String nombreCompleto) throws UsuarioException {
         return sistemaUsuarios.crearUsuarioGestor(nombreUsuario, contrasena, nombreCompleto);
+    }
+    
+    public void agregarCliente(Cliente cliente){
+        sClientes.agregar(cliente);
+    }
+    
+    public Cliente buscarCliente(String idCliente){
+        return sClientes.buscarCliente(idCliente);
     }
 
 }

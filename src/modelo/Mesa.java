@@ -1,5 +1,7 @@
 package modelo;
 
+import Exceptions.RestaurantException;
+
 public class Mesa {
     
     private int numero;
@@ -22,7 +24,21 @@ public class Mesa {
     
     public void setEstaAbierta(boolean abierta) {
         this.estaAbierta = abierta;
-    }  
+    }
+    
+    public String abrirMesa() throws RestaurantException{
+        if(!estaAbierta()){
+            setEstaAbierta(true);
+            return "Mesa abierta con éxito";
+        } else {
+            throw new RestaurantException("La mesa ya está abierta");
+        }
+    }
+    
+    public boolean estaCerrada() throws RestaurantException{
+        if(!estaAbierta()) throw new RestaurantException("La mesa no está abierta");
+        return false;
+    }
 
     public Mozo getMozo() {
         return mozo;
@@ -38,5 +54,9 @@ public class Mesa {
 
     public boolean estaAbierta() {
         return estaAbierta;
+    }
+    
+    public boolean mesaTieneCliente(){
+        return this.servicio.tieneCliente();
     }
 }

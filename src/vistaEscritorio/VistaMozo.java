@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.ItemServicio;
 import modelo.Mesa;
+import modelo.Servicio;
 
 
 /**
@@ -214,8 +215,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
 
     private void cerrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarMesaActionPerformed
         //si es cliente abro dialog para ingresar datos, sino cierro mesa
-        new CerrarMesaCliente(null,false).setVisible(true);
-        cerrarMesa();
+        controladorMozo.cerrarMesa();
     }//GEN-LAST:event_cerrarMesaActionPerformed
 
     private void buttonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgregarProductoActionPerformed
@@ -292,8 +292,9 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         JOptionPane.showMessageDialog(this, msg);
     }
 
-    private void cerrarMesa() {
-        controladorMozo.cerrarMesa();
+    @Override
+    public void llamarVentanaCerrarMesaCliente(Servicio servicio) {
+        new VistaCerrarMesaCliente(null,false,servicio).setVisible(true);
     }
     
     

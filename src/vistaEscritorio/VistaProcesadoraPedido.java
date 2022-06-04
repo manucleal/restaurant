@@ -70,6 +70,11 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         btnTomarPedido.setBackground(new java.awt.Color(76, 35, 64));
         btnTomarPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnTomarPedido.setText("Tomar Pedido");
+        btnTomarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTomarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +106,10 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         // TODO add your handling code here:
         this.controlador.logout();
     }//GEN-LAST:event_formWindowClosing
+
+    private void btnTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTomarPedidoActionPerformed
 
     @Override
     public void mostrarError(String msg) {

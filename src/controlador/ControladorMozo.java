@@ -4,6 +4,8 @@
  */
 package controlador;
 
+import Exceptions.RestaurantException;
+import java.lang.module.ResolutionException;
 import modelo.Conexion;
 import modelo.Mesa;
 import modelo.Mozo;
@@ -41,16 +43,24 @@ public class ControladorMozo {
     }
     
     public void abrirMesa(){
-        if(!mesaSeleccionada.estaAbierta()){
-            mesaSeleccionada.setEstaAbierta(true);
-            vistaMozo.mostrarMensaje("Mesa abierta con éxito");
-        } else {
-            vistaMozo.mostrarMensaje("La mesa ya está abierta");
+        try{
+            String msg = mesaSeleccionada.abrirMesa();
+            vistaMozo.mostrarMensaje(msg);
+        }catch(RestaurantException e){
+            vistaMozo.mostrarMensaje(e.getMessage());
         }
     }
     
-    //TODO: implmentar CU cerrar una mesa
     public void cerrarMesa(){
-        mesaSeleccionada.setEstaAbierta(false);
+        try{
+            if(!mesaSeleccionada.estaCerrada()){
+                vistaMozo.llamarVentanaCerrarMesaCliente(mesaSeleccionada.getServicio());
+            }
+        }catch(RestaurantException e){
+            vistaMozo.mostrarMensaje(e.getMessage());
+        }
+        
     }
+    
+    
 }
