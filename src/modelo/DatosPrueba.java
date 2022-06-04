@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo;
+
+import Exceptions.RestaurantException;
+import Exceptions.UsuarioException;
+
 /**
  *
  * @author ecoitino
@@ -37,7 +41,7 @@ public class DatosPrueba {
             cocina = logica.crearUnidadProcesadora("COCINA");
             barra = logica.crearUnidadProcesadora("BARRA");
             sushibar = logica.crearUnidadProcesadora("sushibar");
-        } catch (UnidadProcesadoraException ex) {
+        } catch (RestaurantException ex) {
             System.out.println("No se cargaron unidades procesadoras");
         }        
         
