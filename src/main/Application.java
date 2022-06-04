@@ -4,6 +4,7 @@
  */
 package main;
 
+import exceptions.RestaurantException;
 import modelo.DatosPrueba;
 import vistaEscritorio.VistaMenu;
 
@@ -15,8 +16,9 @@ public class Application {
 
     /**
      * @param args the command line arguments
+     * @throws exceptions.RestaurantException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RestaurantException {
         DatosPrueba.cargar();
         new VistaMenu().setVisible(true);
     }

@@ -1,12 +1,13 @@
 package modelo;
 
-import Exceptions.RestaurantException;
+import exceptions.RestaurantException;
 import java.util.ArrayList;
 
 public class SistemaPedidos {
     
     ArrayList<UnidadProcesadora> procesadoras = new ArrayList();
     ArrayList<Servicio> servicios = new ArrayList();
+    ArrayList<Producto> productos = new ArrayList();
 
     protected SistemaPedidos() {}        
     
@@ -22,7 +23,7 @@ public class SistemaPedidos {
         return unidad;
     }
     
-    public UnidadProcesadora buscarConExceptionProcesadora(String nombre)throws RestaurantException {
+    public UnidadProcesadora buscarConExceptionProcesadora(String nombre) throws RestaurantException {
         UnidadProcesadora unidad = buscarProcesadora(nombre);
         if(unidad == null)throw new RestaurantException("No se encontró unidad");
         return unidad;
@@ -35,5 +36,19 @@ public class SistemaPedidos {
             }
         }
         return null;
+    }
+    
+    public void agregarProducto(Producto producto) {
+        productos.add(producto);
+    }
+    
+    public ArrayList<Producto> obtenerProductosConStock() {
+        ArrayList<Producto> lista = new ArrayList<>();
+        for(Producto producto : productos) {
+            if(producto.tieneStock()) {
+                lista.add(producto);
+            }
+        }
+        return lista;
     }
 }

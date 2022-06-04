@@ -4,8 +4,8 @@
  */
 package modelo;
 
-import Exceptions.RestaurantException;
-import Exceptions.UsuarioException;
+import exceptions.RestaurantException;
+import exceptions.UsuarioException;
 
 /**
  *
@@ -13,7 +13,7 @@ import Exceptions.UsuarioException;
  */
 public class DatosPrueba {
     
-    public static void cargar() {
+    public static void cargar() throws RestaurantException {
         
         Fachada logica = Fachada.getInstancia();
         
@@ -31,10 +31,10 @@ public class DatosPrueba {
         logica.agregarCliente(clienteComun);
         
 //    --------------------- ALTA MESA  ---------------------
-        Mesa mesa1 = new Mesa(1);
-        Mesa mesa2 = new Mesa(2);
-        Mesa mesa3 = new Mesa(3);
-        Mesa mesa4 = new Mesa(4);
+        Mesa mesa1 = new Mesa(1,true);
+        Mesa mesa2 = new Mesa(2,true);
+        Mesa mesa3 = new Mesa(3,false);
+        Mesa mesa4 = new Mesa(4,false);
         
 //    --------------------- ALTA UNIDAD PROCESADORA  ---------------------
         UnidadProcesadora cocina = null;
@@ -66,16 +66,22 @@ public class DatosPrueba {
         mozo1.agregarMesa(mesa3);
         mozo2.agregarMesa(mesa4);
         
+// --------------------- AGREGO PRODUCTOS A SISTEMA ---------------------
+        logica.agregarProducto(producto1);
+        logica.agregarProducto(producto2);
+        logica.agregarProducto(producto3);
+        logica.agregarProducto(producto4);
 //--------------------- AGREGO ITEM A UN SERVICIO DE UNA MESA ---------------------
-        mesa1.getServicio().agregarItemServicio(producto1, 1, "Milanesa a punto");
-        mesa1.getServicio().agregarItemServicio(producto1, 2, "Puré de calabaza");
-        mesa2.getServicio().agregarItemServicio(producto2, 1, "Sin hielo");
-        mesa2.getServicio().agregarItemServicio(producto4, 12, "Con salsa de soja");
+        mesa1.getServicio().agregarItemServicio(producto1, "Milanesa a punto", "1");
+        mesa1.getServicio().agregarItemServicio(producto1, "Puré de calabaza", "2" );
+        mesa2.getServicio().agregarItemServicio(producto2, "Sin hielo", "1");
+        mesa2.getServicio().agregarItemServicio(producto4, "Con salsa de soja", "12");
         
 //--------------------- AGREGO CLIENTE A UN SERVICIO DE UNA MESA ---------------------        
         mesa1.getServicio().asignarCliente(clientePreferencial);
         mesa2.getServicio().asignarCliente(clienteCasa);
         mesa3.getServicio().asignarCliente(clienteComun);
+        mesa4.getServicio().asignarCliente(clientePreferencial);
 
 
 
