@@ -25,4 +25,6 @@ public interface VistaMozoInterface {
     
     public void mostrarMensaje(String msg);
     
+    public void llamarVentanaCerrarMesaCliente(Servicio servicio);
+    
 }

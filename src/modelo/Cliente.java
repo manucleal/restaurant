@@ -7,8 +7,7 @@ public class Cliente {
     private String email;
     private TipoCliente tipoCliente;
 
-    public Cliente(int id, String nombre, String email, TipoCliente tipoCliente) {
-        this.id = id;
+    public Cliente(String nombre, String email, TipoCliente tipoCliente) {
         this.nombre = nombre;
         this.email = email;
         this.tipoCliente = tipoCliente;
@@ -28,6 +27,10 @@ public class Cliente {
 
     public String getEmail() {
         return email;
-    }        
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
 }

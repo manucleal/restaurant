@@ -13,22 +13,26 @@ public class DatosPrueba {
         
         Fachada logica = Fachada.getInstancia();
         
-        //    ---------------------  CLIENTE  ---------------------
+//    --------------------- ALTA CLIENTE  ---------------------
         TipoCliente tipoClientePreferencial = new ClientePreferencial();
         TipoCliente tipoClienteCasa = new ClienteCasa();
         TipoCliente tipoClienteComun = new ClientePreferencial();
         
-        Cliente clientePreferencial = new Cliente(1, "Pedrito", "pedrito@gmail.com", tipoClientePreferencial );
-        Cliente clienteCasa = new Cliente(1, "Claudia", "clau@gmail.com", tipoClienteCasa );
-        Cliente clienteComun = new Cliente(1, "Egidio", "Egidio@gmail.com", tipoClienteComun );
+        Cliente clientePreferencial = new Cliente("Pedrito", "pedrito@gmail.com", tipoClientePreferencial );
+        Cliente clienteCasa = new Cliente("Claudia", "clau@gmail.com", tipoClienteCasa );
+        Cliente clienteComun = new Cliente("Egidio", "Egidio@gmail.com", tipoClienteComun );
         
-        //    ---------------------  MESA  ---------------------
+        logica.agregarCliente(clientePreferencial);
+        logica.agregarCliente(clienteCasa);
+        logica.agregarCliente(clienteComun);
+        
+//    --------------------- ALTA MESA  ---------------------
         Mesa mesa1 = new Mesa(1);
         Mesa mesa2 = new Mesa(2);
         Mesa mesa3 = new Mesa(3);
         Mesa mesa4 = new Mesa(4);
         
-        //    ---------------------  UNIDAD PROCESADORA  ---------------------
+//    --------------------- ALTA UNIDAD PROCESADORA  ---------------------
         UnidadProcesadora cocina = null;
         UnidadProcesadora barra = null;
         UnidadProcesadora sushibar = null;
@@ -41,10 +45,13 @@ public class DatosPrueba {
             System.out.println("No se cargaron unidades procesadoras");
         }        
         
+// --------------------- ALTA PRODUCTO ---------------------
         Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, cocina);
         Producto producto2 = new Producto("2A", "gin tonic", 250, 20, barra);
         Producto producto3 = new Producto("3A", "Chivito al plato", 250, 20, cocina);
-        Producto producto4 = new Producto("4A", "Rolls palta y salmón", 175, 300, sushibar);
+        Producto producto4 = new Producto("4A", "Roll palta y salmón", 80, 300, sushibar);
+        
+//--------------------- ALTA MOZO ---------------------
              
         Mozo mozo1 = logica.crearUsuarioMozo("099250364", "Emanuel", "emanuel123", "Emanuel Coitiño");
         Mozo mozo2 = logica.crearUsuarioMozo("098869788", "Fausto", "fausto123", "Fausto Perillo");        

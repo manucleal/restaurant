@@ -49,8 +49,14 @@ public class ControladorMozo {
         }
     }
     
-    //TODO: implmentar CU cerrar una mesa
     public void cerrarMesa(){
-        mesaSeleccionada.setEstaAbierta(false);
+        
+        vistaMozo.llamarVentanaCerrarMesaCliente(mesaSeleccionada.getServicio());
+//        if(this.mesaSeleccionada.mesaTieneCliente()){
+//          vistaMozo.llamarVentanaCerrarMesaCliente();      
+//        }
+//        mesaSeleccionada.setEstaAbierta(false);
     }
+    
+    
 }

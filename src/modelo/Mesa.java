@@ -39,4 +39,8 @@ public class Mesa {
     public boolean estaAbierta() {
         return estaAbierta;
     }
+    
+    public boolean mesaTieneCliente(){
+        return this.servicio.tieneCliente();
+    }
 }

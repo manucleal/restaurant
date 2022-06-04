@@ -33,5 +33,9 @@ public class Servicio extends Observable {
     public Cliente getCliente() {
         return cliente;
     }
+    
+    public boolean tieneCliente(){
+        return cliente != null;
+    }
 
 }

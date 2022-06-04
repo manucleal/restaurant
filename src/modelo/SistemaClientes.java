@@ -2,18 +2,20 @@ package modelo;
 
 import java.util.ArrayList;
 
-public class ControlClientes {
+public class SistemaClientes {
     
     private ArrayList<Cliente> clientes = new ArrayList();
+    private int proximoId;
     
-    protected ControlClientes() {}
+    protected SistemaClientes() {}
     
     public ArrayList<Cliente> getClientes() {
         return clientes;
     }
     
     public boolean agregar(Cliente cliente) {
-        if (cliente.getTipoCliente().validar() && !this.existeCliente(cliente.getId())){
+        if (!this.existeCliente(cliente.getId())){
+            cliente.setId(generarProximoId());
             clientes.add(cliente);
             return true;
         }
@@ -27,13 +29,18 @@ public class ControlClientes {
         return false;
     }
     
-    public Cliente buscarCliente(int id) {
+    public Cliente buscarCliente(String id) {
         for(Cliente cliente : getClientes()) {
-            if(cliente.getId() == id){
+            if(cliente.getId() == Integer.parseInt(id)){
                 return cliente;
             }
         }        
         return null;
     }   
+    
+    private int generarProximoId(){
+        proximoId++;
+        return proximoId;
+    }
     
 }
