@@ -1,5 +1,7 @@
 package modelo;
 
+import Exceptions.RestaurantException;
+import Exceptions.UsuarioException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,56 +12,50 @@ public class SistemaUsuarios {
     private ArrayList<Conexion> conexionesMozo = new ArrayList();
     private ArrayList<Conexion> conexionesGestor = new ArrayList();
 
-    public Conexion loginMozo(String nombreUsuario, String password)
-            throws LoginException, UnidadProcesadoraException {
-
+    public Conexion loginMozo(String nombreUsuario, String password) throws RestaurantException {
         Mozo mozo = (Mozo) login(nombreUsuario, password, (ArrayList) usuariosMozos);
         Conexion conexion = crearConexion(mozo, conexionesMozo);
         conexionesMozo.add(conexion);
         return conexion;
     }
 
-    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad)
-            throws LoginException, UnidadProcesadoraException {
-        if (nombreUsuario.isBlank() || password.isBlank() || unidad == null) {
-            throw new LoginException("Los campos no pueden ser vacíos.");
-        }
+    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) throws RestaurantException {
         Gestor gestor = (Gestor) login(nombreUsuario, password, (ArrayList) usuariosGestores);
-        return agregarConexionGestor(gestor, unidad, conexionesGestor);
+        return agregarConexionGestor(gestor, unidad);
     }
 
-    private Usuario login(String usuario, String password, ArrayList<Usuario> lista) throws LoginException {
+    private Usuario login(String nombreUsuario, String password, ArrayList<Usuario> lista) throws RestaurantException {
+        if (nombreUsuario.isBlank() || password.isBlank()) throw new RestaurantException("Nombre de usuario y/o contraseña incorrectos");
         for (Usuario u : lista) {
-            if (u.getNombreUsuario().equals(usuario) && u.getPassword().equals(password)) {
+            if (u.getNombreUsuario().equals(nombreUsuario) && u.getPassword().equals(password)) {
                 return u;
             }
         }
-        throw new LoginException("Nombre de usuario y/o contraseña incorrectos");
+        throw new RestaurantException("Nombre de usuario y/o contraseña incorrectos");
     }
 
-    private Conexion agregarConexionGestor(Usuario usuario, UnidadProcesadora unidad, ArrayList<Conexion> lista)
-            throws LoginException, UnidadProcesadoraException {
-        Conexion c = crearConexion(usuario, lista);
-        lista.add(c);
-                System.out.println("Unidad " + unidad);
+    private Conexion agregarConexionGestor(Usuario usuario, UnidadProcesadora unidad) throws RestaurantException {
+        Conexion c = crearConexion(usuario, conexionesGestor);
+        conexionesGestor.add(c);
+        System.out.println("Unidad " + unidad);
         ((Gestor) c.getUsuario()).agregarUltimaFechaConexion(new Date());
         ((Gestor) c.getUsuario()).agregarProcesadora(unidad);
         unidad.agregarGestor(((Gestor) c.getUsuario()));
         return c;
     }
 
-    private Conexion crearConexion(Usuario usuario, ArrayList<Conexion> lista) throws LoginException {
+    private Conexion crearConexion(Usuario usuario, ArrayList<Conexion> lista) throws RestaurantException {
         for (Conexion conexion : lista) {
             if (conexion.getUsuario().equals(usuario)) {
-                throw new LoginException("Ud. ya está logueado");
+                throw new RestaurantException("Ud. ya está logueado");
             }
         }
         return new Conexion(usuario);
     }
 
-    public void logoutConexionGestor(Conexion conexion) throws LoginException {
+    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
         if (!conexionesGestor.remove(conexion)) {
-            throw new LoginException("No se encontro conexion");
+            throw new RestaurantException("No se encontro conexion");
         }
     }
 

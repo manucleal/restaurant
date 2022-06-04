@@ -22,6 +22,6 @@ public abstract class Usuario {
 
     public String getNombreCompleto() {
         return nombreCompleto;
-    }        
+    }   
     
 }

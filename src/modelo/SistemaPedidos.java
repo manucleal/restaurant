@@ -1,5 +1,6 @@
 package modelo;
 
+import Exceptions.RestaurantException;
 import java.util.ArrayList;
 
 public class SistemaPedidos {
@@ -13,17 +14,17 @@ public class SistemaPedidos {
         return procesadoras;        
     }
     
-    public UnidadProcesadora crearUnidadProcesadora(String nombre)throws UnidadProcesadoraException{
-        if(nombre.isBlank())throw new UnidadProcesadoraException("El nombre de la unidad vacía");
-        if(buscarProcesadora(nombre) != null) throw new UnidadProcesadoraException("La unidad procesadora ya existe");
+    public UnidadProcesadora crearUnidadProcesadora(String nombre) throws RestaurantException{
+        if(nombre.isBlank())throw new RestaurantException("El nombre de la unidad vacía");
+        if(buscarProcesadora(nombre) != null) throw new RestaurantException("La unidad procesadora ya existe");
         UnidadProcesadora unidad = new UnidadProcesadora(nombre);
         procesadoras.add(unidad);
         return unidad;
     }
     
-    public UnidadProcesadora buscarConExceptionProcesadora(String nombre)throws UnidadProcesadoraException{
+    public UnidadProcesadora buscarConExceptionProcesadora(String nombre)throws RestaurantException {
         UnidadProcesadora unidad = buscarProcesadora(nombre);
-        if(unidad == null)throw new UnidadProcesadoraException("No se encontró unidad");
+        if(unidad == null)throw new RestaurantException("No se encontró unidad");
         return unidad;
     }
     
