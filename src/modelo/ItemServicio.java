@@ -1,5 +1,7 @@
 package modelo;
 
+import Exceptions.RestaurantException;
+
 public class ItemServicio {
     
     private UnidadProcesadora procesadora;
@@ -38,5 +40,12 @@ public class ItemServicio {
     
     public float getSubTotal() {
         return cantidad * producto.getPrecio();
+    }
+    
+    public boolean validar() throws RestaurantException {
+        if (cantidad < 1) throw new RestaurantException("Cantidad inválida");
+        int cantidadDisponible = producto.getCantidadDisponible();
+        if (cantidad > cantidadDisponible) throw new RestaurantException("Sin stock, solo quedan (" + cantidadDisponible + ")");
+        return true;
     }
 }

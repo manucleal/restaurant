@@ -66,6 +66,11 @@ public class DatosPrueba {
         mozo1.agregarMesa(mesa3);
         mozo2.agregarMesa(mesa4);
         
+// --------------------- AGREGO PRODUCTOS A SISTEMA ---------------------
+        logica.agregarProducto(producto1);
+        logica.agregarProducto(producto2);
+        logica.agregarProducto(producto3);
+        logica.agregarProducto(producto4);
 //--------------------- AGREGO ITEM A UN SERVICIO DE UNA MESA ---------------------
         mesa1.getServicio().agregarItemServicio(producto1, 1, "Milanesa a punto");
         mesa1.getServicio().agregarItemServicio(producto1, 2, "Puré de calabaza");

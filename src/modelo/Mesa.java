@@ -35,8 +35,8 @@ public class Mesa {
         }
     }
     
-    public boolean estaCerrada() throws RestaurantException{
-        if(!estaAbierta()) throw new RestaurantException("La mesa no está abierta");
+    public boolean estaCerrada(String msg) throws RestaurantException{
+        if(!estaAbierta()) throw new RestaurantException(msg);
         return false;
     }
 

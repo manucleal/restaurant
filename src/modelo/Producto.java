@@ -36,4 +36,13 @@ public class Producto {
         return cantidadDisponible;
     }
     
+    public boolean tieneStock() {    
+        return cantidadDisponible > 0;
+    }
+    
+    @Override
+    public String toString() {
+        return  "("+codigo+") " + nombre;
+    }
+    
 }

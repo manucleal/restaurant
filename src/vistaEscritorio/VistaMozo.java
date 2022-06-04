@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.ItemServicio;
 import modelo.Mesa;
+import modelo.Producto;
 import modelo.Servicio;
 
 
@@ -55,19 +56,18 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         buttonAgregarProducto = new javax.swing.JButton();
         labelMesa = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableDatosServicio = new javax.swing.JTable();
+        comboBoxProductosConStock = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelButtons.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         panelButtons.setMinimumSize(new java.awt.Dimension(500, 100));
-        panelButtons.setSize(new java.awt.Dimension(500, 100));
         panelButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         abrirMesa.setText("Abrir");
@@ -95,13 +95,14 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         });
 
         labelMesa.setEditable(false);
+        labelMesa.setActionCommand("<Not Set>");
         labelMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 labelMesaActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Código:");
+        jLabel1.setText("Producto:");
 
         jLabel2.setText("Descripción:");
 
@@ -142,6 +143,12 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
             tableDatosServicio.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        comboBoxProductosConStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxProductosConStockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,27 +158,32 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelMesa)
-                            .addComponent(buttonAgregarProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cerrarMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(abrirMesa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addGap(16, 16, 16)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(12, 12, 12)
+                                .addComponent(comboBoxProductosConStock, 0, 136, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(buttonAgregarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                    .addComponent(abrirMesa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cerrarMesa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(labelMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,24 +191,23 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelMesa)
-                        .addGap(24, 24, 24)
-                        .addComponent(abrirMesa)
+                        .addComponent(labelMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(abrirMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(cerrarMesa)
+                        .addComponent(cerrarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addGap(28, 28, 28)
-                        .addComponent(buttonAgregarProducto))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxProductosConStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
@@ -219,21 +230,23 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }//GEN-LAST:event_cerrarMesaActionPerformed
 
     private void buttonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgregarProductoActionPerformed
-        // TODO add your handling code here:
+        controladorMozo.agregarProducto();
     }//GEN-LAST:event_buttonAgregarProductoActionPerformed
 
+    private void comboBoxProductosConStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxProductosConStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxProductosConStockActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAgregarProducto;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton abrirMesa;
+    private javax.swing.JButton buttonAgregarProducto;
     private javax.swing.JButton cerrarMesa;
+    private javax.swing.JComboBox comboBoxProductosConStock;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField labelMesa;
@@ -268,20 +281,22 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     @Override
     public void mostrarDatosServicio(ArrayList<ItemServicio> items) {
         DefaultTableModel modelTable = new DefaultTableModel();
+        modelTable.addColumn("Producto");
         modelTable.addColumn("Cantidad");
         modelTable.addColumn("Descripción");
         modelTable.addColumn("Precio Unitario");
         modelTable.addColumn("Sub total");
-        modelTable.addColumn( "Comentarios");
+        modelTable.addColumn( "Estado");
         modelTable.setRowCount(items.size());
         int contador = 0;
         
         for(ItemServicio item : items) {
-            modelTable.setValueAt(item.getCantidad(), contador , 0);
-            modelTable.setValueAt(item.getDescripcion(), contador , 1);
-            modelTable.setValueAt(item.getProducto().getPrecio(), contador , 2);
-            modelTable.setValueAt(item.getSubTotal(), contador , 3);
-            modelTable.setValueAt("", contador , 4);
+            modelTable.setValueAt(item.getProducto().getNombre(), contador , 0);
+            modelTable.setValueAt(item.getCantidad(), contador , 1);
+            modelTable.setValueAt(item.getDescripcion(), contador , 2);
+            modelTable.setValueAt(item.getProducto().getPrecio(), contador , 3);
+            modelTable.setValueAt(item.getSubTotal(), contador , 4);
+            modelTable.setValueAt("", contador , 5);
             contador++;
         }
         tableDatosServicio.setModel(modelTable);
@@ -297,6 +312,12 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         new VistaCerrarMesaCliente(null,false,servicio).setVisible(true);
     }
     
+    @Override
+    public void mostrarProductosConStock(ArrayList<Producto> productos) {
+       for(Producto producto: productos){
+            comboBoxProductosConStock.addItem(producto);
+        }
+    }    
     
     private class Clicklistener implements ActionListener {        
         @Override

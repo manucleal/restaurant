@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class Fachada {
 
     private SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
-    private SistemaPedidos sPedidos = new SistemaPedidos();
-    private SistemaClientes sClientes = new SistemaClientes();
+    private SistemaPedidos sistemaPedidos = new SistemaPedidos();
+    private SistemaClientes sistemaClientes = new SistemaClientes();
 
     private static Fachada instancia = new Fachada();
 
@@ -28,15 +28,15 @@ public class Fachada {
     }
 
     public ArrayList<UnidadProcesadora> getProcesadoras() {
-        return sPedidos.getProcesadoras();
+        return sistemaPedidos.getProcesadoras();
     }
 
     public UnidadProcesadora crearUnidadProcesadora(String nombre) throws RestaurantException {
-        return sPedidos.crearUnidadProcesadora(nombre);
+        return sistemaPedidos.crearUnidadProcesadora(nombre);
     }
 
     public UnidadProcesadora buscarConExceptionProcesadora(String nombre) throws RestaurantException {
-        return sPedidos.buscarConExceptionProcesadora(nombre);
+        return sistemaPedidos.buscarConExceptionProcesadora(nombre);
     }
 
     public Conexion loginMozo(String nombreUsuario, String password) throws RestaurantException {
@@ -59,12 +59,19 @@ public class Fachada {
         return sistemaUsuarios.crearUsuarioGestor(nombreUsuario, contrasena, nombreCompleto);
     }
     
-    public void agregarCliente(Cliente cliente){
-        sClientes.agregar(cliente);
+    public void agregarCliente(Cliente cliente) {
+        sistemaClientes.agregar(cliente);
     }
     
-    public Cliente buscarCliente(String idCliente){
-        return sClientes.buscarCliente(idCliente);
+    public Cliente buscarCliente(String idCliente) {
+        return sistemaClientes.buscarCliente(idCliente);
     }
-
+        
+    public void agregarProducto(Producto producto) {
+        sistemaPedidos.agregarProducto(producto);
+    }
+    
+    public ArrayList<Producto> obtenerProductosConStock() {
+        return sistemaPedidos.obtenerProductosConStock();
+    }
 }

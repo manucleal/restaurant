@@ -5,8 +5,8 @@
 package controlador;
 
 import Exceptions.RestaurantException;
-import java.lang.module.ResolutionException;
 import modelo.Conexion;
+import modelo.Fachada;
 import modelo.Mesa;
 import modelo.Mozo;
 import vistaEscritorio.VistaMozo;
@@ -36,7 +36,7 @@ public class ControladorMozo {
         cargarDatosMesaSeleccionada(modelo.getMesas().get(0));
     }
     
-    public void cargarDatosMesaSeleccionada(Mesa mesa) {                    
+    public void cargarDatosMesaSeleccionada(Mesa mesa) {
         this.mesaSeleccionada = mesa;
         vistaMozo.mostrarLabelMesa(mesa.getNumero());
         vistaMozo.mostrarDatosServicio(mesa.getServicio().getItemsServicio());     
@@ -53,13 +53,22 @@ public class ControladorMozo {
     
     public void cerrarMesa(){
         try{
-            if(!mesaSeleccionada.estaCerrada()){
+            if(!mesaSeleccionada.estaCerrada("La mesa no está abierta")){
                 vistaMozo.llamarVentanaCerrarMesaCliente(mesaSeleccionada.getServicio());
             }
         }catch(RestaurantException e){
             vistaMozo.mostrarMensaje(e.getMessage());
+        }        
+    }
+
+    public void agregarProducto() {
+        try {
+            if(!mesaSeleccionada.estaCerrada("La mesa está cerrada")) {
+                vistaMozo.mostrarProductosConStock(Fachada.getInstancia().obtenerProductosConStock());
+            }
+        } catch (RestaurantException e) {
+            vistaMozo.mostrarMensaje(e.getMessage());
         }
-        
     }
     
     
