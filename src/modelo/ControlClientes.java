@@ -29,8 +29,11 @@ public class ControlClientes {
     
     public Cliente buscarCliente(int id) {
         for(Cliente cliente : getClientes()) {
-            cliente.getId() == id ? return cliente : return null;
-        }
+            if(cliente.getId() == id){
+                return cliente;
+            }
+        }        
+        return null;
     }   
     
 }

@@ -214,7 +214,6 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
 
     private void cerrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarMesaActionPerformed
         //si es cliente abro dialog para ingresar datos, sino cierro mesa
-        if()
         new CerrarMesaCliente(null,false).setVisible(true);
         cerrarMesa();
     }//GEN-LAST:event_cerrarMesaActionPerformed
