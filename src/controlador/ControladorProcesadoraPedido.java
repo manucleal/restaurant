@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Gestor;
-import modelo.LoginException;
+import Exceptions.RestaurantException;
 import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;
@@ -39,7 +39,7 @@ public class ControladorProcesadoraPedido implements Observador{
         try {
             logica.logoutConexionGestor(conexionGestor);
             ((Gestor)(conexionGestor.getUsuario())).quitarProcesadora();
-        } catch (LoginException ex) {
+        } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }
     }

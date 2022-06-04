@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import Exceptions.RestaurantException;
+import Exceptions.UsuarioException;
 import java.util.ArrayList;
 
 /**
@@ -28,25 +30,23 @@ public class Fachada {
         return sPedidos.getProcesadoras();
     }
 
-    public UnidadProcesadora crearUnidadProcesadora(String nombre) throws UnidadProcesadoraException {
+    public UnidadProcesadora crearUnidadProcesadora(String nombre) throws RestaurantException {
         return sPedidos.crearUnidadProcesadora(nombre);
     }
 
-    public UnidadProcesadora buscarConExceptionProcesadora(String nombre) throws UnidadProcesadoraException {
+    public UnidadProcesadora buscarConExceptionProcesadora(String nombre) throws RestaurantException {
         return sPedidos.buscarConExceptionProcesadora(nombre);
     }
 
-    public Conexion loginMozo(String nombreUsuario, String password)
-            throws LoginException, UnidadProcesadoraException {
+    public Conexion loginMozo(String nombreUsuario, String password) throws RestaurantException {
         return sistemaUsuarios.loginMozo(nombreUsuario, password);
     }
 
-    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad)
-            throws LoginException, UnidadProcesadoraException {
+    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) throws RestaurantException {
         return sistemaUsuarios.loginGestor(nombreUsuario, password, unidad);
     }
 
-    public void logoutConexionGestor(Conexion conexion) throws LoginException {
+    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
         sistemaUsuarios.logoutConexionGestor(conexion);
     }
 

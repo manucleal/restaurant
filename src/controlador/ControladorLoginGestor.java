@@ -5,9 +5,8 @@
 package controlador;
 
 import modelo.Fachada;
-import modelo.LoginException;
+import Exceptions.RestaurantException;
 import modelo.UnidadProcesadora;
-import modelo.UnidadProcesadoraException;
 import vistaEscritorio.VistaLoginGestor;
 
 /**
@@ -21,7 +20,7 @@ public class ControladorLoginGestor extends ControladorLogin {
     }
     
     @Override
-    public Object llamarLogin(String nombreUsuario, String password) throws LoginException, UnidadProcesadoraException{
+    public Object llamarLogin(String nombreUsuario, String password) throws RestaurantException {
         return Fachada.getInstancia().loginGestor(nombreUsuario, password, new UnidadProcesadora("TEST"));
     }
     

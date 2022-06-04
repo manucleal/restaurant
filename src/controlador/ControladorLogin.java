@@ -5,8 +5,7 @@
 package controlador;
 
 import modelo.Conexion;
-import modelo.LoginException;
-import modelo.UnidadProcesadoraException;
+import Exceptions.RestaurantException;
 import vistaEscritorio.VistaLogin;
 
 /**
@@ -22,19 +21,15 @@ public abstract class ControladorLogin {
     }
     
     public void login(String nombreUsuario, String password) {
-        if (!nombreUsuario.isEmpty() && !password.isEmpty()) {
-            try {
-                Conexion conexion = (Conexion)llamarLogin(nombreUsuario, password);
-                vista.cerrar();
-                vista.llamarProximoCasoUso(conexion);
-            } catch (LoginException | UnidadProcesadoraException e) {
-                vista.mostrarError(e.getMessage());
-            }
-        } else {
-            vista.mostrarError("Los campos no pueden ser vacíos.");
+        try {
+            Conexion conexion = (Conexion)llamarLogin(nombreUsuario, password);
+            vista.cerrar();
+            vista.llamarProximoCasoUso(conexion);
+        } catch (RestaurantException e) {
+            vista.mostrarError(e.getMessage());
         }
     }
         
-    public abstract Object llamarLogin(String nombreUsuario, String password) throws LoginException, UnidadProcesadoraException;
+    public abstract Object llamarLogin(String nombreUsuario, String password) throws RestaurantException;
 
 }

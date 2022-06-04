@@ -1,5 +1,6 @@
 package modelo;
 
+import Exceptions.RestaurantException;
 import java.util.Date;
 
 public class Gestor extends Usuario {
@@ -24,13 +25,13 @@ public class Gestor extends Usuario {
         return procesadora;
     }
     
-    public void agregarProcesadora(UnidadProcesadora unidad) throws UnidadProcesadoraException{
-        if(procesadora != null && procesadora.equals(unidad))throw new UnidadProcesadoraException("La unidad -" + unidad.getNombre()+"- ya esta guardada en gestor");
-        if(procesadora != null)throw new UnidadProcesadoraException("El gestor ya tiene otra unidad cargada");
+    public void agregarProcesadora(UnidadProcesadora unidad) throws RestaurantException{
+        if(procesadora != null && procesadora.equals(unidad)) throw new RestaurantException("La unidad -" + unidad.getNombre()+"- ya esta guardada en gestor");
+        if(procesadora != null) throw new RestaurantException("El gestor ya tiene otra unidad cargada");
         procesadora = unidad;
     }
     
-    public void quitarProcesadora(){
+    public void quitarProcesadora() {
         procesadora = null;
     }
     
