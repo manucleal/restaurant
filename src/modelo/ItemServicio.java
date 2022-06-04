@@ -1,6 +1,6 @@
 package modelo;
 
-import Exceptions.RestaurantException;
+import exceptions.RestaurantException;
 
 public class ItemServicio {
     
@@ -47,5 +47,5 @@ public class ItemServicio {
         int cantidadDisponible = producto.getCantidadDisponible();
         if (cantidad > cantidadDisponible) throw new RestaurantException("Sin stock, solo quedan (" + cantidadDisponible + ")");
         return true;
-    }
+    }    
 }

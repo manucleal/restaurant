@@ -4,8 +4,8 @@
  */
 package modelo;
 
-import Exceptions.RestaurantException;
-import Exceptions.UsuarioException;
+import exceptions.RestaurantException;
+import exceptions.UsuarioException;
 import java.util.ArrayList;
 
 /**

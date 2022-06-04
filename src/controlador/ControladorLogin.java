@@ -5,7 +5,7 @@
 package controlador;
 
 import modelo.Conexion;
-import Exceptions.RestaurantException;
+import exceptions.RestaurantException;
 import vistaEscritorio.VistaLogin;
 
 /**

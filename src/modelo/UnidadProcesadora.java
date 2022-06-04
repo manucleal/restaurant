@@ -1,10 +1,10 @@
 package modelo;
 
-import Exceptions.RestaurantException;
+import exceptions.RestaurantException;
 import java.util.ArrayList;
 import observador.Observable;
 
-public class UnidadProcesadora extends Observable{
+public class UnidadProcesadora extends Observable {
     
     private String nombre;
     private ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
@@ -38,19 +38,17 @@ public class UnidadProcesadora extends Observable{
         if(gestores.contains(gestor)) throw new RestaurantException("El gestor ya se encuentra en la unidad -" + nombre+"-");
         gestores.add(gestor);
         //gestor.agregarProcesadora(this);
-    };
+    }
     
     public void agregarItem(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede agregar un item null a unidad procesadora");
         itemsServicio.add(item);
         itemsSinSerTomados.add(item);
         avisar(eventos.nuevoItem);
-    };
+    }
     
     @Override
     public String toString(){
         return nombre;
-    }
-    
-    
+    }    
 }

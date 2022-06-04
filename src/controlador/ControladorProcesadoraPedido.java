@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Gestor;
-import Exceptions.RestaurantException;
+import exceptions.RestaurantException;
 import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;

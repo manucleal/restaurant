@@ -1,6 +1,6 @@
 package modelo;
 
-import Exceptions.RestaurantException;
+import exceptions.RestaurantException;
 
 public class Mesa {
     
@@ -10,8 +10,9 @@ public class Mesa {
     private boolean estaAbierta;
     private Transferencia transferencia;
 
-    public Mesa(int numero) {
+    public Mesa(int numero, boolean estaAbierta) {
         this.numero = numero;
+        this.estaAbierta = estaAbierta;
     }
 
     public int getNumero() {
@@ -58,5 +59,9 @@ public class Mesa {
     
     public boolean mesaTieneCliente(){
         return this.servicio.tieneCliente();
+    }
+    
+    public boolean agregarItemAServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
+        return servicio.agregarItemServicio(producto, descripcion, cantidad);
     }
 }

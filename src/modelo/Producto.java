@@ -1,5 +1,7 @@
 package modelo;
 
+import exceptions.RestaurantException;
+
 public class Producto {
     
     private String codigo;
@@ -38,6 +40,14 @@ public class Producto {
     
     public boolean tieneStock() {    
         return cantidadDisponible > 0;
+    }
+    
+    public void bajarStock(int cantidad) {
+        cantidadDisponible = cantidadDisponible - cantidad;
+    }
+    
+    public void agregarPedidoAUnidadProcesadora(ItemServicio item) throws RestaurantException {
+        unidadProcesadora.agregarItem(item);
     }
     
     @Override

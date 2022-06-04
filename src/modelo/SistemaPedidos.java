@@ -1,6 +1,6 @@
 package modelo;
 
-import Exceptions.RestaurantException;
+import exceptions.RestaurantException;
 import java.util.ArrayList;
 
 public class SistemaPedidos {

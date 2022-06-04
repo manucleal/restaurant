@@ -30,4 +30,6 @@ public interface VistaMozoInterface {
     
     public void mostrarProductosConStock(ArrayList<Producto> productos);
     
+    public void limpiarInputProducto();
+    
 }
