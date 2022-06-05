@@ -13,6 +13,7 @@ public class Mesa {
     public Mesa(int numero, boolean estaAbierta) {
         this.numero = numero;
         this.estaAbierta = estaAbierta;
+        this.servicio.setMesa(this);
     }
 
     public int getNumero() {
@@ -44,6 +45,11 @@ public class Mesa {
     public Mozo getMozo() {
         return mozo;
     }
+
+    public void setMozo(Mozo mozo) {
+        this.mozo = mozo;
+    }
+    
 
     public Servicio getServicio() {
         return servicio;

@@ -19,9 +19,12 @@ public class SistemaUsuarios {
         return conexion;
     }
 
-    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) throws RestaurantException {
+    public Conexion loginGestor(String nombreUsuario, String password) throws RestaurantException {
         Gestor gestor = (Gestor) login(nombreUsuario, password, (ArrayList) usuariosGestores);
-        return agregarConexionGestor(gestor, unidad);
+        Conexion conexion = crearConexion(gestor, conexionesGestor);
+        conexionesGestor.add(conexion);
+        gestor.agregarUltimaFechaConexion(new Date());
+        return conexion;
     }
 
     private Usuario login(String nombreUsuario, String password, ArrayList<Usuario> lista) throws RestaurantException {
@@ -32,16 +35,6 @@ public class SistemaUsuarios {
             }
         }
         throw new RestaurantException("Nombre de usuario y/o contraseña incorrectos");
-    }
-
-    private Conexion agregarConexionGestor(Usuario usuario, UnidadProcesadora unidad) throws RestaurantException {
-        Conexion c = crearConexion(usuario, conexionesGestor);
-        conexionesGestor.add(c);
-        System.out.println("Unidad " + unidad);
-        ((Gestor) c.getUsuario()).agregarUltimaFechaConexion(new Date());
-        ((Gestor) c.getUsuario()).agregarProcesadora(unidad);
-        unidad.agregarGestor(((Gestor) c.getUsuario()));
-        return c;
     }
 
     private Conexion crearConexion(Usuario usuario, ArrayList<Conexion> lista) throws RestaurantException {

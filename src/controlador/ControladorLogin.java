@@ -6,6 +6,9 @@ package controlador;
 
 import modelo.Conexion;
 import exceptions.RestaurantException;
+import modelo.Fachada;
+import modelo.Gestor;
+import modelo.UnidadProcesadora;
 import vistaEscritorio.VistaLogin;
 
 /**
@@ -28,6 +31,21 @@ public abstract class ControladorLogin {
         } catch (RestaurantException e) {
             vista.mostrarError(e.getMessage());
         }
+    }
+    
+    public void mostrarUnidadesProcesadoras(Conexion conexion) {
+        vista.mostrarElegirUnidadesProcesadoras(Fachada.getInstancia().getProcesadoras(), conexion);
+    }
+    
+    public void agregarUnidadProcesadoraAGestor(Object unidad, Conexion c) {
+        try {
+            Gestor gestor = (Gestor)c.getUsuario();
+            UnidadProcesadora unidadProcesadora = (UnidadProcesadora)unidad;
+            gestor.agregarProcesadora(unidadProcesadora);
+            unidadProcesadora.agregarGestor(gestor);
+        } catch (RestaurantException e) {
+            vista.mostrarError(e.getMessage());
+        }        
     }
         
     public abstract Object llamarLogin(String nombreUsuario, String password) throws RestaurantException;

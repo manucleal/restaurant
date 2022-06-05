@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
-import modelo.Fachada;
 import modelo.ItemServicio;
-import modelo.UnidadProcesadora;
 
 /**
  *
@@ -21,9 +19,7 @@ import modelo.UnidadProcesadora;
  */
 public class VistaProcesadoraPedido extends javax.swing.JDialog implements VistaProcesadoraPedidoInterface {
 
-    private ControladorProcesadoraPedido controlador;
-    private ArrayList<ItemServicio> itemsSinProcesar;
-
+    public ControladorProcesadoraPedido controlador;
     /**
      * Creates new form VistaProcesadoraPedido
      */
@@ -31,8 +27,6 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         super(parent, modal);
         initComponents();
         this.controlador = new ControladorProcesadoraPedido(this, conexion);
-        this.itemsSinProcesar = null;
-        setLocationRelativeTo(null);
         setTitle("Gestor -" + conexion.getUsuario().getNombreCompleto());
     }
 
@@ -66,8 +60,28 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
             new String [] {
                 "Producto", "Cantidad", "Observaciones", "Nro mesa", "Mozo"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTItemsSinProcesar);
+        if (jTItemsSinProcesar.getColumnModel().getColumnCount() > 0) {
+            jTItemsSinProcesar.getColumnModel().getColumn(0).setResizable(false);
+            jTItemsSinProcesar.getColumnModel().getColumn(1).setResizable(false);
+            jTItemsSinProcesar.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         btnTomarPedido.setBackground(new java.awt.Color(76, 35, 64));
         btnTomarPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -120,11 +134,15 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
 
     @Override
     public void actualizarYMostrsarItemsSinProcesar(ArrayList<ItemServicio> items) {
-        this.itemsSinProcesar = items;
         DefaultTableModel datos = new DefaultTableModel();
-        jTItemsSinProcesar.removeAll();
+        datos.addColumn("Producto");
+        datos.addColumn("Cantidad");
+        datos.addColumn("Observaciones");
+        datos.addColumn("Nro mesa");
+        datos.addColumn("Mozo");
+        datos.setRowCount(items.size());
         int contador = 0;
-        for (ItemServicio i : this.itemsSinProcesar) {
+        for (ItemServicio i : items) {
             datos.setValueAt(i.getProducto().getNombre(), contador, 0);
             datos.setValueAt(i.getCantidad(), contador, 1);
             datos.setValueAt(i.getDescripcion(), contador, 2);
@@ -134,15 +152,7 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
             contador++;
         }
         jTItemsSinProcesar.setModel(datos);
-    }
-    
-    @Override
-    public void elegirUnidadProcesadora(ArrayList<UnidadProcesadora> unidades) {
-        JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
-            "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
-            unidades.toArray(), "");
-    }
-
+    }    
             /**
              * @param args the command line arguments
              */

@@ -20,9 +20,11 @@ public class Observable {
             observadores.add(o);
         }
     }
+    
     public void quitarObservador(Observador o){
         observadores.remove(o);
     }
+    
     public void avisar(Object evento){
         
         ArrayList<Observador> copia = new ArrayList(observadores);

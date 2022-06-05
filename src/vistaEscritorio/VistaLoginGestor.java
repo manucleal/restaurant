@@ -9,7 +9,6 @@ import java.awt.Frame;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Conexion;
-import modelo.Fachada;
 import modelo.UnidadProcesadora;
 
 /**
@@ -26,12 +25,23 @@ public class VistaLoginGestor extends VistaLogin {
 
     @Override
     public void login(String nombreUsuario, String password) {
-        controladorLogin.login(nombreUsuario, password);
+        controladorLogin.login(nombreUsuario, password);        
     }
 
     @Override
     public void llamarProximoCasoUso(Object o) {
+        controladorLogin.mostrarUnidadesProcesadoras((Conexion) o);
         new VistaProcesadoraPedido(null, false,((Conexion) o)).setVisible(true);
+    }
+
+    @Override
+    public void mostrarElegirUnidadesProcesadoras(ArrayList<UnidadProcesadora> procesadoras, Conexion c) {
+        Object unidad = JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
+            "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
+            procesadoras.toArray(), "");
+        
+        controladorLogin.agregarUnidadProcesadoraAGestor(unidad, c);
+        
     }
 
 }

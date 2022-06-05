@@ -7,16 +7,15 @@ package controlador;
 
 import java.util.ArrayList;
 import modelo.ItemServicio;
-import modelo.UnidadProcesadora;
 
 /**
  *
  * @author diecu
  */
 public interface VistaProcesadoraPedidoInterface {
+    
     public void mostrarError(String msg);
     
     public void actualizarYMostrsarItemsSinProcesar(ArrayList<ItemServicio> items);
     
-    public void elegirUnidadProcesadora(ArrayList<UnidadProcesadora> unidades);
 }

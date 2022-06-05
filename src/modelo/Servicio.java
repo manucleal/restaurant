@@ -2,21 +2,24 @@ package modelo;
 
 import exceptions.RestaurantException;
 import java.util.ArrayList;
-import observador.Observable;
 
-public class Servicio extends Observable {
+public class Servicio {
     
     private ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
     private Mesa mesa;
     private Cliente cliente;
     public enum eventos{nuevoItem};
     
-    public Servicio() {}   
+    public Servicio() {}
     
     public Servicio(Mesa mesa) {}
 
     public ArrayList<ItemServicio> getItemsServicio() {
         return itemsServicio;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
     }
     
     public boolean agregarItemServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
@@ -29,7 +32,6 @@ public class Servicio extends Observable {
             itemsServicio.add(itemServicio);
             producto.bajarStock(cant);
             producto.agregarPedidoAUnidadProcesadora(itemServicio);
-            avisar(eventos.nuevoItem);
             return true;
         }
         return false;
