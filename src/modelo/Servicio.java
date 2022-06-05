@@ -51,6 +51,14 @@ public class Servicio extends Observable {
         return cliente != null;
     }
     
+    public float obtenerTotalServicio() {
+        float total = 0;
+        for(ItemServicio item : itemsServicio) {
+            total += item.getSubTotal();
+        }
+        return total;
+    }
+    
     private boolean esNumero(String num) {
         try {
             Double.parseDouble(num);

@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
+import modelo.Fachada;
 import modelo.ItemServicio;
+import modelo.UnidadProcesadora;
 
 /**
  *
@@ -132,6 +134,13 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
             contador++;
         }
         jTItemsSinProcesar.setModel(datos);
+    }
+    
+    @Override
+    public void elegirUnidadProcesadora(ArrayList<UnidadProcesadora> unidades) {
+        JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
+            "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
+            unidades.toArray(), "");
     }
 
             /**

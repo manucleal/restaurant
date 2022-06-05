@@ -18,8 +18,6 @@ import modelo.UnidadProcesadora;
  */
 public class VistaLoginGestor extends VistaLogin {
 
-    private ArrayList<UnidadProcesadora> unidades;
-
     public VistaLoginGestor(Frame parent, boolean modal) {
         super(parent, modal, "Login Gestor");
         controladorLogin = new ControladorLoginGestor(this);
@@ -28,13 +26,7 @@ public class VistaLoginGestor extends VistaLogin {
 
     @Override
     public void login(String nombreUsuario, String password) {
-        unidades = Fachada.getInstancia().getProcesadoras();
-        Object unidad = JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
-                "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
-                unidades.toArray(), "");
-        if (unidad != null) {
-            controladorLogin.login(nombreUsuario, password);
-        }
+        controladorLogin.login(nombreUsuario, password);
     }
 
     @Override

@@ -33,6 +33,7 @@ public class ControladorProcesadoraPedido implements Observador{
         vistaProcesadora.setLocationRelativeTo(null);
         procesadora = ((Gestor)conexionGestor.getUsuario()).getProcesadora();
         procesadora.agregarObservador(this);
+        cargarDatosUnidadProcesadora();
     }
 
     public void logout(){
@@ -49,6 +50,10 @@ public class ControladorProcesadoraPedido implements Observador{
         if(evento.equals(UnidadProcesadora.eventos.nuevoItem)){
             vistaProcesadora.actualizarYMostrsarItemsSinProcesar(procesadora.getItemsSinSerTomados());
         }
+    }
+       
+    private void cargarDatosUnidadProcesadora() {
+        vistaProcesadora.elegirUnidadProcesadora(Fachada.getInstancia().getProcesadoras());    
     }
     
     

@@ -41,7 +41,8 @@ public class ControladorMozo {
     public void cargarDatosMesaSeleccionada(Mesa mesa) {
         this.mesaSeleccionada = mesa;
         vistaMozo.mostrarLabelMesa(mesa.getNumero());
-        vistaMozo.mostrarDatosServicio(mesa.getServicio().getItemsServicio());     
+        vistaMozo.mostrarDatosServicio(mesa.getServicio().getItemsServicio());
+        vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerTotalServicio());
     }
     
     public void abrirMesa() {
