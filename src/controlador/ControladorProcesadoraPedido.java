@@ -5,8 +5,6 @@
  */
 package controlador;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Gestor;
@@ -20,7 +18,7 @@ import vistaEscritorio.VistaProcesadoraPedido;
  *
  * @author diecu
  */
-public class ControladorProcesadoraPedido implements Observador{
+public class ControladorProcesadoraPedido implements Observador {
 
     private Conexion conexionGestor;
     private UnidadProcesadora procesadora;
@@ -29,13 +27,14 @@ public class ControladorProcesadoraPedido implements Observador{
 
     public ControladorProcesadoraPedido(VistaProcesadoraPedido vista,Conexion conexionGestor) {
         this.conexionGestor = conexionGestor;
-        vistaProcesadora = vista;
-        vistaProcesadora.setLocationRelativeTo(null);
-        procesadora = ((Gestor)conexionGestor.getUsuario()).getProcesadora();
-        procesadora.agregarObservador(this);
-    }
+        this.procesadora = ((Gestor)conexionGestor.getUsuario()).getProcesadora();
+        this.vistaProcesadora = vista;
+        this.vistaProcesadora.setLocationRelativeTo(null);
+        this.procesadora.agregarObservador(this);
+        vistaProcesadora.actualizarYMostrsarItemsSinProcesar(procesadora.getItemsSinSerTomados());
+    }    
 
-    public void logout(){
+    public void logout() {
         try {
             logica.logoutConexionGestor(conexionGestor);
             ((Gestor)(conexionGestor.getUsuario())).quitarProcesadora();
@@ -49,7 +48,6 @@ public class ControladorProcesadoraPedido implements Observador{
         if(evento.equals(UnidadProcesadora.eventos.nuevoItem)){
             vistaProcesadora.actualizarYMostrsarItemsSinProcesar(procesadora.getItemsSinSerTomados());
         }
-    }
-    
-    
+    }    
+
 }

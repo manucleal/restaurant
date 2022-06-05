@@ -6,7 +6,9 @@ package vistaEscritorio;
 
 import controlador.ControladorLoginMozo;
 import java.awt.Frame;
+import java.util.ArrayList;
 import modelo.Conexion;
+import modelo.UnidadProcesadora;
 
 /**
  *
@@ -28,6 +30,11 @@ public class VistaLoginMozo extends VistaLogin {
     @Override
     public void llamarProximoCasoUso(Object obj) {
         new VistaMozo(null, false, (Conexion) obj).setVisible(true);
+    }
+
+    @Override
+    public void mostrarElegirUnidadesProcesadoras(ArrayList<UnidadProcesadora> procesadoras, Conexion conexion) {
+        
     }
 
 }

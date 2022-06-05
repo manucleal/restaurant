@@ -13,6 +13,9 @@ import modelo.ItemServicio;
  * @author diecu
  */
 public interface VistaProcesadoraPedidoInterface {
+    
     public void mostrarError(String msg);
+    
     public void actualizarYMostrsarItemsSinProcesar(ArrayList<ItemServicio> items);
+    
 }

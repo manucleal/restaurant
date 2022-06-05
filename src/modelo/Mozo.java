@@ -28,7 +28,9 @@ public class Mozo extends Usuario {
     
     public boolean agregarMesa(Mesa mesa) {
         if(validar()) {
-            return mesas.add(mesa);
+            mesas.add(mesa);
+            mesa.setMozo(this);
+            return true;
         }
         return false;
     }

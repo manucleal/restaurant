@@ -63,6 +63,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         jScrollPane1 = new javax.swing.JScrollPane();
         tableDatosServicio = new javax.swing.JTable();
         comboBoxProductosConStock = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        totalServicio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,6 +97,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         });
 
         labelMesa.setEditable(false);
+        labelMesa.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         labelMesa.setActionCommand("<Not Set>");
         labelMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,20 +113,20 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
 
         tableDatosServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Cantidad", "Descripción", "Precio Unitario", "Sub total", "Comentarios"
+                "Producto", "Cantidad", "Descripción", "Precio Unitario", "Sub total", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,11 +144,22 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
             tableDatosServicio.getColumnModel().getColumn(2).setResizable(false);
             tableDatosServicio.getColumnModel().getColumn(3).setResizable(false);
             tableDatosServicio.getColumnModel().getColumn(4).setResizable(false);
+            tableDatosServicio.getColumnModel().getColumn(5).setResizable(false);
         }
 
         comboBoxProductosConStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxProductosConStockActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel4.setText("Total:");
+
+        totalServicio.setEditable(false);
+        totalServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalServicioActionPerformed(evt);
             }
         });
 
@@ -184,6 +198,12 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                                 .addGap(64, 64, 64)
                                 .addComponent(labelMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +230,11 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                     .addComponent(buttonAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65))
         );
 
         pack();
@@ -240,6 +264,10 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxProductosConStockActionPerformed
 
+    private void totalServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalServicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalServicioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abrirMesa;
     private javax.swing.JButton buttonAgregarProducto;
@@ -249,12 +277,14 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField labelMesa;
     private javax.swing.JPanel panelButtons;
     private javax.swing.JTable tableDatosServicio;
     private javax.swing.JTextField textFieldCantidad;
     private javax.swing.JTextField textFieldDescripcion;
+    private javax.swing.JTextField totalServicio;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -318,15 +348,18 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     @Override
     public void mostrarProductosConStock(ArrayList<Producto> productos) {
         comboBoxProductosConStock.removeAllItems();
-        for(Producto producto: productos) {
-            comboBoxProductosConStock.addItem(producto);
-        }
+        productos.forEach(producto -> comboBoxProductosConStock.addItem(producto));
     }
 
     @Override
     public void limpiarInputProducto() {
         textFieldCantidad.setText(null);
         textFieldDescripcion.setText(null);
+    }
+    
+    @Override
+    public void mostrarTotalServicio(float total) {
+        totalServicio.setText(Float.toString(total));
     }
     
     private class Clicklistener implements ActionListener {        

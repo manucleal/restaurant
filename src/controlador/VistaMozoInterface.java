@@ -32,4 +32,6 @@ public interface VistaMozoInterface {
     
     public void limpiarInputProducto();
     
+    public void mostrarTotalServicio(float total);
+    
 }
