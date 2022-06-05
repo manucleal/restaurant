@@ -30,7 +30,7 @@ public class VistaLoginGestor extends VistaLogin {
 
     @Override
     public void llamarProximoCasoUso(Object o) {
-        controladorLogin.mostrarUnidadesProcesadoras((Conexion) o);
+        ((ControladorLoginGestor)controladorLogin).mostrarUnidadesProcesadoras((Conexion) o);
         new VistaProcesadoraPedido(null, false,((Conexion) o)).setVisible(true);
     }
 
@@ -40,7 +40,7 @@ public class VistaLoginGestor extends VistaLogin {
             "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
             procesadoras.toArray(), "");
         
-        controladorLogin.agregarUnidadProcesadoraAGestor(unidad, c);
+        ((ControladorLoginGestor)controladorLogin).agregarUnidadProcesadoraAGestor(unidad, c);
         
     }
 

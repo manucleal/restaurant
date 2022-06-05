@@ -32,22 +32,7 @@ public abstract class ControladorLogin {
             vista.mostrarError(e.getMessage());
         }
     }
-    
-    public void mostrarUnidadesProcesadoras(Conexion conexion) {
-        vista.mostrarElegirUnidadesProcesadoras(Fachada.getInstancia().getProcesadoras(), conexion);
-    }
-    
-    public void agregarUnidadProcesadoraAGestor(Object unidad, Conexion c) {
-        try {
-            Gestor gestor = (Gestor)c.getUsuario();
-            UnidadProcesadora unidadProcesadora = (UnidadProcesadora)unidad;
-            gestor.agregarProcesadora(unidadProcesadora);
-            unidadProcesadora.agregarGestor(gestor);
-        } catch (RestaurantException e) {
-            vista.mostrarError(e.getMessage());
-        }        
-    }
-        
+
     public abstract Object llamarLogin(String nombreUsuario, String password) throws RestaurantException;
 
 }
