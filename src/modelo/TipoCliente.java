@@ -12,15 +12,21 @@ package modelo;
 public abstract class TipoCliente {
     
     private String nombre;
+    private String nombreBeneficio;
 
-    public TipoCliente(String nombre) {
+    public TipoCliente(String nombre, String nombreBeneficio) {
         this.nombre = nombre;
+        this.nombreBeneficio = nombreBeneficio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getNombreBeneficio() {
+        return nombreBeneficio;
     }
     
     public abstract void obtenerBeneficio();
-        
-//    boolean validar() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
     
 }

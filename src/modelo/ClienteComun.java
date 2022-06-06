@@ -3,7 +3,7 @@ package modelo;
 public class ClienteComun extends TipoCliente {
 
     public ClienteComun() {
-        super("Cliente comun");
+        super("Cliente comun", "Café invitación");
     }
 
     @Override

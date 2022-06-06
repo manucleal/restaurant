@@ -32,5 +32,9 @@ public class Cliente {
     public void setId(int id) {
         this.id = id;
     }
+    
+    public String obtenerNombreBeneficio(TipoCliente tipo){
+        return tipo.getNombreBeneficio();
+    }
 
 }

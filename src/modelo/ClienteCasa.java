@@ -3,7 +3,7 @@ package modelo;
 public class ClienteCasa extends TipoCliente {
 
     public ClienteCasa() {
-        super("ClienteCasa");
+        super("ClienteCasa", "$500 invitación");
     }
 
     @Override

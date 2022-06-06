@@ -59,5 +59,13 @@ public class Servicio extends Observable {
             return false;
         }
     }
+    
+    public float montoTotal(){
+        float montoTotal = 0;
+        for(ItemServicio item : this.getItemsServicio()){
+            montoTotal += item.getSubTotal();
+        }
+        return montoTotal;
+    }
 
 }
