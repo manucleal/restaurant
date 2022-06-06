@@ -1,7 +1,5 @@
 package modelo;
 
-import exceptions.RestaurantException;
-
 public class Conexion {
     
     private Usuario usuario;
@@ -13,9 +11,4 @@ public class Conexion {
     public Usuario getUsuario() {
         return usuario;
     }
-    
-    public void logout() throws RestaurantException {
-        Fachada.getInstancia().logoutConexion(this);
-    }
-        
 }

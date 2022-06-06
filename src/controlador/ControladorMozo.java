@@ -82,7 +82,7 @@ public class ControladorMozo {
 
     public void logout() {
         try {
-            conexion.logout();
+            Fachada.getInstancia().logoutConexion(conexion);
         } catch (RestaurantException e) {
             vistaMozo.mostrarMensaje(e.getMessage());
         }
