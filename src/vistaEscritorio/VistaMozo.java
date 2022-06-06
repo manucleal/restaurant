@@ -67,6 +67,11 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         totalServicio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelButtons.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         panelButtons.setMinimumSize(new java.awt.Dimension(500, 100));
@@ -267,6 +272,10 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     private void totalServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalServicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalServicioActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        controladorMozo.logout();
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton abrirMesa;

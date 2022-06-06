@@ -79,4 +79,12 @@ public class ControladorMozo {
         vistaMozo.mostrarProductosConStock(Fachada.getInstancia().obtenerProductosConStock());
         vistaMozo.limpiarInputProducto();
     }
+
+    public void logout() {
+        try {
+            conexion.logout();
+        } catch (RestaurantException e) {
+            vistaMozo.mostrarMensaje(e.getMessage());
+        }
+    }
 }
