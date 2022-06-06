@@ -12,15 +12,30 @@ package modelo;
 public abstract class TipoCliente {
     
     private String nombre;
+    private String nombreBeneficio;
+    protected Cliente cliente;
 
-    public TipoCliente(String nombre) {
+    public TipoCliente(String nombre, String nombreBeneficio) {
         this.nombre = nombre;
+        this.nombreBeneficio = nombreBeneficio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getNombreBeneficio() {
+        return nombreBeneficio;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
-    public abstract void obtenerBeneficio();
-        
-//    boolean validar() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
+    public abstract float obtenerMontoBeneficio();
+    
+    public float obtenerMontoTotalMenosBeneficio(){
+        return cliente.obtenerMontoTotal() - obtenerMontoBeneficio();
+    }
     
 }

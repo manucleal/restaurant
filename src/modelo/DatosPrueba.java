@@ -17,11 +17,12 @@ public class DatosPrueba {
         
         Fachada logica = Fachada.getInstancia();
         
-//    --------------------- ALTA CLIENTE  ---------------------
+//    --------------------- ALTA TIPO CLIENTE  ---------------------
         TipoCliente tipoClientePreferencial = new ClientePreferencial();
         TipoCliente tipoClienteCasa = new ClienteCasa();
         TipoCliente tipoClienteComun = new ClientePreferencial();
         
+//    --------------------- ALTA CLIENTE  ---------------------
         Cliente clientePreferencial = new Cliente("Pedrito", "pedrito@gmail.com", tipoClientePreferencial );
         Cliente clienteCasa = new Cliente("Claudia", "clau@gmail.com", tipoClienteCasa );
         Cliente clienteComun = new Cliente("Egidio", "Egidio@gmail.com", tipoClienteComun );

@@ -3,12 +3,28 @@ package modelo;
 public class ClientePreferencial extends TipoCliente {
 
     public ClientePreferencial() {
-        super("ClientePreferencial");
+        super("ClientePreferencial", "Agua gratis + 5% según consumo");
     }
 
+    
+//    Pagan $0 por todas las aguas minerales consumidas en el servicio y si el 
+//    monto total del servicio supera los $2000 tienen un 5% de descuento sobre el total.
     @Override
-    public void obtenerBeneficio() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public float obtenerMontoBeneficio() {
+        
+        Servicio servicio = cliente.getServicio();
+        
+        float totalBeneficioProducto = servicio.getTotalPorProducto("Agua");
+        
+        float totalServicio = servicio.montoTotal();
+        float totalBeneficio = 0;
+        float totalSinProducto = totalServicio - totalBeneficioProducto;
+        if(totalSinProducto > 2000){
+            double total = totalSinProducto * 0.05;
+            totalBeneficio = (float)total;
+        }
+        return totalBeneficioProducto + totalBeneficio;
     }
+    
     
 }
