@@ -13,6 +13,7 @@ public abstract class TipoCliente {
     
     private String nombre;
     private String nombreBeneficio;
+    protected Cliente cliente;
 
     public TipoCliente(String nombre, String nombreBeneficio) {
         this.nombre = nombre;
@@ -26,7 +27,15 @@ public abstract class TipoCliente {
     public String getNombreBeneficio() {
         return nombreBeneficio;
     }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     
-    public abstract void obtenerBeneficio();
+    public abstract float obtenerMontoBeneficio();
+    
+    public float obtenerMontoTotalMenosBeneficio(){
+        return cliente.obtenerMontoTotal() - obtenerMontoBeneficio();
+    }
     
 }

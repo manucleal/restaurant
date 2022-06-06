@@ -185,9 +185,10 @@ public class VistaCerrarMesaCliente extends javax.swing.JDialog implements Vista
         nombreCliente.setText(nombre);
     }
 
-    public void cargarDatosServicioCliente(Servicio modelo, Cliente cliente) {
+    public void cargarDatosServicioCliente(Cliente cliente) {
         nombreBeneficio.setText(cliente.obtenerNombreBeneficio(cliente.getTipoCliente()));
-        totalSinBeneficio.setText(Float.toString(modelo.montoTotal()));
-        
+        totalSinBeneficio.setText(Float.toString(cliente.obtenerMontoTotal()));
+        totalBeneficio.setText(Float.toString(cliente.obtenerMontoBeneficio()));
+        totalAPagar.setText(Float.toString(cliente.obtenerMontoTotalMenosBeneficio()));
     }
 }

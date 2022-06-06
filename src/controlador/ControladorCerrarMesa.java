@@ -30,7 +30,7 @@ public class ControladorCerrarMesa {
         if(cliente != null){
             vistaCerrarMesaCliente.cargarNombreCliente(cliente.getNombre());
             modelo.asignarCliente(cliente);
-            vistaCerrarMesaCliente.cargarDatosServicioCliente(modelo, cliente);
+            vistaCerrarMesaCliente.cargarDatosServicioCliente(cliente);
         }else{
             //no existe cliente ingresado fin C/U
         }

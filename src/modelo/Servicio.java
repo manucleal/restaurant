@@ -39,6 +39,7 @@ public class Servicio {
     
     public void asignarCliente(Cliente cliente) {
         this.cliente = cliente;
+        cliente.setServicio(this);
     }
 
     public Mesa getMesa() {
@@ -51,14 +52,6 @@ public class Servicio {
     
     public boolean tieneCliente(){
         return cliente != null;
-    }
-    
-    public float obtenerTotalServicio() {
-        float total = 0;
-        for(ItemServicio item : itemsServicio) {
-            total += item.getSubTotal();
-        }
-        return total;
     }
     
     private boolean esNumero(String num) {
@@ -76,6 +69,17 @@ public class Servicio {
             montoTotal += item.getSubTotal();
         }
         return montoTotal;
+    }
+    
+    public float getTotalPorProducto(String nombreProd){
+        String productoBuscado = nombreProd.toLowerCase();
+        float total=0;
+        for(ItemServicio item : this.getItemsServicio()){
+            if(item.getProducto().getNombre().contains(productoBuscado) ){
+                total += item.getSubTotal();
+            }
+        }
+        return total;
     }
 
 }

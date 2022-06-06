@@ -6,9 +6,17 @@ public class ClienteCasa extends TipoCliente {
         super("ClienteCasa", "$500 invitación");
     }
 
+    
+//  Tienen $500 de consumo gratis por servicio.
     @Override
-    public void obtenerBeneficio() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public float obtenerMontoBeneficio() {
+        
+        Servicio servicio = cliente.getServicio();
+        float totalServicio = servicio.montoTotal();
+        if(totalServicio > 500){
+            return 500;
+        }
+        return totalServicio;
     }
     
 }
