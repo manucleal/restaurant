@@ -8,7 +8,7 @@ package controlador;
 import modelo.Cliente;
 import modelo.Fachada;
 import modelo.Servicio;
-import vistaEscritorio.VistaCerrarMesaCliente;
+import vistaEscritorio.VistaCerrarMesa;
 
 /**
  *
@@ -16,11 +16,11 @@ import vistaEscritorio.VistaCerrarMesaCliente;
  */
 public class ControladorCerrarMesa {
     
-    private VistaCerrarMesaCliente vistaCerrarMesaCliente;
+    private VistaCerrarMesa vistaCerrarMesaCliente;
     private Servicio modelo;
     private Fachada fachada = Fachada.getInstancia();
 
-    public ControladorCerrarMesa(VistaCerrarMesaCliente vistaCerrarMesaCliente, Servicio modelo) {
+    public ControladorCerrarMesa(VistaCerrarMesa vistaCerrarMesaCliente, Servicio modelo) {
         this.vistaCerrarMesaCliente = vistaCerrarMesaCliente;
         this.modelo = modelo;
     }

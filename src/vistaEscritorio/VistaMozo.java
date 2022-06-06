@@ -351,7 +351,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
 
     @Override
     public void llamarVentanaCerrarMesaCliente(Servicio servicio) {
-        new VistaCerrarMesaCliente(null,false,servicio).setVisible(true);
+        new VistaCerrarMesa(null,false,servicio).setVisible(true);
     }
     
     @Override

@@ -5,12 +5,17 @@
  */
 package controlador;
 
+import modelo.Cliente;
+
 /**
  *
  * @author faustoperillo
  */
-public interface VistaCerrarMozoInterface {
+public interface VistaCerrarMesaInterface {
+        
+    public void buscarClienteIngresado();
     
+    public void cargarNombreCliente(String nombre);
     
-    
+    public void cargarDatosServicioCliente(Cliente cliente);
 }

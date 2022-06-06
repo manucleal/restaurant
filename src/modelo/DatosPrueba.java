@@ -77,14 +77,6 @@ public class DatosPrueba {
         mesa1.getServicio().agregarItemServicio(producto1, "Puré de calabaza", "2" );
         mesa2.getServicio().agregarItemServicio(producto2, "Sin hielo", "1");
         mesa2.getServicio().agregarItemServicio(producto4, "Con salsa de soja", "12");
-        
-//--------------------- AGREGO CLIENTE A UN SERVICIO DE UNA MESA ---------------------        
-//        mesa1.getServicio().asignarCliente(clientePreferencial);
-//        mesa2.getServicio().asignarCliente(clienteCasa);
-//        mesa3.getServicio().asignarCliente(clienteComun);
-//        mesa4.getServicio().asignarCliente(clientePreferencial);
-
-
 
         // GESTION
         //<editor-fold>

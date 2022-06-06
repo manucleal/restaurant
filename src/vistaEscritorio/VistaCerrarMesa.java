@@ -6,23 +6,20 @@
 package vistaEscritorio;
 
 import controlador.ControladorCerrarMesa;
-import controlador.VistaCerrarMozoInterface;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
-import modelo.ItemServicio;
 import modelo.Servicio;
+import controlador.VistaCerrarMesaInterface;
 /**
  *
  * @author faustoperillo
  */
-public class VistaCerrarMesaCliente extends javax.swing.JDialog implements VistaCerrarMozoInterface {
+public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarMesaInterface {
 
     private ControladorCerrarMesa controladorCerrarMesa;
     /**
      * Creates new form CerrarMesaCliente
      */
-    public VistaCerrarMesaCliente(java.awt.Frame parent, boolean modal, Servicio servicio) {
+    public VistaCerrarMesa(java.awt.Frame parent, boolean modal, Servicio servicio) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
@@ -178,15 +175,18 @@ public class VistaCerrarMesaCliente extends javax.swing.JDialog implements Vista
     private javax.swing.JTextField totalSinBeneficio;
     // End of variables declaration//GEN-END:variables
 
-    private void buscarClienteIngresado() {
+    @Override
+    public void buscarClienteIngresado() {
          String idIngresado = idCliente.getText();
          controladorCerrarMesa.buscarCliente(idIngresado);
     }
     
-    public void cargarNombreCliente(String nombre){
+    @Override
+    public void cargarNombreCliente(String nombre) {
         nombreCliente.setText(nombre);
     }
 
+    @Override
     public void cargarDatosServicioCliente(Cliente cliente) {
         nombreBeneficio.setText(cliente.obtenerNombreBeneficio(cliente.getTipoCliente()));
         totalSinBeneficio.setText(Float.toString(cliente.obtenerMontoTotal()));
