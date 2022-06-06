@@ -141,5 +141,5 @@ public abstract class VistaLogin extends javax.swing.JDialog implements VistaLog
     @Override
     public void cerrar() {
         this.dispose();
-    }
+    }    
 }

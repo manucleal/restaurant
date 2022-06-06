@@ -4,6 +4,10 @@
  */
 package controlador;
 
+import java.util.ArrayList;
+import modelo.Conexion;
+import modelo.UnidadProcesadora;
+
 /**
  *
  * @author ecoitino
@@ -17,5 +21,7 @@ public interface VistaLoginInterface {
     public void mostrarError(String msg);
     
     public void cerrar();
+    
+    public void mostrarElegirUnidadesProcesadoras(ArrayList<UnidadProcesadora> procesadoras, Conexion conexion);
               
 }

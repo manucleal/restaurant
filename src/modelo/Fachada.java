@@ -43,8 +43,8 @@ public class Fachada {
         return sistemaUsuarios.loginMozo(nombreUsuario, password);
     }
 
-    public Conexion loginGestor(String nombreUsuario, String password, UnidadProcesadora unidad) throws RestaurantException {
-        return sistemaUsuarios.loginGestor(nombreUsuario, password, unidad);
+    public Conexion loginGestor(String nombreUsuario, String password) throws RestaurantException {
+        return sistemaUsuarios.loginGestor(nombreUsuario, password);
     }
 
     public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
