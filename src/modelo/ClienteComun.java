@@ -6,7 +6,7 @@ public class ClienteComun extends TipoCliente {
         super("Cliente comun", "Café invitación");
     }
 
-//    Pagan $0 por todos los cafés consumidos en el servicio.
+    //Pagan $0 por todos los cafés consumidos en el servicio.
     @Override
     public float obtenerMontoBeneficio() {
         Servicio servicio = cliente.getServicio();

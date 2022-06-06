@@ -47,8 +47,8 @@ public class Fachada {
         return sistemaUsuarios.loginGestor(nombreUsuario, password);
     }
 
-    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
-        sistemaUsuarios.logoutConexionGestor(conexion);
+    public void logoutConexion(Conexion conexion) throws RestaurantException {
+        sistemaUsuarios.logoutConexion(conexion);
     }
 
     public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
@@ -63,7 +63,7 @@ public class Fachada {
         sistemaClientes.agregar(cliente);
     }
     
-    public Cliente buscarCliente(String idCliente) {
+    public Cliente buscarCliente(String idCliente) throws RestaurantException {
         return sistemaClientes.buscarCliente(idCliente);
     }
         

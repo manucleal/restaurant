@@ -6,9 +6,8 @@ public class ClientePreferencial extends TipoCliente {
         super("ClientePreferencial", "Agua gratis + 5% según consumo");
     }
 
-    
-//    Pagan $0 por todas las aguas minerales consumidas en el servicio y si el 
-//    monto total del servicio supera los $2000 tienen un 5% de descuento sobre el total.
+    //Pagan $0 por todas las aguas minerales consumidas en el servicio y si el 
+    //monto total del servicio supera los $2000 tienen un 5% de descuento sobre el total.
     @Override
     public float obtenerMontoBeneficio() {
         
@@ -16,7 +15,7 @@ public class ClientePreferencial extends TipoCliente {
         
         float totalBeneficioProducto = servicio.getTotalPorProducto("Agua");
         
-        float totalServicio = servicio.montoTotal();
+        float totalServicio = servicio.obtenerMontoTotalServicio();
         float totalBeneficio = 0;
         float totalSinProducto = totalServicio - totalBeneficioProducto;
         if(totalSinProducto > 2000){
@@ -25,6 +24,5 @@ public class ClientePreferencial extends TipoCliente {
         }
         return totalBeneficioProducto + totalBeneficio;
     }
-    
     
 }

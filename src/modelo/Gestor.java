@@ -1,16 +1,22 @@
 package modelo;
 
 import exceptions.RestaurantException;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Gestor extends Usuario {
+public class Gestor extends Usuario{
     
     private Date fechaUltimoAcceso;
     private UnidadProcesadora procesadora;
+    private ArrayList<ItemServicio> itemsProcesando = new ArrayList<ItemServicio>();
 
     public Gestor(Date fechaUltimoAcceso, String nombreUsuario, String contrasena, String nombreCompleto) {
         super(nombreUsuario, contrasena, nombreCompleto);
         this.fechaUltimoAcceso = fechaUltimoAcceso;
+    }
+
+    public ArrayList<ItemServicio> getItemsProcesando() {
+        return itemsProcesando;
     }
 
     public Date getFechaUltimoAcceso() {
@@ -35,4 +41,7 @@ public class Gestor extends Usuario {
         procesadora = null;
     }
     
+    public void agregarItem(ItemServicio item) throws RestaurantException{
+        if(!itemsProcesando.contains(item)) itemsProcesando.add(item);
+    }
 }
