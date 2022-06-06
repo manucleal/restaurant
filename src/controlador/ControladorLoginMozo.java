@@ -5,7 +5,7 @@
 package controlador;
 
 import modelo.Fachada;
-import exceptions.RestaurantException;
+import modelo.RestaurantException;
 import vistaEscritorio.VistaLoginMozo;
 
 

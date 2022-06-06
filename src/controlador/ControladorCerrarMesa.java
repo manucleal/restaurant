@@ -5,9 +5,9 @@
  */
 package controlador;
 
-import exceptions.RestaurantException;
 import modelo.Cliente;
 import modelo.Fachada;
+import modelo.RestaurantException;
 import modelo.Servicio;
 import vistaEscritorio.VistaCerrarMesa;
 

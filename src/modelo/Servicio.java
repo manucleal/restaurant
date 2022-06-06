@@ -1,6 +1,6 @@
 package modelo;
 
-import exceptions.RestaurantException;
+import modelo.RestaurantException;
 import java.util.ArrayList;
 
 public class Servicio {

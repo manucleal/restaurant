@@ -22,12 +22,12 @@ public class Mozo extends Usuario {
         return cantidadMaxMesas;
     }
     
-    private boolean validar() {
+    public boolean validarCantidadMesasMozo() {
         return mesas.size() < cantidadMaxMesas;
     }
     
     public boolean agregarMesa(Mesa mesa) {
-        if(validar()) {
+        if(validarCantidadMesasMozo()) {
             mesas.add(mesa);
             mesa.setMozo(this);
             return true;
@@ -43,5 +43,13 @@ public class Mozo extends Usuario {
         }
         return null;
     }
+    
+    public void agregarTransferencia(Mozo mozoDestino, Mesa mesa) throws RestaurantException {
+        Transferencia transferencia = new Transferencia(this, mozoDestino, mesa);
+        if(transferencia.validar()) {
+            transferencias.add(transferencia);
+            avisar(Transferencia.eventos.nuevaTranferencia);
+        }
+    }        
     
 }

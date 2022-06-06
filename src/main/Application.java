@@ -4,7 +4,7 @@
  */
 package main;
 
-import exceptions.RestaurantException;
+import modelo.RestaurantException;
 import modelo.DatosPrueba;
 import vistaEscritorio.VistaMenu;
 
