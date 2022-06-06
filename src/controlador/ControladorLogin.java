@@ -5,10 +5,7 @@
 package controlador;
 
 import modelo.Conexion;
-import exceptions.RestaurantException;
-import modelo.Fachada;
-import modelo.Gestor;
-import modelo.UnidadProcesadora;
+import modelo.RestaurantException;
 import vistaEscritorio.VistaLogin;
 
 /**

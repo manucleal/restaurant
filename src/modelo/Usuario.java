@@ -1,6 +1,8 @@
 package modelo;
 
-public abstract class Usuario {
+import observador.Observable;
+
+public abstract class Usuario extends Observable {
     
     private String nombreUsuario;
     private String password;
@@ -22,6 +24,15 @@ public abstract class Usuario {
 
     public String getNombreCompleto() {
         return nombreCompleto;
-    }   
+    }
+    
+    public boolean validar() {
+        return !(nombreUsuario.isBlank() || password.isBlank() || nombreCompleto.isBlank());
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + nombreCompleto;
+    }
     
 }

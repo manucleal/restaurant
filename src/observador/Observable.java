@@ -29,7 +29,7 @@ public class Observable {
         
         ArrayList<Observador> copia = new ArrayList(observadores);
         
-        for(Observador o:copia){
+        for(Observador o : copia) {
             try{
                 o.actualizar(evento, this);
             }catch(Exception e){

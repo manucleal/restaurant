@@ -4,9 +4,6 @@
  */
 package modelo;
 
-import exceptions.RestaurantException;
-import exceptions.UsuarioException;
-
 /**
  *
  * @author ecoitino
@@ -87,7 +84,7 @@ public class DatosPrueba {
             fachada.crearUsuarioGestor("G2", "G2", "Gestor 2");
             fachada.crearUsuarioGestor("G3", "G3", "Gestor 3");
 
-        } catch (UsuarioException ex) {
+        } catch (RestaurantException ex) {
             System.out.println("Usuarios gestor no creados.");
         }
         //</editor-fold>

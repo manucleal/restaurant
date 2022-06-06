@@ -4,19 +4,23 @@
  */
 package controlador;
 
-import exceptions.RestaurantException;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Mesa;
 import modelo.Mozo;
 import modelo.Producto;
+import modelo.RestaurantException;
+import modelo.Transferencia;
+import static modelo.Transferencia.eventos.nuevaTranferencia;
+import observador.Observable;
+import observador.Observador;
 import vistaEscritorio.VistaMozo;
 
 /**
  *
  * @author ecoitino
  */
-public class ControladorMozo {
+public class ControladorMozo implements Observador {
 
     private VistaMozo vistaMozo;
     private Conexion conexion;
@@ -26,7 +30,8 @@ public class ControladorMozo {
     public ControladorMozo(VistaMozo vista, Conexion conexion) {
         this.vistaMozo = vista;
         this.conexion = conexion;
-        this.modelo = (Mozo) conexion.getUsuario();
+        this.modelo = (Mozo)conexion.getUsuario();
+        this.modelo.agregarObservador(this);
         inicializarVista();
     }
 
@@ -57,7 +62,7 @@ public class ControladorMozo {
     public void cerrarMesa(){
         try{
             if(!mesaSeleccionada.estaCerrada("La mesa no está abierta")){
-                vistaMozo.llamarVentanaCerrarMesaCliente(mesaSeleccionada.getServicio());
+                vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
         }catch(RestaurantException e){
             vistaMozo.mostrarMensaje(e.getMessage());
@@ -88,4 +93,16 @@ public class ControladorMozo {
             vistaMozo.mostrarMensaje(e.getMessage());
         }
     }
+
+    @Override
+    public void actualizar(Object evento, Observable origen) {
+        if(evento.equals(Transferencia.eventos.nuevaTranferencia)) {
+            System.out.println("LLEGO NUEVA TRANSFERENCIA !!!");
+        }
+    }
+
+    public void transferirMesa() {
+        vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
+    }
+
 }
