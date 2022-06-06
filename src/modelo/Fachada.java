@@ -63,7 +63,7 @@ public class Fachada {
         sistemaClientes.agregar(cliente);
     }
     
-    public Cliente buscarCliente(String idCliente) {
+    public Cliente buscarCliente(String idCliente) throws RestaurantException {
         return sistemaClientes.buscarCliente(idCliente);
     }
         

@@ -18,4 +18,6 @@ public interface VistaCerrarMesaInterface {
     public void cargarNombreCliente(String nombre);
     
     public void cargarDatosServicioCliente(Cliente cliente);
+    
+    public void mostrarMensaje(String msg);
 }

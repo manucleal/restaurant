@@ -1,5 +1,6 @@
 package modelo;
 
+import exceptions.RestaurantException;
 import java.util.ArrayList;
 
 public class SistemaClientes {
@@ -29,13 +30,13 @@ public class SistemaClientes {
         return false;
     }
     
-    public Cliente buscarCliente(String id) {
+    public Cliente buscarCliente(String id) throws RestaurantException {
         for(Cliente cliente : getClientes()) {
             if(cliente.getId() == Integer.parseInt(id)){
                 return cliente;
             }
         }        
-        return null;
+        throw new RestaurantException("No se encontró al cliente");
     }   
     
     private int generarProximoId(){

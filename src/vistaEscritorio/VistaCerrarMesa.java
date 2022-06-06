@@ -9,6 +9,7 @@ import controlador.ControladorCerrarMesa;
 import modelo.Cliente;
 import modelo.Servicio;
 import controlador.VistaCerrarMesaInterface;
+import javax.swing.JOptionPane;
 /**
  *
  * @author faustoperillo
@@ -177,8 +178,8 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
 
     @Override
     public void buscarClienteIngresado() {
-         String idIngresado = idCliente.getText();
-         controladorCerrarMesa.buscarCliente(idIngresado);
+        String idIngresado = idCliente.getText();
+        controladorCerrarMesa.buscarCliente(idIngresado);
     }
     
     @Override
@@ -192,5 +193,10 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
         totalSinBeneficio.setText(Float.toString(cliente.obtenerMontoTotal()));
         totalBeneficio.setText(Float.toString(cliente.obtenerMontoBeneficio()));
         totalAPagar.setText(Float.toString(cliente.obtenerMontoTotalMenosBeneficio()));
+    }
+    
+    @Override
+    public void mostrarMensaje(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
     }
 }

@@ -15,7 +15,7 @@ public class DatosPrueba {
     
     public static void cargar() throws RestaurantException {
         
-        Fachada logica = Fachada.getInstancia();
+        Fachada fachada = Fachada.getInstancia();
         
 //    --------------------- ALTA TIPO CLIENTE  ---------------------
         TipoCliente tipoClientePreferencial = new ClientePreferencial();
@@ -27,9 +27,9 @@ public class DatosPrueba {
         Cliente clienteCasa = new Cliente("Claudia", "clau@gmail.com", tipoClienteCasa );
         Cliente clienteComun = new Cliente("Egidio", "Egidio@gmail.com", tipoClienteComun );
         
-        logica.agregarCliente(clientePreferencial);
-        logica.agregarCliente(clienteCasa);
-        logica.agregarCliente(clienteComun);
+        fachada.agregarCliente(clientePreferencial);
+        fachada.agregarCliente(clienteCasa);
+        fachada.agregarCliente(clienteComun);
         
 //    --------------------- ALTA MESA  ---------------------
         Mesa mesa1 = new Mesa(1,true);
@@ -43,23 +43,24 @@ public class DatosPrueba {
         UnidadProcesadora sushibar = null;
         
         try {
-            cocina = logica.crearUnidadProcesadora("COCINA");
-            barra = logica.crearUnidadProcesadora("BARRA");
-            sushibar = logica.crearUnidadProcesadora("sushibar");
+            cocina = fachada.crearUnidadProcesadora("COCINA");
+            barra = fachada.crearUnidadProcesadora("BARRA");
+            sushibar = fachada.crearUnidadProcesadora("sushibar");
         } catch (RestaurantException ex) {
             System.out.println("No se cargaron unidades procesadoras");
         }        
         
 // --------------------- ALTA PRODUCTO ---------------------
-        Producto producto1 = new Producto("1A", "milanesa con fritas", 180, 10, cocina);
-        Producto producto2 = new Producto("2A", "gin tonic", 250, 20, barra);
+        Producto producto1 = new Producto("1A", "Milanesa con fritas", 180, 10, cocina);
+        Producto producto2 = new Producto("2A", "Gin tonic", 250, 20, barra);
         Producto producto3 = new Producto("3A", "Chivito al plato", 250, 20, cocina);
         Producto producto4 = new Producto("4A", "Roll palta y salmón", 80, 300, sushibar);
+        Producto producto5 = new Producto("3B", "Café", 75, 100, barra);
         
 //--------------------- ALTA MOZO ---------------------
              
-        Mozo mozo1 = logica.crearUsuarioMozo("099250364", "Emanuel", "emanuel123", "Emanuel Coitiño");
-        Mozo mozo2 = logica.crearUsuarioMozo("098869788", "Fausto", "fausto123", "Fausto Perillo");        
+        Mozo mozo1 = fachada.crearUsuarioMozo("099250364", "Emanuel", "emanuel123", "Emanuel Coitiño");
+        Mozo mozo2 = fachada.crearUsuarioMozo("098869788", "Fausto", "fausto123", "Fausto Perillo");        
         
 //--------------------- ASIGNO MESA A MOZO ---------------------
         mozo1.agregarMesa(mesa1);
@@ -68,10 +69,11 @@ public class DatosPrueba {
         mozo2.agregarMesa(mesa4);
         
 // --------------------- AGREGO PRODUCTOS A SISTEMA ---------------------
-        logica.agregarProducto(producto1);
-        logica.agregarProducto(producto2);
-        logica.agregarProducto(producto3);
-        logica.agregarProducto(producto4);
+        fachada.agregarProducto(producto1);
+        fachada.agregarProducto(producto2);
+        fachada.agregarProducto(producto3);
+        fachada.agregarProducto(producto4);
+        fachada.agregarProducto(producto5);
 //--------------------- AGREGO ITEM A UN SERVICIO DE UNA MESA ---------------------
         mesa1.getServicio().agregarItemServicio(producto1, "Milanesa a punto", "1");
         mesa1.getServicio().agregarItemServicio(producto1, "Puré de calabaza", "2" );
@@ -81,9 +83,9 @@ public class DatosPrueba {
         // GESTION
         //<editor-fold>
         try {
-            logica.crearUsuarioGestor("G1", "G1", "Gestor 1");
-            logica.crearUsuarioGestor("G2", "G2", "Gestor 2");
-            logica.crearUsuarioGestor("G3", "G3", "Gestor 3");
+            fachada.crearUsuarioGestor("G1", "G1", "Gestor 1");
+            fachada.crearUsuarioGestor("G2", "G2", "Gestor 2");
+            fachada.crearUsuarioGestor("G3", "G3", "Gestor 3");
 
         } catch (UsuarioException ex) {
             System.out.println("Usuarios gestor no creados.");

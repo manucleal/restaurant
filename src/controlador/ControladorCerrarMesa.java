@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import exceptions.RestaurantException;
 import modelo.Cliente;
 import modelo.Fachada;
 import modelo.Servicio;
@@ -16,25 +17,25 @@ import vistaEscritorio.VistaCerrarMesa;
  */
 public class ControladorCerrarMesa {
     
-    private VistaCerrarMesa vistaCerrarMesaCliente;
+    private VistaCerrarMesa vistaCerrarMesa;
     private Servicio modelo;
     private Fachada fachada = Fachada.getInstancia();
 
     public ControladorCerrarMesa(VistaCerrarMesa vistaCerrarMesaCliente, Servicio modelo) {
-        this.vistaCerrarMesaCliente = vistaCerrarMesaCliente;
+        this.vistaCerrarMesa = vistaCerrarMesaCliente;
         this.modelo = modelo;
     }
 
     public void buscarCliente(String idIngresado) {
-        Cliente cliente = fachada.buscarCliente(idIngresado);
-        if(cliente != null){
-            vistaCerrarMesaCliente.cargarNombreCliente(cliente.getNombre());
+        try {
+            Cliente cliente = fachada.buscarCliente(idIngresado);
+            vistaCerrarMesa.cargarNombreCliente(cliente.getNombre());
             modelo.asignarCliente(cliente);
-            vistaCerrarMesaCliente.cargarDatosServicioCliente(cliente);
-        }else{
+            vistaCerrarMesa.cargarDatosServicioCliente(cliente);
+        } catch (RestaurantException e) {
+            vistaCerrarMesa.mostrarMensaje(e.getMessage());
             //no existe cliente ingresado fin C/U
         }
     }
-    
     
 }
