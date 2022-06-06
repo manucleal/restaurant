@@ -16,7 +16,7 @@ public class ClientePreferencial extends TipoCliente {
         
         float totalBeneficioProducto = servicio.getTotalPorProducto("Agua");
         
-        float totalServicio = servicio.montoTotal();
+        float totalServicio = servicio.obtenerMontoTotalServicio();
         float totalBeneficio = 0;
         float totalSinProducto = totalServicio - totalBeneficioProducto;
         if(totalSinProducto > 2000){

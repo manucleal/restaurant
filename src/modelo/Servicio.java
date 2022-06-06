@@ -8,7 +8,6 @@ public class Servicio {
     private ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
     private Mesa mesa;
     private Cliente cliente;
-    public enum eventos{nuevoItem};
     
     public Servicio() {}
     
@@ -63,9 +62,9 @@ public class Servicio {
         }
     }
     
-    public float montoTotal(){
+    public float obtenerMontoTotalServicio() {
         float montoTotal = 0;
-        for(ItemServicio item : this.getItemsServicio()){
+        for(ItemServicio item : this.getItemsServicio()) {
             montoTotal += item.getSubTotal();
         }
         return montoTotal;

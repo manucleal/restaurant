@@ -20,7 +20,7 @@ public class DatosPrueba {
 //    --------------------- ALTA TIPO CLIENTE  ---------------------
         TipoCliente tipoClientePreferencial = new ClientePreferencial();
         TipoCliente tipoClienteCasa = new ClienteCasa();
-        TipoCliente tipoClienteComun = new ClientePreferencial();
+        TipoCliente tipoClienteComun = new ClienteComun();
         
 //    --------------------- ALTA CLIENTE  ---------------------
         Cliente clientePreferencial = new Cliente("Pedrito", "pedrito@gmail.com", tipoClientePreferencial );
@@ -79,10 +79,10 @@ public class DatosPrueba {
         mesa2.getServicio().agregarItemServicio(producto4, "Con salsa de soja", "12");
         
 //--------------------- AGREGO CLIENTE A UN SERVICIO DE UNA MESA ---------------------        
-        mesa1.getServicio().asignarCliente(clientePreferencial);
-        mesa2.getServicio().asignarCliente(clienteCasa);
-        mesa3.getServicio().asignarCliente(clienteComun);
-        mesa4.getServicio().asignarCliente(clientePreferencial);
+//        mesa1.getServicio().asignarCliente(clientePreferencial);
+//        mesa2.getServicio().asignarCliente(clienteCasa);
+//        mesa3.getServicio().asignarCliente(clienteComun);
+//        mesa4.getServicio().asignarCliente(clientePreferencial);
 
 
 

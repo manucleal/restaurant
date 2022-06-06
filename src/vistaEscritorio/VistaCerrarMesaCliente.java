@@ -76,6 +76,8 @@ public class VistaCerrarMesaCliente extends javax.swing.JDialog implements Vista
 
         jLabel4.setText("Beneficio:");
 
+        nombreBeneficio.setEditable(false);
+
         jLabel5.setText("Total beneficio:");
 
         totalBeneficio.setEditable(false);

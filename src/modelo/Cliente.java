@@ -51,12 +51,12 @@ public class Cliente {
         return tipoCliente.obtenerMontoBeneficio();
     }
     
-    public float obtenerMontoTotalMenosBeneficio(){
+    public float obtenerMontoTotalMenosBeneficio() {
         return tipoCliente.obtenerMontoTotalMenosBeneficio();
     }
 
     public float obtenerMontoTotal() {
-        return servicio.montoTotal();
+        return servicio.obtenerMontoTotalServicio();
     }
 
 }

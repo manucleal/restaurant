@@ -32,10 +32,10 @@ public abstract class TipoCliente {
         this.cliente = cliente;
     }
     
-    public abstract float obtenerMontoBeneficio();
-    
-    public float obtenerMontoTotalMenosBeneficio(){
+    public float obtenerMontoTotalMenosBeneficio() {
         return cliente.obtenerMontoTotal() - obtenerMontoBeneficio();
     }
     
+    public abstract float obtenerMontoBeneficio();
+
 }

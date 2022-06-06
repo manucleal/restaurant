@@ -42,7 +42,7 @@ public class ControladorMozo {
         this.mesaSeleccionada = mesa;
         vistaMozo.mostrarLabelMesa(mesa.getNumero());
         vistaMozo.mostrarDatosServicio(mesa.getServicio().getItemsServicio());
-        vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().montoTotal());
+        vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
     }
     
     public void abrirMesa() {
@@ -78,6 +78,7 @@ public class ControladorMozo {
         vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
         vistaMozo.mostrarProductosConStock(Fachada.getInstancia().obtenerProductosConStock());
         vistaMozo.limpiarInputProducto();
+        vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
     }
 
     public void logout() {

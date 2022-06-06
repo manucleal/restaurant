@@ -12,7 +12,7 @@ public class ClienteCasa extends TipoCliente {
     public float obtenerMontoBeneficio() {
         
         Servicio servicio = cliente.getServicio();
-        float totalServicio = servicio.montoTotal();
+        float totalServicio = servicio.obtenerMontoTotalServicio();
         if(totalServicio > 500){
             return 500;
         }
