@@ -7,6 +7,8 @@ package vistaEscritorio;
 import controlador.ControladorTransferencia;
 import controlador.VistaTransferenciaInterface;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import modelo.Mesa;
 import modelo.Mozo;
 
 /**
@@ -17,10 +19,10 @@ public class VistaTransferencia extends javax.swing.JDialog implements VistaTran
 
     private ControladorTransferencia controladorTransferencia;
     
-    public VistaTransferencia(java.awt.Frame parent, boolean modal, Mozo mozo) {
+    public VistaTransferencia(java.awt.Frame parent, boolean modal, Mesa mesa) {
         super(parent, modal);
         initComponents();
-        controladorTransferencia = new ControladorTransferencia(this, mozo);
+        controladorTransferencia = new ControladorTransferencia(this, mesa);
     }
 
     /**
@@ -42,6 +44,11 @@ public class VistaTransferencia extends javax.swing.JDialog implements VistaTran
         jScrollPane1.setViewportView(listMozosLogueados);
 
         buttonIniciarTransferencia.setText("Iniciar transferencia");
+        buttonIniciarTransferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIniciarTransferenciaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel1.setText("Mozos con menos de 5 mesas");
@@ -74,14 +81,25 @@ public class VistaTransferencia extends javax.swing.JDialog implements VistaTran
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonIniciarTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarTransferenciaActionPerformed
+        int posicion = listMozosLogueados.getSelectedIndex();
+        controladorTransferencia.iniciarTransferencia(posicion);
+    }//GEN-LAST:event_buttonIniciarTransferenciaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonIniciarTransferencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listMozosLogueados;
     // End of variables declaration//GEN-END:variables
-
+    
+    @Override
     public void mostrarMozos(ArrayList<Mozo> mozos) {
         listMozosLogueados.setListData(mozos.toArray());
+    }
+
+    @Override
+    public void mostrarMensaje(String msg) {
+        JOptionPane.showMessageDialog(this, msg);
     }
 }

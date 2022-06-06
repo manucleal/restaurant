@@ -7,7 +7,8 @@ public class Mozo extends Usuario {
     private String telefono;
     public static int cantidadMaxMesas = 5;
     private ArrayList<Mesa> mesas = new ArrayList();
-    private ArrayList<Transferencia> transferencias = new ArrayList();
+    private ArrayList<Transferencia> transferenciasRecibidas = new ArrayList();
+    private ArrayList<Transferencia> transferenciasHechas = new ArrayList();
 
     public Mozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
         super(nombreUsuario,contrasena,nombreCompleto);
@@ -44,10 +45,10 @@ public class Mozo extends Usuario {
         return null;
     }
     
-    public void agregarTransferencia(Mozo mozoDestino, Mesa mesa) throws RestaurantException {
+    public void realizarTransferencia(Mozo mozoDestino, Mesa mesa) throws RestaurantException {
         Transferencia transferencia = new Transferencia(this, mozoDestino, mesa);
         if(transferencia.validar()) {
-            transferencias.add(transferencia);
+            transferenciasHechas.add(transferencia);
             avisar(Transferencia.eventos.nuevaTranferencia);
         }
     }        

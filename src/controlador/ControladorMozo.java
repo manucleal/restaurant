@@ -102,7 +102,7 @@ public class ControladorMozo implements Observador {
     }
 
     public void transferirMesa() {
-        vistaMozo.llamarVentanaTransferencia(modelo);
+        vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
     }
 
 }

@@ -4,10 +4,17 @@
  */
 package controlador;
 
+import java.util.ArrayList;
+import modelo.Mozo;
+
 /**
  *
  * @author ecoitino
  */
 public interface VistaTransferenciaInterface {
+    
+    public void mostrarMozos(ArrayList<Mozo> mozos);
+    
+    public void mostrarMensaje(String msg);
     
 }

@@ -29,7 +29,7 @@ public interface VistaMozoInterface {
     
     public void llamarVentanaCerrarMesa(Servicio servicio);
     
-    public void llamarVentanaTransferencia(Mozo mozo);
+    public void llamarVentanaTransferencia(Mesa mesa);
     
     public void mostrarProductosConStock(ArrayList<Producto> productos);
     

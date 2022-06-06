@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.ItemServicio;
 import modelo.Mesa;
-import modelo.Mozo;
 import modelo.Producto;
 import modelo.Servicio;
 
@@ -363,8 +362,8 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }
     
     @Override
-    public void llamarVentanaTransferencia(Mozo mozo) {
-        new VistaTransferencia(null, false, mozo).setVisible(true);
+    public void llamarVentanaTransferencia(Mesa mesa) {
+        new VistaTransferencia(null, false, mesa).setVisible(true);
     }    
     
     @Override
