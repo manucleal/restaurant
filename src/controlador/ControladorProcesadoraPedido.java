@@ -9,6 +9,9 @@ import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Gestor;
 import exceptions.RestaurantException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.ItemServicio;
 import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;
@@ -20,33 +23,62 @@ import vistaEscritorio.VistaProcesadoraPedido;
  */
 public class ControladorProcesadoraPedido implements Observador {
 
-    private Conexion conexionGestor;
+    private Conexion conexion;
     private UnidadProcesadora procesadora;
     private VistaProcesadoraPedido vistaProcesadora;
     Fachada logica = Fachada.getInstancia();
 
     public ControladorProcesadoraPedido(VistaProcesadoraPedido vista,Conexion conexionGestor) {
-        this.conexionGestor = conexionGestor;
+        this.conexion = conexionGestor;
         this.procesadora = ((Gestor)conexionGestor.getUsuario()).getProcesadora();
         this.vistaProcesadora = vista;
         this.vistaProcesadora.setLocationRelativeTo(null);
         this.procesadora.agregarObservador(this);
-        vistaProcesadora.actualizarYMostrsarItemsSinProcesar(procesadora.getItemsSinSerTomados());
+        iniciarItems();
+        procesadora.agregarObservador(this);
     }    
 
     public void logout() {
         try {
-            logica.logoutConexionGestor(conexionGestor);
-            ((Gestor)(conexionGestor.getUsuario())).quitarProcesadora();
+            logica.logoutConexionGestor(conexion);
+            ((Gestor)(conexion.getUsuario())).quitarProcesadora();
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }
+    }
+    
+    public void iniciarItems(){
+        mostrarItemsSinProcesar();
+        mostrarPedidosTomados();
+    }
+    
+    public void mostrarItemsSinProcesar(){
+        vistaProcesadora.mostrarItemsSinProcesar(procesadora.getItemsSinSerTomados());
+    }
+    
+    public void mostrarPedidosTomados(){
+        vistaProcesadora.mostrarPedidosTomados(((Gestor)conexion.getUsuario()).getItemsProcesando());
+    }
+
+    public void pedidoTomado(ItemServicio item){
+        Gestor gestor = (Gestor)conexion.getUsuario();
+        try {
+            if(item == null)throw  new RestaurantException("No seleccionó ningun item");
+            gestor.agregarItem(item);
+            item.agregarGestor(gestor);
+            procesadora.itemTomado(item);
+        } catch (RestaurantException ex) {
+            vistaProcesadora.mostrarError(ex.getMessage());
+        }
+        iniciarItems();
     }
 
     @Override
     public void actualizar(Object evento, Observable origen) {
         if(evento.equals(UnidadProcesadora.eventos.nuevoItem)){
-            vistaProcesadora.actualizarYMostrsarItemsSinProcesar(procesadora.getItemsSinSerTomados());
+            mostrarItemsSinProcesar();
+        }else if (evento.equals(UnidadProcesadora.eventos.itemTomado)){
+            iniciarItems();
         }
     }    
 

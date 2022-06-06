@@ -30,17 +30,17 @@ public class VistaLoginGestor extends VistaLogin {
 
     @Override
     public void llamarProximoCasoUso(Object o) {
-        controladorLogin.mostrarUnidadesProcesadoras((Conexion) o);
+        ((ControladorLoginGestor)controladorLogin).mostrarUnidadesProcesadoras((Conexion) o);
         new VistaProcesadoraPedido(null, false,((Conexion) o)).setVisible(true);
     }
 
     @Override
     public void mostrarElegirUnidadesProcesadoras(ArrayList<UnidadProcesadora> procesadoras, Conexion c) {
-        Object unidad = JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
+        UnidadProcesadora unidad = (UnidadProcesadora) JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
             "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
             procesadoras.toArray(), "");
         
-        controladorLogin.agregarUnidadProcesadoraAGestor(unidad, c);
+        ((ControladorLoginGestor)controladorLogin).agregarUnidadProcesadoraAGestor(unidad, c);
         
     }
 

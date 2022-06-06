@@ -2,13 +2,17 @@ package modelo;
 
 import exceptions.RestaurantException;
 
-public class ItemServicio {
+public class ItemServicio{
     
     private UnidadProcesadora procesadora;
     private Producto producto;
     private int cantidad;
     private String descripcion;
     private Servicio servicio;
+    private Gestor gestor;
+    private estados estado;
+            
+    public enum estados{enEspera,procesando,finalizado};
 
     public ItemServicio(Producto producto, int cantidad, String descripcion, Servicio servicio) {
         this.producto = producto;
@@ -16,6 +20,7 @@ public class ItemServicio {
         this.descripcion = descripcion;
         this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
+        this.estado = estados.enEspera;
     }
 
     public UnidadProcesadora getProcesadora() {
@@ -48,4 +53,12 @@ public class ItemServicio {
         if (cantidad > cantidadDisponible) throw new RestaurantException("Sin stock, solo quedan (" + cantidadDisponible + ")");
         return true;
     }    
+    
+    public void agregarGestor (Gestor gestor)throws RestaurantException{
+        if( this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
+        this.gestor = gestor;
+        this.estado = estados.procesando;
+    }
+ 
+    
 }

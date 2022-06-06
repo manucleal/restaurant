@@ -16,6 +16,7 @@ public interface VistaProcesadoraPedidoInterface {
     
     public void mostrarError(String msg);
     
-    public void actualizarYMostrsarItemsSinProcesar(ArrayList<ItemServicio> items);
+    public void mostrarItemsSinProcesar(ArrayList<ItemServicio> items);
     
+    public void mostrarPedidosTomados(ArrayList<ItemServicio> items);
 }
