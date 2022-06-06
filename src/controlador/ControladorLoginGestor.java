@@ -26,12 +26,11 @@ public class ControladorLoginGestor extends ControladorLogin {
         return Fachada.getInstancia().loginGestor(nombreUsuario, password);
     }
 
-    public void agregarUnidadProcesadoraAGestor(Object unidad, Conexion c) {
+    public void agregarUnidadProcesadoraAGestor(UnidadProcesadora unidad, Conexion c) {
         try {
             Gestor gestor = (Gestor) c.getUsuario();
-            UnidadProcesadora unidadProcesadora = (UnidadProcesadora) unidad;
-            gestor.agregarProcesadora(unidadProcesadora);
-            unidadProcesadora.agregarGestor(gestor);
+            gestor.agregarProcesadora(unidad);
+            unidad.agregarGestor(gestor);
         } catch (RestaurantException e) {
             vista.mostrarError(e.getMessage());
         }

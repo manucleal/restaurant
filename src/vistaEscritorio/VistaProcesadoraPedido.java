@@ -19,7 +19,10 @@ import modelo.ItemServicio;
  */
 public class VistaProcesadoraPedido extends javax.swing.JDialog implements VistaProcesadoraPedidoInterface {
 
-    public ControladorProcesadoraPedido controlador;
+    private ControladorProcesadoraPedido controlador;
+    private ArrayList<ItemServicio> itemsSinProcesar;
+    private ArrayList<ItemServicio> itemsTomados;
+
     /**
      * Creates new form VistaProcesadoraPedido
      */
@@ -40,8 +43,10 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTItemsSinProcesar = new javax.swing.JTable();
+        tPedidos = new javax.swing.JTable();
         btnTomarPedido = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tPedidosTomados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -50,7 +55,7 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
             }
         });
 
-        jTItemsSinProcesar.setModel(new javax.swing.table.DefaultTableModel(
+        tPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -76,15 +81,22 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTItemsSinProcesar);
-        if (jTItemsSinProcesar.getColumnModel().getColumnCount() > 0) {
-            jTItemsSinProcesar.getColumnModel().getColumn(0).setResizable(false);
-            jTItemsSinProcesar.getColumnModel().getColumn(1).setResizable(false);
-            jTItemsSinProcesar.getColumnModel().getColumn(2).setResizable(false);
+        tPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tPedidos.setName(""); // NOI18N
+        tPedidos.setSelectionBackground(new java.awt.Color(102, 0, 102));
+        tPedidos.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(tPedidos);
+        if (tPedidos.getColumnModel().getColumnCount() > 0) {
+            tPedidos.getColumnModel().getColumn(0).setResizable(false);
+            tPedidos.getColumnModel().getColumn(1).setResizable(false);
+            tPedidos.getColumnModel().getColumn(2).setResizable(false);
+            tPedidos.getColumnModel().getColumn(3).setResizable(false);
+            tPedidos.getColumnModel().getColumn(4).setResizable(false);
         }
 
         btnTomarPedido.setBackground(new java.awt.Color(76, 35, 64));
         btnTomarPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnTomarPedido.setForeground(new java.awt.Color(255, 255, 255));
         btnTomarPedido.setText("Tomar Pedido");
         btnTomarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,27 +104,70 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
             }
         });
 
+        tPedidosTomados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Producto", "Cantidad", "Observaciones", "Nro mesa", "Mozo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tPedidosTomados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tPedidosTomados.setName(""); // NOI18N
+        tPedidosTomados.setSelectionBackground(new java.awt.Color(102, 0, 102));
+        tPedidosTomados.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane4.setViewportView(tPedidosTomados);
+        if (tPedidosTomados.getColumnModel().getColumnCount() > 0) {
+            tPedidosTomados.getColumnModel().getColumn(0).setResizable(false);
+            tPedidosTomados.getColumnModel().getColumn(1).setResizable(false);
+            tPedidosTomados.getColumnModel().getColumn(2).setResizable(false);
+            tPedidosTomados.getColumnModel().getColumn(3).setResizable(false);
+            tPedidosTomados.getColumnModel().getColumn(4).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(282, 282, 282))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(282, 282, 282)
-                .addComponent(btnTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(286, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnTomarPedido)
-                .addContainerGap(307, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,15 +180,45 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
 
     private void btnTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarPedidoActionPerformed
         // TODO add your handling code here:
+        int posItem = tPedidos.getSelectedRow();
+        if (posItem != -1) {
+            controlador.pedidoTomado(itemsSinProcesar.get(posItem));
+        } else {
+            controlador.pedidoTomado(null);
+        }
+        /**
+         * DUDA SI ESTA BIEN EL IF ACA
+         */
     }//GEN-LAST:event_btnTomarPedidoActionPerformed
 
     @Override
     public void mostrarError(String msg) {
-        JOptionPane.showConfirmDialog(this, msg);
+        JOptionPane.showMessageDialog(this, msg);
     }
 
     @Override
-    public void actualizarYMostrsarItemsSinProcesar(ArrayList<ItemServicio> items) {
+    public void mostrarItemsSinProcesar(ArrayList<ItemServicio> items) {
+        itemsSinProcesar = items;
+        mostrarTablaPedidos(items, tPedidos);
+    }
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTomarPedido;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable tPedidos;
+    private javax.swing.JTable tPedidosTomados;
+    // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mostrarPedidosTomados(ArrayList<ItemServicio> items) {
+        itemsTomados = items;
+        mostrarTablaPedidos(items, tPedidosTomados);
+    }
+
+    private void mostrarTablaPedidos(ArrayList<ItemServicio> items, javax.swing.JTable tabla) {
         DefaultTableModel datos = new DefaultTableModel();
         datos.addColumn("Producto");
         datos.addColumn("Cantidad");
@@ -151,14 +236,6 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
 
             contador++;
         }
-        jTItemsSinProcesar.setModel(datos);
-    }    
-            /**
-             * @param args the command line arguments
-             */
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTomarPedido;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTItemsSinProcesar;
-    // End of variables declaration//GEN-END:variables
+        tabla.setModel(datos);
+    }
 }

@@ -36,7 +36,7 @@ public class VistaLoginGestor extends VistaLogin {
 
     @Override
     public void mostrarElegirUnidadesProcesadoras(ArrayList<UnidadProcesadora> procesadoras, Conexion c) {
-        Object unidad = JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
+        UnidadProcesadora unidad = (UnidadProcesadora) JOptionPane.showInputDialog(this, "Seleccione unidad a trabajar: ",
             "UNIDADES PROCESADORAS", JOptionPane.QUESTION_MESSAGE, null,
             procesadoras.toArray(), "");
         
