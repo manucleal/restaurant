@@ -24,18 +24,27 @@ public class ControladorCerrarMesa {
     public ControladorCerrarMesa(VistaCerrarMesa vistaCerrarMesaCliente, Servicio modelo) {
         this.vistaCerrarMesa = vistaCerrarMesaCliente;
         this.modelo = modelo;
+        this.vistaCerrarMesa.setLocationRelativeTo(null);
+        this.vistaCerrarMesa.setTitle("Cerrar mesa");
     }
 
     public void buscarCliente(String idIngresado) {
         try {
             Cliente cliente = fachada.buscarCliente(idIngresado);
-            vistaCerrarMesa.cargarNombreCliente(cliente.getNombre());
             modelo.asignarCliente(cliente);
-            vistaCerrarMesa.cargarDatosServicioCliente(cliente);
+            cliente.getTipoCliente().obtenerMontoBeneficio();
+            vistaCerrarMesa.cargarNombreCliente(cliente.getNombre());
+            vistaCerrarMesa.mostrarNombreBeneficio(modelo.getBeneficioAplicado());
+            vistaCerrarMesa.cargarTotales(modelo);
         } catch (RestaurantException e) {
             vistaCerrarMesa.mostrarMensaje(e.getMessage());
             //no existe cliente ingresado fin C/U
         }
+    }
+    
+    public void cerrarMesa() {
+        modelo.getMesa().cerrarMesa();
+        vistaCerrarMesa.dispose();
     }
     
 }

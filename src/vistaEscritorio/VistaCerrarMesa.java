@@ -6,7 +6,6 @@
 package vistaEscritorio;
 
 import controlador.ControladorCerrarMesa;
-import modelo.Cliente;
 import modelo.Servicio;
 import controlador.VistaCerrarMesaInterface;
 import javax.swing.JOptionPane;
@@ -23,8 +22,6 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
     public VistaCerrarMesa(java.awt.Frame parent, boolean modal, Servicio servicio) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(parent);
-        setTitle("Cerrar mesa");
         controladorCerrarMesa = new ControladorCerrarMesa(this, servicio);
     }
 
@@ -45,6 +42,7 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
         totalBeneficio = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         totalAPagar = new javax.swing.JTextField();
+        buttonConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -84,6 +82,13 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
 
         totalAPagar.setEditable(false);
 
+        buttonConfirmar.setText("Confirmar");
+        buttonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,26 +96,6 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(totalSinBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nombreBeneficio)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(totalBeneficio)
-                            .addComponent(totalAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -121,7 +106,32 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(43, Short.MAX_VALUE))))
+                        .addContainerGap(45, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(buttonConfirmar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(totalSinBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nombreBeneficio)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
+                                .addGap(46, 46, 46)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(totalBeneficio)
+                                    .addComponent(totalAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(43, 43, 43))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +155,9 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
                     .addComponent(totalAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(totalSinBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(buttonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -159,9 +171,14 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreClienteActionPerformed
 
+    private void buttonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmarActionPerformed
+        controladorCerrarMesa.cerrarMesa();
+    }//GEN-LAST:event_buttonConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarCliente;
+    private javax.swing.JButton buttonConfirmar;
     private javax.swing.JTextField idCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -188,11 +205,15 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
     }
 
     @Override
-    public void cargarDatosServicioCliente(Cliente cliente) {
-        nombreBeneficio.setText(cliente.obtenerNombreBeneficio(cliente.getTipoCliente()));
-        totalSinBeneficio.setText(Float.toString(cliente.obtenerMontoTotal()));
-        totalBeneficio.setText(Float.toString(cliente.obtenerMontoBeneficio()));
-        totalAPagar.setText(Float.toString(cliente.obtenerMontoTotalMenosBeneficio()));
+    public void cargarTotales(Servicio servicio) {
+        totalSinBeneficio.setText(Float.toString(servicio.obtenerMontoTotalServicio()));
+        totalBeneficio.setText(Float.toString(servicio.getMontoDescuento()));
+        totalAPagar.setText(Float.toString(servicio.obtenerMontoTotalMenosBeneficio()));
+    }
+    
+    @Override
+    public void mostrarNombreBeneficio(String nombre) {
+        nombreBeneficio.setText(nombre);
     }
     
     @Override

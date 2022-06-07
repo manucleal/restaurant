@@ -258,7 +258,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }//GEN-LAST:event_buttonAbrirMesaActionPerformed
 
     private void buttonCerrarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCerrarMesaActionPerformed
-        controladorMozo.cerrarMesa();
+        controladorMozo.llamarVentanaCerrarMesa();
     }//GEN-LAST:event_buttonCerrarMesaActionPerformed
 
     private void buttonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgregarProductoActionPerformed

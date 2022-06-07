@@ -1,12 +1,15 @@
 package modelo;
 
-public class Mesa {
+import observador.Observable;
+
+public class Mesa extends Observable {
     
     private int numero;
     private Mozo mozo;
     private Servicio servicio = new Servicio();
     private boolean estaAbierta;
     private Transferencia transferencia;
+    public enum eventos { mesaCerrada };
 
     public Mesa(int numero, boolean estaAbierta) {
         this.numero = numero;
@@ -67,5 +70,11 @@ public class Mesa {
     
     public boolean agregarItemAServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
         return servicio.agregarItemServicio(producto, descripcion, cantidad);
+    }
+
+    public void cerrarMesa() {
+        servicio = new Servicio();
+        estaAbierta = false;
+        avisar(eventos.mesaCerrada);
     }
 }

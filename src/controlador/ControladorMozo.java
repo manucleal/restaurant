@@ -11,7 +11,6 @@ import modelo.Mozo;
 import modelo.Producto;
 import modelo.RestaurantException;
 import modelo.Transferencia;
-import static modelo.Transferencia.eventos.nuevaTranferencia;
 import observador.Observable;
 import observador.Observador;
 import vistaEscritorio.VistaMozo;
@@ -59,9 +58,10 @@ public class ControladorMozo implements Observador {
         }
     }
     
-    public void cerrarMesa(){
+    public void llamarVentanaCerrarMesa() {
         try{
             if(!mesaSeleccionada.estaCerrada("La mesa no está abierta")){
+                this.mesaSeleccionada.agregarObservador(this);
                 vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
         }catch(RestaurantException e){
@@ -98,6 +98,9 @@ public class ControladorMozo implements Observador {
     public void actualizar(Object evento, Observable origen) {
         if(evento.equals(Transferencia.eventos.nuevaTranferencia)) {
             System.out.println("LLEGO NUEVA TRANSFERENCIA !!!");
+        }
+        if(evento.equals(Mesa.eventos.mesaCerrada)) {
+            vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
         }
     }
 

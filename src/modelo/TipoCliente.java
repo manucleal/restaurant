@@ -12,30 +12,20 @@ package modelo;
 public abstract class TipoCliente {
     
     private String nombre;
-    private String nombreBeneficio;
     protected Cliente cliente;
 
-    public TipoCliente(String nombre, String nombreBeneficio) {
-        this.nombre = nombre;
-        this.nombreBeneficio = nombreBeneficio;
+    public TipoCliente(String nombre) {
+        this.nombre = nombre;    
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getNombreBeneficio() {
-        return nombreBeneficio;
-    }
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
     
-    public float obtenerMontoTotalMenosBeneficio() {
-        return cliente.obtenerMontoTotal() - obtenerMontoBeneficio();
-    }
-    
-    public abstract float obtenerMontoBeneficio();
+    public abstract void obtenerMontoBeneficio();
 
 }

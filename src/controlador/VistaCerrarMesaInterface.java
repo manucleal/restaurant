@@ -6,6 +6,7 @@
 package controlador;
 
 import modelo.Cliente;
+import modelo.Servicio;
 
 /**
  *
@@ -17,7 +18,9 @@ public interface VistaCerrarMesaInterface {
     
     public void cargarNombreCliente(String nombre);
     
-    public void cargarDatosServicioCliente(Cliente cliente);
+    public void cargarTotales(Servicio servicio);
+    
+    public void mostrarNombreBeneficio(String nombre);
     
     public void mostrarMensaje(String msg);
 }
