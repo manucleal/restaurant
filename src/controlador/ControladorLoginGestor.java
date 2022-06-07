@@ -30,7 +30,6 @@ public class ControladorLoginGestor extends ControladorLogin {
         try {
             Gestor gestor = (Gestor) c.getUsuario();
             gestor.agregarProcesadora(unidad);
-            unidad.agregarGestor(gestor);
         } catch (RestaurantException e) {
             vista.mostrarError(e.getMessage());
         }

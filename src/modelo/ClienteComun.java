@@ -3,18 +3,15 @@ package modelo;
 public class ClienteComun extends TipoCliente {
 
     public ClienteComun() {
-        super("Cliente comun", "Café invitación");
+        super("Cliente comun");
     }
 
     //Pagan $0 por todos los cafés consumidos en el servicio.
     @Override
-    public float obtenerMontoBeneficio() {
+    public void obtenerMontoBeneficio() {
         Servicio servicio = cliente.getServicio();
-        return servicio.getTotalPorProducto("Cafe");
+        servicio.setBeneficioAplicado("Café invitación");
+        servicio.setMontoDescuento(servicio.getTotalPorProducto("3B"));
     }
 
-    
-
-
-    
 }

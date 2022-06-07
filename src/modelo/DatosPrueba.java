@@ -53,6 +53,7 @@ public class DatosPrueba {
         Producto producto3 = new Producto("3A", "Chivito al plato", 250, 20, cocina);
         Producto producto4 = new Producto("4A", "Roll palta y salmón", 80, 300, sushibar);
         Producto producto5 = new Producto("3B", "Café", 75, 100, barra);
+        Producto producto6 = new Producto("5A", "Agua", 50, 200, barra);
         
 //--------------------- ALTA MOZO ---------------------
              
@@ -71,6 +72,7 @@ public class DatosPrueba {
         fachada.agregarProducto(producto3);
         fachada.agregarProducto(producto4);
         fachada.agregarProducto(producto5);
+        fachada.agregarProducto(producto6);
 //--------------------- AGREGO ITEM A UN SERVICIO DE UNA MESA ---------------------
         mesa1.getServicio().agregarItemServicio(producto1, "Milanesa a punto", "1");
         mesa1.getServicio().agregarItemServicio(producto1, "Puré de calabaza", "2" );

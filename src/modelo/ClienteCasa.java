@@ -3,18 +3,20 @@ package modelo;
 public class ClienteCasa extends TipoCliente {
 
     public ClienteCasa() {
-        super("ClienteCasa", "$500 invitación");
+        super("ClienteCasa");
     }
     
-//  Tienen $500 de consumo gratis por servicio.
+    //Tienen $500 de consumo gratis por servicio.
     @Override
-    public float obtenerMontoBeneficio() {        
+    public void obtenerMontoBeneficio() {        
         Servicio servicio = cliente.getServicio();
+        servicio.setBeneficioAplicado("$500 invitación");
         float totalServicio = servicio.obtenerMontoTotalServicio();
-        if(totalServicio > 500){
-            return 500;
+        if(totalServicio > 500) {
+            servicio.setMontoDescuento(500);            
+        } else {
+            servicio.setMontoDescuento(totalServicio);
         }
-        return totalServicio;
     }
     
 }

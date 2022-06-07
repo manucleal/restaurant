@@ -33,6 +33,7 @@ public class Gestor extends Usuario{
         if(procesadora != null && procesadora.equals(unidad)) throw new RestaurantException("La unidad -" + unidad.getNombre()+"- ya esta guardada en gestor");
         if(procesadora != null) throw new RestaurantException("El gestor ya tiene otra unidad cargada");
         procesadora = unidad;
+        unidad.agregarGestor(this);
     }
     
     public void quitarProcesadora() {

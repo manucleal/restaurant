@@ -42,21 +42,5 @@ public class Cliente {
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
-    
-    public String obtenerNombreBeneficio(TipoCliente tipo){
-        return tipo.getNombreBeneficio();
-    }
-    
-    public float obtenerMontoBeneficio(){
-        return tipoCliente.obtenerMontoBeneficio();
-    }
-    
-    public float obtenerMontoTotalMenosBeneficio() {
-        return tipoCliente.obtenerMontoTotalMenosBeneficio();
-    }
-
-    public float obtenerMontoTotal() {
-        return servicio.obtenerMontoTotalServicio();
-    }
 
 }

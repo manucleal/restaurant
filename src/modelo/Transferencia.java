@@ -1,9 +1,6 @@
 package modelo;
 
-import static modelo.Transferencia.eventos.nuevaTranferencia;
-import observador.Observable;
-
-public class Transferencia  extends Observable {
+public class Transferencia {
     
     private Mozo mozoOrigen;
     private Mozo mozoDestino;
@@ -14,8 +11,7 @@ public class Transferencia  extends Observable {
     public Transferencia(Mozo mozoOrigen, Mozo mozoDestino, Mesa mesa) {
         this.mozoOrigen = mozoOrigen;
         this.mozoDestino = mozoDestino;
-        this.mesa = mesa;
-        avisar(nuevaTranferencia);        
+        this.mesa = mesa;     
     }
     
     public boolean validar() throws RestaurantException {
