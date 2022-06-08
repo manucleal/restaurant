@@ -26,20 +26,37 @@ public class ControladorCerrarMesa {
         this.modelo = modelo;
         this.vistaCerrarMesa.setLocationRelativeTo(null);
         this.vistaCerrarMesa.setTitle("Cerrar mesa");
+        cargarTotalServicio();
     }
 
     public void buscarCliente(String idIngresado) {
         try {
             Cliente cliente = fachada.buscarCliente(idIngresado);
             modelo.asignarCliente(cliente);
-            cliente.getTipoCliente().obtenerMontoBeneficio();
+            cliente.getTipoCliente().obtenerMontoBeneficio(modelo);
             vistaCerrarMesa.cargarNombreCliente(cliente.getNombre());
             vistaCerrarMesa.mostrarNombreBeneficio(modelo.getBeneficioAplicado());
-            vistaCerrarMesa.cargarTotales(modelo);
+            
+            cargarTotalServicio();
+            vistaCerrarMesa.cargarTotalBeneficio(modelo.getMontoDescuento());
         } catch (RestaurantException e) {
             vistaCerrarMesa.mostrarMensaje(e.getMessage());
-            //no existe cliente ingresado fin C/U
+            limpiarDatos();
         }
+    }
+    
+    private void limpiarDatos(){
+        modelo.asignarCliente(null);
+        modelo.setMontoDescuento(0);
+        vistaCerrarMesa.cargarNombreCliente("");
+        vistaCerrarMesa.mostrarNombreBeneficio("");
+        vistaCerrarMesa.cargarTotalBeneficio(0);
+        vistaCerrarMesa.cargarTotalAPagar(modelo.obtenerMontoTotalMenosBeneficio());
+    }
+    
+    private void cargarTotalServicio(){
+        vistaCerrarMesa.mostrarTotalServicio(modelo.obtenerMontoTotalServicio());
+        vistaCerrarMesa.cargarTotalAPagar(modelo.obtenerMontoTotalMenosBeneficio());
     }
     
     public void cerrarMesa() {

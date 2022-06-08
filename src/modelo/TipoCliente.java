@@ -26,6 +26,6 @@ public abstract class TipoCliente {
         this.cliente = cliente;
     }
     
-    public abstract void obtenerMontoBeneficio();
+    public abstract void obtenerMontoBeneficio(Servicio servicio);
 
 }

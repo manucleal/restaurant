@@ -30,6 +30,8 @@ public class SistemaClientes {
     }
     
     public Cliente buscarCliente(String id) throws RestaurantException {
+        if("".equals(id)) throw new RestaurantException("Debe ingresar id de cliente");
+        
         for(Cliente cliente : getClientes()) {
             if(cliente.getId() == Integer.parseInt(id)){
                 return cliente;

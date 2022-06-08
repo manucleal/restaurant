@@ -81,6 +81,11 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
         jLabel6.setText("Total a pagar:");
 
         totalAPagar.setEditable(false);
+        totalAPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalAPagarActionPerformed(evt);
+            }
+        });
 
         buttonConfirmar.setText("Confirmar");
         buttonConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +180,10 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
         controladorCerrarMesa.cerrarMesa();
     }//GEN-LAST:event_buttonConfirmarActionPerformed
 
+    private void totalAPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalAPagarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalAPagarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarCliente;
@@ -203,12 +212,20 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
     public void cargarNombreCliente(String nombre) {
         nombreCliente.setText(nombre);
     }
-
+    
     @Override
-    public void cargarTotales(Servicio servicio) {
-        totalSinBeneficio.setText(Float.toString(servicio.obtenerMontoTotalServicio()));
-        totalBeneficio.setText(Float.toString(servicio.getMontoDescuento()));
-        totalAPagar.setText(Float.toString(servicio.obtenerMontoTotalMenosBeneficio()));
+    public void mostrarTotalServicio(float total) {
+        totalSinBeneficio.setText(Float.toString(total));
+    }
+    
+    @Override
+    public void cargarTotalBeneficio(float montoDescuento) {
+        totalBeneficio.setText(Float.toString(montoDescuento));
+    }
+    
+    @Override
+    public void cargarTotalAPagar(float montoTotalMenosBeneficio) {
+        totalAPagar.setText(Float.toString(montoTotalMenosBeneficio));
     }
     
     @Override

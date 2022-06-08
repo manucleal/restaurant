@@ -5,9 +5,6 @@
  */
 package controlador;
 
-import modelo.Cliente;
-import modelo.Servicio;
-
 /**
  *
  * @author faustoperillo
@@ -18,9 +15,13 @@ public interface VistaCerrarMesaInterface {
     
     public void cargarNombreCliente(String nombre);
     
-    public void cargarTotales(Servicio servicio);
+    public void cargarTotalAPagar(float totalAPagar);
+    
+    public void cargarTotalBeneficio(float montoDescuento);
     
     public void mostrarNombreBeneficio(String nombre);
     
     public void mostrarMensaje(String msg);
+    
+    public void mostrarTotalServicio(float monto);
 }

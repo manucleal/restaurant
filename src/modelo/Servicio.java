@@ -55,7 +55,6 @@ public class Servicio {
     
     public void asignarCliente(Cliente cliente) {
         this.cliente = cliente;
-        cliente.setServicio(this);
     }
 
     public Mesa getMesa() {
