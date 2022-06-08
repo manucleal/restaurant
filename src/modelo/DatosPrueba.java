@@ -57,8 +57,8 @@ public class DatosPrueba {
         
 //--------------------- ALTA MOZO ---------------------
              
-        Mozo mozo1 = fachada.crearUsuarioMozo("099250364", "Emanuel", "emanuel123", "Emanuel Coitiño");
-        Mozo mozo2 = fachada.crearUsuarioMozo("098869788", "Fausto", "fausto123", "Fausto Perillo");        
+        Mozo mozo1 = fachada.crearUsuarioMozo("099250364", "e", "123", "Emanuel Coitiño");
+        Mozo mozo2 = fachada.crearUsuarioMozo("098869788", "f", "123", "Fausto Perillo");        
         
 //--------------------- ASIGNO MESA A MOZO ---------------------
         mozo1.agregarMesa(mesa1);

@@ -20,6 +20,7 @@ import modelo.ItemServicio;
 import modelo.Mesa;
 import modelo.Producto;
 import modelo.Servicio;
+import modelo.Transferencia;
 
 
 /**
@@ -381,6 +382,14 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     @Override
     public void mostrarTotalServicio(float total) {
         totalServicio.setText(Float.toString(total));
+    }
+    
+    @Override
+    public void mostrarNotificaciónTranferencia(Transferencia transferencia) {
+        int nroMesa = transferencia.getMesa().getNumero();
+        String estado = transferencia.getMesa().estaAbierta() ? "abierta" : "cerrada";
+        String mozoOrigen = transferencia.getMozoOrigen().getNombreCompleto();        
+        JOptionPane.showConfirmDialog(null, "Desea aceptar la mesa " + estado + " " + nroMesa + " del mozo: " + mozoOrigen + " ?");
     }
     
     private class Clicklistener implements ActionListener {        

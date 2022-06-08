@@ -16,7 +16,8 @@ public class Observable {
     private ArrayList<Observador> observadores = new ArrayList();
     
     public void agregarObservador(Observador o){
-        if(!observadores.contains(o)){
+        boolean nose = observadores.contains(o);
+        if(!nose){
             observadores.add(o);
         }
     }

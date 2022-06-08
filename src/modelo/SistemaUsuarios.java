@@ -90,13 +90,13 @@ public class SistemaUsuarios {
             throw new RestaurantException("El usuario no se pudo agregar al sistema.");
         }
         return gestor;
-    }
+    }   
 
-    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas() {
+    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas(Mozo mozoActual) {
         ArrayList<Mozo> mozosLogueadosConMenosDeCincoMesas = new ArrayList<>();
         for(Conexion conexion : conexionesMozo) {
             Mozo mozo = (Mozo)conexion.getUsuario();
-            if(mozo.validarCantidadMesasMozo()) {
+            if(mozo.validarCantidadMesasMozo() && !mozoActual.equals(mozo)) {
                 mozosLogueadosConMenosDeCincoMesas.add(mozo);
             }
         }

@@ -27,21 +27,15 @@ public class ControladorTransferencia {
         inicializarVista();
     }
 
-    public void setListaConOtrosMozos(ArrayList<Mozo> listaConOtrosMozos) {
+    private void setListaConOtrosMozos(ArrayList<Mozo> listaConOtrosMozos) {
         this.listaConOtrosMozos = listaConOtrosMozos;
     }    
     
     private void inicializarVista() {
         vistaTransferencia.setLocationRelativeTo(null);
-        vistaTransferencia.mostrarMozos(obtenerListaConOtrosMozos());    
-    }
-    
-    private ArrayList<Mozo> obtenerListaConOtrosMozos() {
-        ArrayList<Mozo> mozos = Fachada.getInstancia().obtenerMozosLogueadosConMenosDeCincoMesas();
-        mozos.remove(modeloMesa.getMozo());
-        setListaConOtrosMozos(mozos);
-        return mozos;
-    }
+        setListaConOtrosMozos(Fachada.getInstancia().obtenerMozosLogueadosConMenosDeCincoMesas(modeloMesa.getMozo()));
+        vistaTransferencia.mostrarMozos(listaConOtrosMozos);
+    }   
 
     public void iniciarTransferencia(int posicion) {
         try {

@@ -27,6 +27,14 @@ public class Mozo extends Usuario {
         return mesas.size() < cantidadMaxMesas;
     }
 
+    public Transferencia getTransferenciaRecibida() {
+        return transferenciaRecibida;
+    }
+
+    public Transferencia getTransferenciaHecha() {
+        return transferenciaHecha;
+    }        
+
     public void setTransferenciaRecibida(Transferencia transferenciaRecibida) {
         this.transferenciaRecibida = transferenciaRecibida;
     }
@@ -57,6 +65,7 @@ public class Mozo extends Usuario {
         Transferencia transferencia = new Transferencia(this, mozoDestino, mesa);
         if(transferencia.validar()) {
             setTransferenciaHecha(transferencia);
+//            mozoDestino.setTransferenciaRecibida(transferencia);          
             avisar(Transferencia.eventos.nuevaTranferencia);
         }
     }        

@@ -5,6 +5,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import observador.Observable;
 
 /**
  *
@@ -73,7 +74,7 @@ public class Fachada {
         return sistemaClientes.buscarCliente(idCliente);
     }         
     
-    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas() {
-        return sistemaUsuarios.obtenerMozosLogueadosConMenosDeCincoMesas();
+    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas(Mozo mozoActual) {
+        return sistemaUsuarios.obtenerMozosLogueadosConMenosDeCincoMesas(mozoActual);
     }
 }

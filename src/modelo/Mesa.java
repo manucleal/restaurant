@@ -1,8 +1,8 @@
 package modelo;
 
-import observador.Observable;
+//import observador.Observable;
 
-public class Mesa extends Observable {
+public class Mesa {
     
     private int numero;
     private Mozo mozo;
@@ -75,6 +75,6 @@ public class Mesa extends Observable {
     public void cerrarMesa() {
         servicio = new Servicio();
         estaAbierta = false;
-        avisar(eventos.mesaCerrada);
+        //avisar(eventos.mesaCerrada);
     }
 }
