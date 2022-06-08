@@ -8,8 +8,7 @@ public class ClienteComun extends TipoCliente {
 
     //Pagan $0 por todos los cafés consumidos en el servicio.
     @Override
-    public void obtenerMontoBeneficio() {
-        Servicio servicio = cliente.getServicio();
+    public void obtenerMontoBeneficio(Servicio servicio) {
         servicio.setBeneficioAplicado("Café invitación");
         servicio.setMontoDescuento(servicio.getTotalPorProducto("3B"));
     }

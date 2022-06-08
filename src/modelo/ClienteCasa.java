@@ -8,8 +8,7 @@ public class ClienteCasa extends TipoCliente {
     
     //Tienen $500 de consumo gratis por servicio.
     @Override
-    public void obtenerMontoBeneficio() {        
-        Servicio servicio = cliente.getServicio();
+    public void obtenerMontoBeneficio(Servicio servicio) {        
         servicio.setBeneficioAplicado("$500 invitación");
         float totalServicio = servicio.obtenerMontoTotalServicio();
         if(totalServicio > 500) {
