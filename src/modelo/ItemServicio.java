@@ -40,6 +40,10 @@ public class ItemServicio{
     public Servicio getServicio() {
         return servicio;
     }      
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
     
     public float getSubTotal() {
         return cantidad * producto.getPrecio();
@@ -56,6 +60,10 @@ public class ItemServicio{
         if( this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
         this.gestor = gestor;
         this.estado = estados.procesando;
+    }
+    
+    public boolean pedidoFinalizado(){
+        return this.estado.equals(estados.finalizado);
     }
  
     

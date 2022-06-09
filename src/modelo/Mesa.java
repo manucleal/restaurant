@@ -42,6 +42,11 @@ public class Mesa extends Observable {
         if(!estaAbierta()) throw new RestaurantException(msg);
         return false;
     }
+    
+    public boolean tienePedidosPendientes() throws RestaurantException{
+        if(!sinPedidosPendientes()) throw new RestaurantException("No se puede cerrar la mesa, tiene pedidos pendientes");
+        return false;
+    }
 
     public Mozo getMozo() {
         return mozo;
@@ -73,8 +78,15 @@ public class Mesa extends Observable {
     }
 
     public void cerrarMesa() {
+        servicio.setMesa(null);
+        if(servicio.tieneCliente()) servicio.getCliente().setServicio(null);
+        servicio.asignarCliente(null);
         servicio = new Servicio();
         estaAbierta = false;
         avisar(eventos.mesaCerrada);
+    }
+    
+    private boolean sinPedidosPendientes(){
+        return this.servicio.verificarPedidosFinalizados();
     }
 }

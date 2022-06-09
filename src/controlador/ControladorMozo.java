@@ -60,7 +60,7 @@ public class ControladorMozo implements Observador {
     
     public void llamarVentanaCerrarMesa() {
         try{
-            if(!mesaSeleccionada.estaCerrada("La mesa no está abierta")){
+            if(!mesaSeleccionada.estaCerrada("La mesa no está abierta") && !mesaSeleccionada.tienePedidosPendientes()){
                 this.mesaSeleccionada.agregarObservador(this);
                 vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
