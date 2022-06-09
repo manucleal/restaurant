@@ -79,8 +79,7 @@ public class DatosPrueba {
         mesa2.getServicio().agregarItemServicio(producto2, "Sin hielo", "1");
         mesa2.getServicio().agregarItemServicio(producto4, "Con salsa de soja", "12");
 
-        // GESTION
-        //<editor-fold>
+    //<editor-fold desc="GESTION"> 
         try {
             fachada.crearUsuarioGestor("G1", "G1", "Gestor 1");
             fachada.crearUsuarioGestor("G2", "G2", "Gestor 2");
@@ -89,7 +88,7 @@ public class DatosPrueba {
         } catch (RestaurantException ex) {
             System.out.println("Usuarios gestor no creados.");
         }
-        //</editor-fold>
+    //</editor-fold>
         
     }
 }
