@@ -85,8 +85,7 @@ public class DatosPrueba {
 
 
 
-        // GESTION
-        //<editor-fold>
+    //<editor-fold desc="GESTION"> 
         try {
             logica.crearUsuarioGestor("G1", "G1", "Gestor 1");
             logica.crearUsuarioGestor("G2", "G2", "Gestor 2");
@@ -95,7 +94,7 @@ public class DatosPrueba {
         } catch (UsuarioException ex) {
             System.out.println("Usuarios gestor no creados.");
         }
-        //</editor-fold>
+    //</editor-fold>
         
     }
 }

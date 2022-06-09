@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Conexion;
+import modelo.Gestor;
 import modelo.ItemServicio;
 
 /**
@@ -30,7 +31,7 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         super(parent, modal);
         initComponents();
         this.controlador = new ControladorProcesadoraPedido(this, conexion);
-        setTitle("Gestor -" + conexion.getUsuario().getNombreCompleto());
+        setTitle("Gestor -" + conexion.getUsuario().getNombreCompleto() + " -" + ((Gestor)(conexion.getUsuario())).getProcesadora().getNombre());
     }
 
     /**
@@ -47,6 +48,7 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         btnTomarPedido = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tPedidosTomados = new javax.swing.JTable();
+        btnFinalizarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -143,6 +145,16 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
             tPedidosTomados.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        btnFinalizarPedido.setBackground(new java.awt.Color(76, 35, 64));
+        btnFinalizarPedido.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnFinalizarPedido.setForeground(new java.awt.Color(255, 255, 255));
+        btnFinalizarPedido.setText("Finalizar Pedido");
+        btnFinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,12 +163,19 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTomarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(282, 282, 282))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(283, 283, 283))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +186,9 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
                 .addComponent(btnTomarPedido)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnFinalizarPedido)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -186,10 +207,16 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         } else {
             controlador.pedidoTomado(null);
         }
-        /**
-         * DUDA SI ESTA BIEN EL IF ACA
-         */
     }//GEN-LAST:event_btnTomarPedidoActionPerformed
+
+    private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
+        int posItem = tPedidosTomados.getSelectedRow();
+        if (posItem != -1) {
+            controlador.pedidoFinalizado(itemsTomados.get(posItem));
+        } else {
+            controlador.pedidoFinalizado(null);
+        }
+     }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 
     @Override
     public void mostrarError(String msg) {
@@ -205,6 +232,7 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinalizarPedido;
     private javax.swing.JButton btnTomarPedido;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;

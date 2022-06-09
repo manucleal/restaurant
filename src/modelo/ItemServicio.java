@@ -56,9 +56,14 @@ public class ItemServicio{
     
     public void agregarGestor (Gestor gestor)throws RestaurantException{
         if( this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
+        if(estado != estados.enEspera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
         this.gestor = gestor;
         this.estado = estados.procesando;
+        procesadora.itemTomado(this);
     }
  
     
+    public void finalizado() {
+        estado = estados.finalizado;
+    }
 }
