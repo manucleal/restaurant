@@ -41,6 +41,17 @@ public class Gestor extends Usuario {
     }
     
     public void agregarItem(ItemServicio item) throws RestaurantException{
-        if(!itemsProcesando.contains(item)) itemsProcesando.add(item);
+        if(item == null) throw new RestaurantException("No se selecciono item");
+        if(itemsProcesando.contains(item)) throw new RestaurantException("El item ya fue tomado por usted.");
+        itemsProcesando.add(item);
+        item.agregarGestor(this);
+    }
+
+    public void finalizarItem(ItemServicio item) throws RestaurantException {
+        if(item == null) throw new RestaurantException("No se selecciono item");
+        if(!itemsProcesando.contains(item)) throw new RestaurantException("No se encuentra item en lista de pedidos tomados.");
+        item.finalizado();
+        itemsProcesando.remove(item);
+        procesadora.quitarItemServicio(item);
     }
 }
