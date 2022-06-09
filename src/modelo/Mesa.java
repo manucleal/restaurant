@@ -1,7 +1,5 @@
 package modelo;
 
-//import observador.Observable;
-
 public class Mesa {
     
     private int numero;
@@ -9,7 +7,7 @@ public class Mesa {
     private Servicio servicio = new Servicio();
     private boolean estaAbierta;
     private Transferencia transferencia;
-    public enum eventos { mesaCerrada };
+
 
     public Mesa(int numero, boolean estaAbierta) {
         this.numero = numero;
@@ -75,6 +73,6 @@ public class Mesa {
     public void cerrarMesa() {
         servicio = new Servicio();
         estaAbierta = false;
-        //avisar(eventos.mesaCerrada);
+        mozo.avisar(Mozo.eventos.mesaCerrada);
     }
 }

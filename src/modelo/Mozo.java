@@ -9,6 +9,8 @@ public class Mozo extends Usuario {
     private ArrayList<Mesa> mesas = new ArrayList();    
     private Transferencia transferenciaRecibida;
     private Transferencia transferenciaHecha;   
+    
+    public enum eventos { mesaCerrada };
 
     public Mozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
         super(nombreUsuario,contrasena,nombreCompleto);
@@ -65,8 +67,8 @@ public class Mozo extends Usuario {
         Transferencia transferencia = new Transferencia(this, mozoDestino, mesa);
         if(transferencia.validar()) {
             setTransferenciaHecha(transferencia);
-//            mozoDestino.setTransferenciaRecibida(transferencia);          
-            avisar(Transferencia.eventos.nuevaTranferencia);
+            mozoDestino.setTransferenciaRecibida(transferencia);          
+            mozoDestino.avisar(Transferencia.eventos.nuevaTranferencia);
         }
     }        
     

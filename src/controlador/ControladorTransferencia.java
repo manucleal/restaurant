@@ -41,7 +41,10 @@ public class ControladorTransferencia {
         try {
             if(posicion != -1) {
                 Mozo mozoSeleccionado = (Mozo)listaConOtrosMozos.get(posicion);
-                modeloMesa.getMozo().realizarTransferencia(mozoSeleccionado, modeloMesa);
+                Mesa mesaATransferir = modeloMesa;
+                Mozo mozoEmisorMesa = mesaATransferir.getMozo();
+                
+                mozoEmisorMesa.realizarTransferencia(mozoSeleccionado, modeloMesa);
             }
         } catch (RestaurantException e) {
             vistaTransferencia.mostrarMensaje(e.getMessage());

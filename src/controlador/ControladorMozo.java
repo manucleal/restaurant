@@ -61,7 +61,6 @@ public class ControladorMozo implements Observador {
     public void llamarVentanaCerrarMesa() {
         try{
             if(!mesaSeleccionada.estaCerrada("La mesa no está abierta")){
-//                this.mesaSeleccionada.agregarObservador(this);
                 vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
         }catch(RestaurantException e){
@@ -95,20 +94,16 @@ public class ControladorMozo implements Observador {
     }
 
     @Override
-    public void actualizar(Object evento, Observable origen) {
+    public void actualizar(Object evento, Observable origenEvento) {
         if(evento.equals(Transferencia.eventos.nuevaTranferencia)) {
-//            Mozo mozoQueRecibeTransferencia = modeloMozo;
-            Mozo mozoOrigen = (Mozo)origen;
-            Transferencia transferencia = mozoOrigen.getTransferenciaHecha();
+            Mozo mozoDestino = (Mozo)origenEvento;
+            Transferencia transferencia = mozoDestino.getTransferenciaRecibida();
             if(transferencia != null) {
-                Mozo mozoDestino = transferencia.getMozoDestino();
-                if(mozoDestino.equals(mesaSeleccionada.getMozo())) {
-                    vistaMozo.mostrarNotificaciónTranferencia(transferencia);
-                }                        
-            }
+                vistaMozo.mostrarNotificaciónTranferencia(transferencia);                                      
+            }            
 
         }
-        if(evento.equals(Mesa.eventos.mesaCerrada)) {
+        if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
         }
     }
