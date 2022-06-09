@@ -38,7 +38,7 @@ public class ControladorProcesadoraPedido implements Observador {
 
     public void logout() {
         try {
-            logica.logoutConexion(conexion);     
+            logica.logoutConexionGestor(conexion);     
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }

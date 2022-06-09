@@ -40,6 +40,11 @@ public class Mesa {
         if(!estaAbierta()) throw new RestaurantException(msg);
         return false;
     }
+    
+    public boolean tienePedidosPendientes() throws RestaurantException{
+        if(!sinPedidosPendientes()) throw new RestaurantException("No se puede cerrar la mesa, tiene pedidos pendientes");
+        return false;
+    }
 
     public Mozo getMozo() {
         return mozo;
@@ -71,8 +76,15 @@ public class Mesa {
     }
 
     public void cerrarMesa() {
-        servicio = new Servicio();
+        if(servicio.tieneCliente()) servicio.getCliente().setServicio(null);
+        servicio.asignarCliente(null);
+        servicio = new Servicio();        
+        servicio.setMesa(this);
         estaAbierta = false;
         mozo.avisar(Mozo.eventos.mesaCerrada);
+    }
+    
+    private boolean sinPedidosPendientes(){
+        return this.servicio.verificarPedidosFinalizados();
     }
 }

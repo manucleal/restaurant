@@ -60,7 +60,7 @@ public class ControladorMozo implements Observador {
     
     public void llamarVentanaCerrarMesa() {
         try{
-            if(!mesaSeleccionada.estaCerrada("La mesa no está abierta")){
+            if(!mesaSeleccionada.estaCerrada("La mesa no está abierta") && !mesaSeleccionada.tienePedidosPendientes()){
                 vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
         }catch(RestaurantException e){
@@ -87,7 +87,7 @@ public class ControladorMozo implements Observador {
 
     public void logout() {
         try {
-            Fachada.getInstancia().logoutConexion(conexion);
+            Fachada.getInstancia().logoutConexionMozo(conexion);
         } catch (RestaurantException e) {
             vistaMozo.mostrarMensaje(e.getMessage());
         }

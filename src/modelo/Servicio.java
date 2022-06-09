@@ -99,5 +99,12 @@ public class Servicio {
     public float obtenerMontoTotalMenosBeneficio() {
         return obtenerMontoTotalServicio() - montoDescuento;
     }
+    
+    public boolean verificarPedidosFinalizados(){
+        for(ItemServicio item : itemsServicio){
+            if(!item.pedidoFinalizado()) return false;
+        }
+        return true;
+    }
 
 }

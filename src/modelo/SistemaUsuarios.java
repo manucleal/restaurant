@@ -45,26 +45,16 @@ public class SistemaUsuarios {
         }
         return new Conexion(usuario);
     }
-
-    public void logoutConexion(Conexion conexion) throws RestaurantException {
-        if(conexion.getUsuario() instanceof Gestor) {
-            Gestor gestor = (Gestor)(conexion.getUsuario());
-            logoutConexionGestor(conexion, gestor);
-        }        
-        if(conexion.getUsuario() instanceof Mozo) {
-            logoutConexionMozo(conexion);
-        }
-    }
     
-    private void logoutConexionGestor(Conexion conexion, Gestor gestor) throws RestaurantException {
+    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
         if (conexionesGestor.remove(conexion)) {
-            gestor.quitarProcesadora();
+            ((Gestor)conexion.getUsuario()).quitarProcesadora();
         } else {
             throw new RestaurantException("No se encontro conexion");
         }        
     }
     
-    private void logoutConexionMozo(Conexion conexion) throws RestaurantException {
+    public void logoutConexionMozo(Conexion conexion) throws RestaurantException {
         if (!conexionesMozo.remove(conexion)) {
             throw new RestaurantException("No se encontro conexion");
         }
