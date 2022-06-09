@@ -7,6 +7,7 @@ package controlador;
 import java.util.ArrayList;
 import modelo.ItemServicio;
 import modelo.Mesa;
+import modelo.Mozo;
 import modelo.Producto;
 import modelo.Servicio;
 
@@ -26,7 +27,9 @@ public interface VistaMozoInterface {
     
     public void mostrarMensaje(String msg);
     
-    public void llamarVentanaCerrarMesaCliente(Servicio servicio);
+    public void llamarVentanaCerrarMesa(Servicio servicio);
+    
+    public void llamarVentanaTransferencia(Mesa mesa);
     
     public void mostrarProductosConStock(ArrayList<Producto> productos);
     

@@ -1,7 +1,5 @@
 package modelo;
 
-import exceptions.RestaurantException;
-
 public class ItemServicio{
     
     private UnidadProcesadora procesadora;
@@ -42,6 +40,10 @@ public class ItemServicio{
     public Servicio getServicio() {
         return servicio;
     }      
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
     
     public float getSubTotal() {
         return cantidad * producto.getPrecio();
@@ -60,6 +62,10 @@ public class ItemServicio{
         this.gestor = gestor;
         this.estado = estados.procesando;
         procesadora.itemTomado(this);
+    }
+    
+    public boolean pedidoFinalizado(){
+        return this.estado.equals(estados.finalizado);
     }
  
     

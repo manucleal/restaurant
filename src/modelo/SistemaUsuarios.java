@@ -1,7 +1,5 @@
 package modelo;
 
-import exceptions.RestaurantException;
-import exceptions.UsuarioException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,6 +9,8 @@ public class SistemaUsuarios {
     private ArrayList<Gestor> usuariosGestores = new ArrayList();
     private ArrayList<Conexion> conexionesMozo = new ArrayList();
     private ArrayList<Conexion> conexionesGestor = new ArrayList();
+    
+    protected SistemaUsuarios() {}
 
     public Conexion loginMozo(String nombreUsuario, String password) throws RestaurantException {
         Mozo mozo = (Mozo) login(nombreUsuario, password, (ArrayList) usuariosMozos);
@@ -46,34 +46,61 @@ public class SistemaUsuarios {
         return new Conexion(usuario);
     }
 
-    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
-        if (!conexionesGestor.remove(conexion)) {
+    public void logoutConexion(Conexion conexion) throws RestaurantException {
+        if(conexion.getUsuario() instanceof Gestor) {
+            Gestor gestor = (Gestor)(conexion.getUsuario());
+            logoutConexionGestor(conexion, gestor);
+        }        
+        if(conexion.getUsuario() instanceof Mozo) {
+            logoutConexionMozo(conexion);
+        }
+    }
+    
+    private void logoutConexionGestor(Conexion conexion, Gestor gestor) throws RestaurantException {
+        if (conexionesGestor.remove(conexion)) {
+            gestor.quitarProcesadora();
+        } else {
+            throw new RestaurantException("No se encontro conexion");
+        }        
+    }
+    
+    private void logoutConexionMozo(Conexion conexion) throws RestaurantException {
+        if (!conexionesMozo.remove(conexion)) {
             throw new RestaurantException("No se encontro conexion");
         }
     }
 
-    public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
+    public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) throws RestaurantException {
         Mozo mozo = new Mozo(telefono, nombreUsuario, contrasena, nombreCompleto);
-        if (usuariosMozos.add(mozo)) {
-            return mozo;
+        if (!mozo.validar()) {
+            throw new RestaurantException("Nomre de usuario, contraseña y nombre completo son requeridos.");
         }
-        return null;
+        if (!usuariosMozos.add(mozo)) {
+            throw new RestaurantException("El usuario no se pudo agregar al sistema.");
+        }
+        return mozo;
     }
 
-    public Gestor crearUsuarioGestor(String nombreUsuario, String contrasena, String nombreCompleto) throws UsuarioException {
-        if (nombreUsuario.isBlank()
-                || contrasena.isBlank()
-                || nombreCompleto.isBlank()) {
-            throw new UsuarioException("Nomre de usuario, contraseña y nombre completo son requeridos.");
-        }
-        Gestor gestor = new Gestor(null, nombreUsuario, contrasena, nombreCompleto);
-        if (gestor == null) {
-            throw new UsuarioException("No se pudo crear el usuario gestor.");
+    public Gestor crearUsuarioGestor(String nombreUsuario, String contrasena, String nombreCompleto) throws RestaurantException {        
+        Gestor gestor = new Gestor(nombreUsuario, contrasena, nombreCompleto);
+        if (!gestor.validar()) {
+            throw new RestaurantException("Nomre de usuario, contraseña y nombre completo son requeridos.");
         }
         if (!usuariosGestores.add(gestor)) {
-            throw new UsuarioException("El usuario no se pudo agregar al sistema.");
+            throw new RestaurantException("El usuario no se pudo agregar al sistema.");
         }
         return gestor;
+    }
+
+    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas() {
+        ArrayList<Mozo> mozosLogueadosConMenosDeCincoMesas = new ArrayList<>();
+        for(Conexion conexion : conexionesMozo) {
+            Mozo mozo = (Mozo)conexion.getUsuario();
+            if(mozo.validarCantidadMesasMozo()) {
+                mozosLogueadosConMenosDeCincoMesas.add(mozo);
+            }
+        }
+        return mozosLogueadosConMenosDeCincoMesas;
     }
 
 }

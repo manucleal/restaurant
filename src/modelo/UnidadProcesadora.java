@@ -1,6 +1,5 @@
 package modelo;
 
-import exceptions.RestaurantException;
 import java.util.ArrayList;
 import observador.Observable;
 

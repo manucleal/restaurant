@@ -1,7 +1,5 @@
 package modelo;
 
-import exceptions.RestaurantException;
-
 public class Producto {
     
     private String codigo;

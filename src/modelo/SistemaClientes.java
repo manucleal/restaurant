@@ -29,13 +29,15 @@ public class SistemaClientes {
         return false;
     }
     
-    public Cliente buscarCliente(String id) {
+    public Cliente buscarCliente(String id) throws RestaurantException {
+        if("".equals(id)) throw new RestaurantException("Debe ingresar id de cliente");
+        
         for(Cliente cliente : getClientes()) {
             if(cliente.getId() == Integer.parseInt(id)){
                 return cliente;
             }
         }        
-        return null;
+        throw new RestaurantException("No se encontró al cliente");
     }   
     
     private int generarProximoId(){

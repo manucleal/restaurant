@@ -6,9 +6,11 @@ public class ClienteComun extends TipoCliente {
         super("Cliente comun");
     }
 
+    //Pagan $0 por todos los cafés consumidos en el servicio.
     @Override
-    public void obtenerBeneficio() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void obtenerMontoBeneficio(Servicio servicio) {
+        servicio.setBeneficioAplicado("Café invitación");
+        servicio.setMontoDescuento(servicio.getTotalPorProducto("3B"));
     }
-    
+
 }

@@ -12,15 +12,20 @@ package modelo;
 public abstract class TipoCliente {
     
     private String nombre;
+    protected Cliente cliente;
 
     public TipoCliente(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre;    
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
-    public abstract void obtenerBeneficio();
-        
-//    boolean validar() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-    
+    public abstract void obtenerMontoBeneficio(Servicio servicio);
+
 }

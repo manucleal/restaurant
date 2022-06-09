@@ -1,14 +1,15 @@
 package modelo;
 
-import exceptions.RestaurantException;
+import observador.Observable;
 
-public class Mesa {
+public class Mesa extends Observable {
     
     private int numero;
     private Mozo mozo;
     private Servicio servicio = new Servicio();
     private boolean estaAbierta;
     private Transferencia transferencia;
+    public enum eventos { mesaCerrada };
 
     public Mesa(int numero, boolean estaAbierta) {
         this.numero = numero;
@@ -41,6 +42,11 @@ public class Mesa {
         if(!estaAbierta()) throw new RestaurantException(msg);
         return false;
     }
+    
+    public boolean tienePedidosPendientes() throws RestaurantException{
+        if(!sinPedidosPendientes()) throw new RestaurantException("No se puede cerrar la mesa, tiene pedidos pendientes");
+        return false;
+    }
 
     public Mozo getMozo() {
         return mozo;
@@ -69,5 +75,18 @@ public class Mesa {
     
     public boolean agregarItemAServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
         return servicio.agregarItemServicio(producto, descripcion, cantidad);
+    }
+
+    public void cerrarMesa() {
+        servicio.setMesa(null);
+        if(servicio.tieneCliente()) servicio.getCliente().setServicio(null);
+        servicio.asignarCliente(null);
+        servicio = new Servicio();
+        estaAbierta = false;
+        avisar(eventos.mesaCerrada);
+    }
+    
+    private boolean sinPedidosPendientes(){
+        return this.servicio.verificarPedidosFinalizados();
     }
 }

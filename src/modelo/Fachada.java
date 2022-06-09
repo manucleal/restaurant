@@ -4,8 +4,6 @@
  */
 package modelo;
 
-import exceptions.RestaurantException;
-import exceptions.UsuarioException;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +36,14 @@ public class Fachada {
     public UnidadProcesadora buscarConExceptionProcesadora(String nombre) throws RestaurantException {
         return sistemaPedidos.buscarConExceptionProcesadora(nombre);
     }
+    
+    public ArrayList<Producto> obtenerProductosConStock() {
+        return sistemaPedidos.obtenerProductosConStock();
+    }
+    
+    public void agregarProducto(Producto producto) {
+        sistemaPedidos.agregarProducto(producto);
+    }
 
     public Conexion loginMozo(String nombreUsuario, String password) throws RestaurantException {
         return sistemaUsuarios.loginMozo(nombreUsuario, password);
@@ -47,15 +53,15 @@ public class Fachada {
         return sistemaUsuarios.loginGestor(nombreUsuario, password);
     }
 
-    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
-        sistemaUsuarios.logoutConexionGestor(conexion);
+    public void logoutConexion(Conexion conexion) throws RestaurantException {
+        sistemaUsuarios.logoutConexion(conexion);
     }
 
-    public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
+    public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) throws RestaurantException {
         return sistemaUsuarios.crearUsuarioMozo(telefono, nombreUsuario, contrasena, nombreCompleto);
     }
 
-    public Gestor crearUsuarioGestor(String nombreUsuario, String contrasena, String nombreCompleto) throws UsuarioException {
+    public Gestor crearUsuarioGestor(String nombreUsuario, String contrasena, String nombreCompleto) throws RestaurantException {
         return sistemaUsuarios.crearUsuarioGestor(nombreUsuario, contrasena, nombreCompleto);
     }
     
@@ -63,15 +69,11 @@ public class Fachada {
         sistemaClientes.agregar(cliente);
     }
     
-    public Cliente buscarCliente(String idCliente) {
+    public Cliente buscarCliente(String idCliente) throws RestaurantException {
         return sistemaClientes.buscarCliente(idCliente);
-    }
-        
-    public void agregarProducto(Producto producto) {
-        sistemaPedidos.agregarProducto(producto);
-    }
+    }         
     
-    public ArrayList<Producto> obtenerProductosConStock() {
-        return sistemaPedidos.obtenerProductosConStock();
+    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas() {
+        return sistemaUsuarios.obtenerMozosLogueadosConMenosDeCincoMesas();
     }
 }

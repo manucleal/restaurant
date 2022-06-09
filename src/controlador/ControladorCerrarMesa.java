@@ -7,8 +7,9 @@ package controlador;
 
 import modelo.Cliente;
 import modelo.Fachada;
+import modelo.RestaurantException;
 import modelo.Servicio;
-import vistaEscritorio.VistaCerrarMesaCliente;
+import vistaEscritorio.VistaCerrarMesa;
 
 /**
  *
@@ -16,24 +17,51 @@ import vistaEscritorio.VistaCerrarMesaCliente;
  */
 public class ControladorCerrarMesa {
     
-    private VistaCerrarMesaCliente vistaCerrarMesaCliente;
+    private VistaCerrarMesa vistaCerrarMesa;
     private Servicio modelo;
     private Fachada fachada = Fachada.getInstancia();
 
-    public ControladorCerrarMesa(VistaCerrarMesaCliente vistaCerrarMesaCliente, Servicio modelo) {
-        this.vistaCerrarMesaCliente = vistaCerrarMesaCliente;
+    public ControladorCerrarMesa(VistaCerrarMesa vistaCerrarMesaCliente, Servicio modelo) {
+        this.vistaCerrarMesa = vistaCerrarMesaCliente;
         this.modelo = modelo;
+        this.vistaCerrarMesa.setLocationRelativeTo(null);
+        this.vistaCerrarMesa.setTitle("Cerrar mesa");
+        cargarTotalServicio();
     }
 
     public void buscarCliente(String idIngresado) {
-        Cliente cliente = fachada.buscarCliente(idIngresado);
-        if(cliente != null){
-            vistaCerrarMesaCliente.cargarNombreCliente(cliente.getNombre());
+        try {
+            Cliente cliente = fachada.buscarCliente(idIngresado);
             modelo.asignarCliente(cliente);
-        }else{
-            //no existe cliente ingresado fin C/U
+            cliente.getTipoCliente().obtenerMontoBeneficio(modelo);
+            vistaCerrarMesa.cargarNombreCliente(cliente.getNombre());
+            vistaCerrarMesa.mostrarNombreBeneficio(modelo.getBeneficioAplicado());
+            
+            cargarTotalServicio();
+            vistaCerrarMesa.cargarTotalBeneficio(modelo.getMontoDescuento());
+        } catch (RestaurantException e) {
+            vistaCerrarMesa.mostrarMensaje(e.getMessage());
+            limpiarDatos();
         }
     }
     
+    private void limpiarDatos(){
+        modelo.asignarCliente(null);
+        modelo.setMontoDescuento(0);
+        vistaCerrarMesa.cargarNombreCliente("");
+        vistaCerrarMesa.mostrarNombreBeneficio("");
+        vistaCerrarMesa.cargarTotalBeneficio(0);
+        vistaCerrarMesa.cargarTotalAPagar(modelo.obtenerMontoTotalMenosBeneficio());
+    }
+    
+    private void cargarTotalServicio(){
+        vistaCerrarMesa.mostrarTotalServicio(modelo.obtenerMontoTotalServicio());
+        vistaCerrarMesa.cargarTotalAPagar(modelo.obtenerMontoTotalMenosBeneficio());
+    }
+    
+    public void cerrarMesa() {
+        modelo.getMesa().cerrarMesa();
+        vistaCerrarMesa.dispose();
+    }
     
 }

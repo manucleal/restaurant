@@ -8,9 +8,7 @@ package controlador;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Gestor;
-import exceptions.RestaurantException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import modelo.RestaurantException;
 import modelo.ItemServicio;
 import modelo.UnidadProcesadora;
 import observador.Observable;
@@ -40,8 +38,7 @@ public class ControladorProcesadoraPedido implements Observador {
 
     public void logout() {
         try {
-            logica.logoutConexionGestor(conexion);
-            ((Gestor) (conexion.getUsuario())).quitarProcesadora();
+            logica.logoutConexion(conexion);
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }

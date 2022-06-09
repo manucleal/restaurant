@@ -4,19 +4,22 @@
  */
 package controlador;
 
-import exceptions.RestaurantException;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Mesa;
 import modelo.Mozo;
 import modelo.Producto;
+import modelo.RestaurantException;
+import modelo.Transferencia;
+import observador.Observable;
+import observador.Observador;
 import vistaEscritorio.VistaMozo;
 
 /**
  *
  * @author ecoitino
  */
-public class ControladorMozo {
+public class ControladorMozo implements Observador {
 
     private VistaMozo vistaMozo;
     private Conexion conexion;
@@ -26,7 +29,8 @@ public class ControladorMozo {
     public ControladorMozo(VistaMozo vista, Conexion conexion) {
         this.vistaMozo = vista;
         this.conexion = conexion;
-        this.modelo = (Mozo) conexion.getUsuario();
+        this.modelo = (Mozo)conexion.getUsuario();
+        this.modelo.agregarObservador(this);
         inicializarVista();
     }
 
@@ -42,7 +46,7 @@ public class ControladorMozo {
         this.mesaSeleccionada = mesa;
         vistaMozo.mostrarLabelMesa(mesa.getNumero());
         vistaMozo.mostrarDatosServicio(mesa.getServicio().getItemsServicio());
-        vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerTotalServicio());
+        vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
     }
     
     public void abrirMesa() {
@@ -54,10 +58,11 @@ public class ControladorMozo {
         }
     }
     
-    public void cerrarMesa(){
+    public void llamarVentanaCerrarMesa() {
         try{
-            if(!mesaSeleccionada.estaCerrada("La mesa no está abierta")){
-                vistaMozo.llamarVentanaCerrarMesaCliente(mesaSeleccionada.getServicio());
+            if(!mesaSeleccionada.estaCerrada("La mesa no está abierta") && !mesaSeleccionada.tienePedidosPendientes()){
+                this.mesaSeleccionada.agregarObservador(this);
+                vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
         }catch(RestaurantException e){
             vistaMozo.mostrarMensaje(e.getMessage());
@@ -78,5 +83,29 @@ public class ControladorMozo {
         vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
         vistaMozo.mostrarProductosConStock(Fachada.getInstancia().obtenerProductosConStock());
         vistaMozo.limpiarInputProducto();
+        vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
     }
+
+    public void logout() {
+        try {
+            Fachada.getInstancia().logoutConexion(conexion);
+        } catch (RestaurantException e) {
+            vistaMozo.mostrarMensaje(e.getMessage());
+        }
+    }
+
+    @Override
+    public void actualizar(Object evento, Observable origen) {
+        if(evento.equals(Transferencia.eventos.nuevaTranferencia)) {
+            System.out.println("LLEGO NUEVA TRANSFERENCIA !!!");
+        }
+        if(evento.equals(Mesa.eventos.mesaCerrada)) {
+            vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
+        }
+    }
+
+    public void transferirMesa() {
+        vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
+    }
+
 }

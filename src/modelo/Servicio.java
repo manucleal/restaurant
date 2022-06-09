@@ -1,6 +1,5 @@
 package modelo;
 
-import exceptions.RestaurantException;
 import java.util.ArrayList;
 
 public class Servicio {
@@ -8,7 +7,8 @@ public class Servicio {
     private ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
     private Mesa mesa;
     private Cliente cliente;
-    public enum eventos{nuevoItem};
+    private String beneficioAplicado;
+    private float montoDescuento;
     
     public Servicio() {}
     
@@ -18,9 +18,25 @@ public class Servicio {
         return itemsServicio;
     }
 
+    public String getBeneficioAplicado() {
+        return beneficioAplicado;
+    }  
+    
+    public float getMontoDescuento() {
+        return montoDescuento;
+    } 
+
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
     }
+
+    public void setBeneficioAplicado(String beneficioAplicado) {
+        this.beneficioAplicado = beneficioAplicado;
+    }
+
+    public void setMontoDescuento(float montoDescuento) {
+        this.montoDescuento = montoDescuento;
+    }        
     
     public boolean agregarItemServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
         if(esNumero(cantidad)) {
@@ -53,14 +69,6 @@ public class Servicio {
         return cliente != null;
     }
     
-    public float obtenerTotalServicio() {
-        float total = 0;
-        for(ItemServicio item : itemsServicio) {
-            total += item.getSubTotal();
-        }
-        return total;
-    }
-    
     private boolean esNumero(String num) {
         try {
             Double.parseDouble(num);
@@ -68,6 +76,35 @@ public class Servicio {
         } catch(NumberFormatException e){
             return false;
         }
+    }
+    
+    public float obtenerMontoTotalServicio() {
+        float montoTotal = 0;
+        for(ItemServicio item : this.getItemsServicio()) {
+            montoTotal += item.getSubTotal();
+        }
+        return montoTotal;
+    }
+    
+    public float getTotalPorProducto(String codigo) {
+        float total=0;
+        for(ItemServicio item : this.getItemsServicio()) {
+            if(item.getProducto().getCodigo().equals(codigo)) {
+                total += item.getSubTotal();
+            }
+        }
+        return total;
+    }
+    
+    public float obtenerMontoTotalMenosBeneficio() {
+        return obtenerMontoTotalServicio() - montoDescuento;
+    }
+    
+    public boolean verificarPedidosFinalizados(){
+        for(ItemServicio item : itemsServicio){
+            if(!item.pedidoFinalizado()) return false;
+        }
+        return true;
     }
 
 }

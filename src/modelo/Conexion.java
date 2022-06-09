@@ -11,5 +11,4 @@ public class Conexion {
     public Usuario getUsuario() {
         return usuario;
     }
-        
 }
