@@ -23,23 +23,23 @@ public class ControladorMozo implements Observador {
 
     private VistaMozo vistaMozo;
     private Conexion conexion;
-    private Mozo modelo;
+    private Mozo modeloMozo;
     private Mesa mesaSeleccionada;
 
     public ControladorMozo(VistaMozo vista, Conexion conexion) {
         this.vistaMozo = vista;
         this.conexion = conexion;
-        this.modelo = (Mozo)conexion.getUsuario();
-        this.modelo.agregarObservador(this);
+        this.modeloMozo = (Mozo)conexion.getUsuario();
+        this.modeloMozo.agregarObservador(this);
         inicializarVista();
     }
 
     private void inicializarVista() {
         vistaMozo.setLocationRelativeTo(null);
         vistaMozo.mostrarNombreUsuario(conexion.getUsuario().getNombreCompleto());
-        vistaMozo.mostrarMesas(modelo.getMesas());
+        vistaMozo.mostrarMesas(modeloMozo.getMesas());
         vistaMozo.mostrarProductosConStock(Fachada.getInstancia().obtenerProductosConStock());
-        cargarDatosMesaSeleccionada(modelo.getMesas().get(0));
+        cargarDatosMesaSeleccionada(modeloMozo.getMesas().get(0));
     }
     
     public void cargarDatosMesaSeleccionada(Mesa mesa) {
@@ -61,7 +61,6 @@ public class ControladorMozo implements Observador {
     public void llamarVentanaCerrarMesa() {
         try{
             if(!mesaSeleccionada.estaCerrada("La mesa no está abierta") && !mesaSeleccionada.tienePedidosPendientes()){
-                this.mesaSeleccionada.agregarObservador(this);
                 vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
         }catch(RestaurantException e){
@@ -88,18 +87,23 @@ public class ControladorMozo implements Observador {
 
     public void logout() {
         try {
-            Fachada.getInstancia().logoutConexion(conexion);
+            Fachada.getInstancia().logoutConexionMozo(conexion);
         } catch (RestaurantException e) {
             vistaMozo.mostrarMensaje(e.getMessage());
         }
     }
 
     @Override
-    public void actualizar(Object evento, Observable origen) {
+    public void actualizar(Object evento, Observable origenEvento) {
         if(evento.equals(Transferencia.eventos.nuevaTranferencia)) {
-            System.out.println("LLEGO NUEVA TRANSFERENCIA !!!");
+            Mozo mozoDestino = (Mozo)origenEvento;
+            Transferencia transferencia = mozoDestino.getTransferenciaRecibida();
+            if(transferencia != null) {
+                vistaMozo.mostrarNotificaciónTranferencia(transferencia);                                      
+            }            
+
         }
-        if(evento.equals(Mesa.eventos.mesaCerrada)) {
+        if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
         }
     }

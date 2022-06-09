@@ -3,7 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Gestor extends Usuario{
+public class Gestor extends Usuario {
     
     private Date fechaUltimoAcceso;
     private UnidadProcesadora procesadora;

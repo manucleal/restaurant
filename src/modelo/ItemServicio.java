@@ -18,7 +18,7 @@ public class ItemServicio{
         this.descripcion = descripcion;
         this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
-        this.estado = estados.enEspera;
+        this.estado = estados.finalizado;
     }
 
     public UnidadProcesadora getProcesadora() {

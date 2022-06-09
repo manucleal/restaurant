@@ -27,27 +27,24 @@ public class ControladorTransferencia {
         inicializarVista();
     }
 
-    public void setListaConOtrosMozos(ArrayList<Mozo> listaConOtrosMozos) {
+    private void setListaConOtrosMozos(ArrayList<Mozo> listaConOtrosMozos) {
         this.listaConOtrosMozos = listaConOtrosMozos;
     }    
     
     private void inicializarVista() {
         vistaTransferencia.setLocationRelativeTo(null);
-        vistaTransferencia.mostrarMozos(obtenerListaConOtrosMozos());    
-    }
-    
-    private ArrayList<Mozo> obtenerListaConOtrosMozos() {
-        ArrayList<Mozo> mozos = Fachada.getInstancia().obtenerMozosLogueadosConMenosDeCincoMesas();
-        mozos.remove(modeloMesa.getMozo());
-        setListaConOtrosMozos(mozos);
-        return mozos;
-    }
+        setListaConOtrosMozos(Fachada.getInstancia().obtenerMozosLogueadosConMenosDeCincoMesas(modeloMesa.getMozo()));
+        vistaTransferencia.mostrarMozos(listaConOtrosMozos);
+    }   
 
     public void iniciarTransferencia(int posicion) {
         try {
             if(posicion != -1) {
                 Mozo mozoSeleccionado = (Mozo)listaConOtrosMozos.get(posicion);
-                modeloMesa.getMozo().realizarTransferencia(mozoSeleccionado, modeloMesa);
+                Mesa mesaATransferir = modeloMesa;
+                Mozo mozoEmisorMesa = mesaATransferir.getMozo();
+                
+                mozoEmisorMesa.realizarTransferencia(mozoSeleccionado, modeloMesa);
             }
         } catch (RestaurantException e) {
             vistaTransferencia.mostrarMensaje(e.getMessage());

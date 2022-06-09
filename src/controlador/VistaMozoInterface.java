@@ -7,9 +7,9 @@ package controlador;
 import java.util.ArrayList;
 import modelo.ItemServicio;
 import modelo.Mesa;
-import modelo.Mozo;
 import modelo.Producto;
 import modelo.Servicio;
+import modelo.Transferencia;
 
 /**
  *
@@ -36,5 +36,7 @@ public interface VistaMozoInterface {
     public void limpiarInputProducto();
     
     public void mostrarTotalServicio(float total);
+    
+    public void mostrarNotificaciónTranferencia(Transferencia transferencia);
     
 }

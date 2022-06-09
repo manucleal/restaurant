@@ -1,15 +1,13 @@
 package modelo;
 
-import observador.Observable;
-
-public class Mesa extends Observable {
+public class Mesa {
     
     private int numero;
     private Mozo mozo;
     private Servicio servicio = new Servicio();
     private boolean estaAbierta;
     private Transferencia transferencia;
-    public enum eventos { mesaCerrada };
+
 
     public Mesa(int numero, boolean estaAbierta) {
         this.numero = numero;
@@ -78,12 +76,12 @@ public class Mesa extends Observable {
     }
 
     public void cerrarMesa() {
-        servicio.setMesa(null);
         if(servicio.tieneCliente()) servicio.getCliente().setServicio(null);
         servicio.asignarCliente(null);
-        servicio = new Servicio();
+        servicio = new Servicio();        
+        servicio.setMesa(this);
         estaAbierta = false;
-        avisar(eventos.mesaCerrada);
+        mozo.avisar(Mozo.eventos.mesaCerrada);
     }
     
     private boolean sinPedidosPendientes(){

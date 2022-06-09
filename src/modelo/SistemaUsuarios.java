@@ -45,26 +45,16 @@ public class SistemaUsuarios {
         }
         return new Conexion(usuario);
     }
-
-    public void logoutConexion(Conexion conexion) throws RestaurantException {
-        if(conexion.getUsuario() instanceof Gestor) {
-            Gestor gestor = (Gestor)(conexion.getUsuario());
-            logoutConexionGestor(conexion, gestor);
-        }        
-        if(conexion.getUsuario() instanceof Mozo) {
-            logoutConexionMozo(conexion);
-        }
-    }
     
-    private void logoutConexionGestor(Conexion conexion, Gestor gestor) throws RestaurantException {
+    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
         if (conexionesGestor.remove(conexion)) {
-            gestor.quitarProcesadora();
+            ((Gestor)conexion.getUsuario()).quitarProcesadora();
         } else {
             throw new RestaurantException("No se encontro conexion");
         }        
     }
     
-    private void logoutConexionMozo(Conexion conexion) throws RestaurantException {
+    public void logoutConexionMozo(Conexion conexion) throws RestaurantException {
         if (!conexionesMozo.remove(conexion)) {
             throw new RestaurantException("No se encontro conexion");
         }
@@ -90,13 +80,13 @@ public class SistemaUsuarios {
             throw new RestaurantException("El usuario no se pudo agregar al sistema.");
         }
         return gestor;
-    }
+    }   
 
-    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas() {
+    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas(Mozo mozoActual) {
         ArrayList<Mozo> mozosLogueadosConMenosDeCincoMesas = new ArrayList<>();
         for(Conexion conexion : conexionesMozo) {
             Mozo mozo = (Mozo)conexion.getUsuario();
-            if(mozo.validarCantidadMesasMozo()) {
+            if(mozo.validarCantidadMesasMozo() && !mozoActual.equals(mozo)) {
                 mozosLogueadosConMenosDeCincoMesas.add(mozo);
             }
         }

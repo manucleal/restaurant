@@ -18,12 +18,12 @@ import vistaEscritorio.VistaCerrarMesa;
 public class ControladorCerrarMesa {
     
     private VistaCerrarMesa vistaCerrarMesa;
-    private Servicio modelo;
+    private Servicio modeloServicio;
     private Fachada fachada = Fachada.getInstancia();
 
     public ControladorCerrarMesa(VistaCerrarMesa vistaCerrarMesaCliente, Servicio modelo) {
         this.vistaCerrarMesa = vistaCerrarMesaCliente;
-        this.modelo = modelo;
+        this.modeloServicio = modelo;
         this.vistaCerrarMesa.setLocationRelativeTo(null);
         this.vistaCerrarMesa.setTitle("Cerrar mesa");
         cargarTotalServicio();
@@ -32,13 +32,13 @@ public class ControladorCerrarMesa {
     public void buscarCliente(String idIngresado) {
         try {
             Cliente cliente = fachada.buscarCliente(idIngresado);
-            modelo.asignarCliente(cliente);
-            cliente.getTipoCliente().obtenerMontoBeneficio(modelo);
+            modeloServicio.asignarCliente(cliente);
+            cliente.getTipoCliente().obtenerMontoBeneficio(modeloServicio);
             vistaCerrarMesa.cargarNombreCliente(cliente.getNombre());
-            vistaCerrarMesa.mostrarNombreBeneficio(modelo.getBeneficioAplicado());
+            vistaCerrarMesa.mostrarNombreBeneficio(modeloServicio.getBeneficioAplicado());
             
             cargarTotalServicio();
-            vistaCerrarMesa.cargarTotalBeneficio(modelo.getMontoDescuento());
+            vistaCerrarMesa.cargarTotalBeneficio(modeloServicio.getMontoDescuento());
         } catch (RestaurantException e) {
             vistaCerrarMesa.mostrarMensaje(e.getMessage());
             limpiarDatos();
@@ -46,21 +46,21 @@ public class ControladorCerrarMesa {
     }
     
     private void limpiarDatos(){
-        modelo.asignarCliente(null);
-        modelo.setMontoDescuento(0);
+        modeloServicio.asignarCliente(null);
+        modeloServicio.setMontoDescuento(0);
         vistaCerrarMesa.cargarNombreCliente("");
         vistaCerrarMesa.mostrarNombreBeneficio("");
         vistaCerrarMesa.cargarTotalBeneficio(0);
-        vistaCerrarMesa.cargarTotalAPagar(modelo.obtenerMontoTotalMenosBeneficio());
+        vistaCerrarMesa.cargarTotalAPagar(modeloServicio.obtenerMontoTotalMenosBeneficio());
     }
     
     private void cargarTotalServicio(){
-        vistaCerrarMesa.mostrarTotalServicio(modelo.obtenerMontoTotalServicio());
-        vistaCerrarMesa.cargarTotalAPagar(modelo.obtenerMontoTotalMenosBeneficio());
+        vistaCerrarMesa.mostrarTotalServicio(modeloServicio.obtenerMontoTotalServicio());
+        vistaCerrarMesa.cargarTotalAPagar(modeloServicio.obtenerMontoTotalMenosBeneficio());
     }
     
     public void cerrarMesa() {
-        modelo.getMesa().cerrarMesa();
+        modeloServicio.getMesa().cerrarMesa();
         vistaCerrarMesa.dispose();
     }
     

@@ -53,8 +53,12 @@ public class Fachada {
         return sistemaUsuarios.loginGestor(nombreUsuario, password);
     }
 
-    public void logoutConexion(Conexion conexion) throws RestaurantException {
-        sistemaUsuarios.logoutConexion(conexion);
+    public void logoutConexionMozo(Conexion conexion) throws RestaurantException {
+        sistemaUsuarios.logoutConexionMozo(conexion);
+    }
+    
+    public void logoutConexionGestor(Conexion conexion) throws RestaurantException {
+        sistemaUsuarios.logoutConexionGestor(conexion);
     }
 
     public Mozo crearUsuarioMozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) throws RestaurantException {
@@ -73,7 +77,7 @@ public class Fachada {
         return sistemaClientes.buscarCliente(idCliente);
     }         
     
-    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas() {
-        return sistemaUsuarios.obtenerMozosLogueadosConMenosDeCincoMesas();
+    public ArrayList<Mozo> obtenerMozosLogueadosConMenosDeCincoMesas(Mozo mozoActual) {
+        return sistemaUsuarios.obtenerMozosLogueadosConMenosDeCincoMesas(mozoActual);
     }
 }
