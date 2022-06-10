@@ -38,23 +38,19 @@ public class Servicio {
         this.montoDescuento = montoDescuento;
     }        
     
-    public boolean agregarItemServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
-        if(esNumero(cantidad)) {
-            int cant = Integer.parseInt(cantidad);
-            ItemServicio itemServicio = new ItemServicio(producto, cant, descripcion,this);
-            if(!itemServicio.validar()) {
-                return false;
-            }
-            itemsServicio.add(itemServicio);
-            producto.bajarStock(cant);
-            producto.agregarPedidoAUnidadProcesadora(itemServicio);
-            return true;
-        }
-        return false;
+    public ItemServicio agregarItemServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
+        if(!esNumero(cantidad)) throw new RestaurantException("La cantidad debe ser un número");
+        int cant = Integer.parseInt(cantidad);
+        ItemServicio itemServicio = new ItemServicio(producto, cant, descripcion,this);
+        itemServicio.validar();
+        itemsServicio.add(itemServicio);
+        itemServicio.agregarAUnidadProcesadora(itemServicio);
+        return itemServicio;
     }
     
     public void asignarCliente(Cliente cliente) {
         this.cliente = cliente;
+        if(!cliente.equals(null))cliente.obtenerMontoBeneficio(this);
     }
 
     public Mesa getMesa() {
@@ -71,7 +67,7 @@ public class Servicio {
     
     private boolean esNumero(String num) {
         try {
-            Double.parseDouble(num);
+            Integer.parseInt(num);
             return true;
         } catch(NumberFormatException e){
             return false;

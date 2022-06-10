@@ -26,25 +26,6 @@ public class Mesa {
     public void setEstaAbierta(boolean abierta) {
         this.estaAbierta = abierta;
     }
-    
-    public String abrirMesa() throws RestaurantException{
-        if(!estaAbierta()){
-            setEstaAbierta(true);
-            return "Mesa abierta con éxito";
-        } else {
-            throw new RestaurantException("La mesa ya está abierta");
-        }
-    }
-    
-    public boolean estaCerrada(String msg) throws RestaurantException{
-        if(!estaAbierta()) throw new RestaurantException(msg);
-        return false;
-    }
-    
-    public boolean tienePedidosPendientes() throws RestaurantException{
-        if(!sinPedidosPendientes()) throw new RestaurantException("No se puede cerrar la mesa, tiene pedidos pendientes");
-        return false;
-    }
 
     public Mozo getMozo() {
         return mozo;
@@ -66,19 +47,34 @@ public class Mesa {
     public boolean estaAbierta() {
         return estaAbierta;
     }
-    
-    public boolean mesaTieneCliente(){
-        return this.servicio.tieneCliente();
+        
+    public String abrirMesa() throws RestaurantException{
+        if(!estaAbierta()){
+            setEstaAbierta(true);
+            return "Mesa abierta con éxito";
+        } else {
+            throw new RestaurantException("La mesa ya está abierta");
+        }
     }
     
-    public boolean agregarItemAServicio(Producto producto, String descripcion, String cantidad) throws RestaurantException {
-        return servicio.agregarItemServicio(producto, descripcion, cantidad);
+    public boolean estaCerrada(String msg) throws RestaurantException{
+        if(!estaAbierta()) throw new RestaurantException(msg);
+        return false;
+    }
+    
+    public boolean tienePedidosPendientes() throws RestaurantException{
+        if(!sinPedidosPendientes()) throw new RestaurantException("No se puede cerrar la mesa, tiene pedidos pendientes");
+        return false;
+    }
+
+    public boolean mesaTieneCliente(){
+        return this.servicio.tieneCliente();
     }
 
     public void cerrarMesa() {
         if(servicio.tieneCliente()) servicio.getCliente().setServicio(null);
         servicio.asignarCliente(null);
-        servicio = new Servicio();        
+        servicio = new Servicio();
         servicio.setMesa(this);
         estaAbierta = false;
         mozo.avisar(Mozo.eventos.mesaCerrada);

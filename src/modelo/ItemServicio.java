@@ -1,6 +1,8 @@
 package modelo;
 
-public class ItemServicio{
+import observador.Observable;
+
+public class ItemServicio  extends Observable {
     
     private UnidadProcesadora procesadora;
     private Producto producto;
@@ -8,9 +10,9 @@ public class ItemServicio{
     private String descripcion;
     private Servicio servicio;
     private Gestor gestor;
-    private estados estado;
+    private eventos estado;
             
-    public enum estados{enEspera,procesando,finalizado};
+    public enum eventos{enEspera, procesado, finalizado };
 
     public ItemServicio(Producto producto, int cantidad, String descripcion, Servicio servicio) {
         this.producto = producto;
@@ -18,7 +20,7 @@ public class ItemServicio{
         this.descripcion = descripcion;
         this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
-        this.estado = estados.finalizado;
+        this.estado = eventos.enEspera;
     }
 
     public UnidadProcesadora getProcesadora() {
@@ -44,6 +46,14 @@ public class ItemServicio{
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
+
+    public Gestor getGestor() {
+        return gestor;
+    }
+
+    public eventos getEstado() {
+        return estado;
+    }
     
     public float getSubTotal() {
         return cantidad * producto.getPrecio();
@@ -58,18 +68,23 @@ public class ItemServicio{
     
     public void agregarGestor (Gestor gestor)throws RestaurantException{
         if( this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
-        if(estado != estados.enEspera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
+        if(estado != eventos.enEspera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
         this.gestor = gestor;
-        this.estado = estados.procesando;
+        this.estado = eventos.procesado;
         procesadora.itemTomado(this);
     }
     
+    void agregarAUnidadProcesadora(ItemServicio itemServicio)throws  RestaurantException{
+         procesadora.agregarItem(this);
+    }
+    
     public boolean pedidoFinalizado(){
-        return this.estado.equals(estados.finalizado);
+        return this.estado.equals(eventos.finalizado);
     }
  
     
     public void finalizado() {
-        estado = estados.finalizado;
+        estado = eventos.finalizado;
+        avisar(eventos.procesado);
     }
 }

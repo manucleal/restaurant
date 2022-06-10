@@ -43,4 +43,8 @@ public class Cliente {
         this.servicio = servicio;
     }
 
+    void obtenerMontoBeneficio(Servicio servicio) {
+        tipoCliente.obtenerMontoBeneficio(servicio);
+    }
+
 }

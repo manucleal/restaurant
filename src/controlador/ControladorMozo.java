@@ -6,11 +6,14 @@ package controlador;
 
 import modelo.Conexion;
 import modelo.Fachada;
+import modelo.ItemServicio;
 import modelo.Mesa;
 import modelo.Mozo;
 import modelo.Producto;
 import modelo.RestaurantException;
+import modelo.Servicio;
 import modelo.Transferencia;
+import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;
 import vistaEscritorio.VistaMozo;
@@ -70,7 +73,9 @@ public class ControladorMozo implements Observador {
 
     public void agregarProducto(Producto producto, String descripcion, String cantidad) {
         try {
-            if(!mesaSeleccionada.estaCerrada("La mesa está cerrada") && mesaSeleccionada.agregarItemAServicio(producto, descripcion, cantidad)) {
+            if(!mesaSeleccionada.estaCerrada("La mesa está cerrada")) {
+                ItemServicio item = mesaSeleccionada.getServicio().agregarItemServicio(producto, descripcion, cantidad);
+                item.agregarObservador(this);
                 accionesItemAgregado();
             }
         } catch (RestaurantException e) {
@@ -102,9 +107,18 @@ public class ControladorMozo implements Observador {
                 vistaMozo.mostrarNotificaciónTranferencia(transferencia);                                      
             }            
 
-        }
-        if(evento.equals(Mozo.eventos.mesaCerrada)) {
+        }else if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
+        }else if(evento.equals(ItemServicio.eventos.finalizado)){
+            ItemServicio item = (ItemServicio)origenEvento;
+            vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
+            vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
+                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");
+        }else if(evento.equals(ItemServicio.eventos.procesado)){
+            ItemServicio item = (ItemServicio)origenEvento;
+            if(mesaSeleccionada.equals(item.getServicio().getMesa())){
+                vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
+            }
         }
     }
 

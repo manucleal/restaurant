@@ -346,7 +346,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
             modelTable.setValueAt(item.getDescripcion(), contador , 2);
             modelTable.setValueAt(item.getProducto().getPrecio(), contador , 3);
             modelTable.setValueAt(item.getSubTotal(), contador , 4);
-            modelTable.setValueAt("", contador , 5);
+            modelTable.setValueAt(item.getEstado().toString(), contador , 5);
             contador++;
         }
         tableDatosServicio.setModel(modelTable);

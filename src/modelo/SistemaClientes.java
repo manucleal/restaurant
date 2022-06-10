@@ -30,10 +30,11 @@ public class SistemaClientes {
     }
     
     public Cliente buscarCliente(String id) throws RestaurantException {
-        if("".equals(id)) throw new RestaurantException("Debe ingresar id de cliente");
-        
+        if(id.isBlank()) throw new RestaurantException("Debe ingresar id de cliente");
+        if(!esNumero(id.trim())) throw new RestaurantException("Debe ingresar un numero como id");
+        int idNum = Integer.parseInt(id.trim());
         for(Cliente cliente : getClientes()) {
-            if(cliente.getId() == Integer.parseInt(id)){
+            if(cliente.getId() == idNum){
                 return cliente;
             }
         }        
@@ -43,6 +44,15 @@ public class SistemaClientes {
     private int generarProximoId(){
         proximoId++;
         return proximoId;
+    }
+
+    private boolean esNumero(String id) {
+        try {
+            Integer.parseInt(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
     
 }
