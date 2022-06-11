@@ -20,7 +20,7 @@ public class ItemServicio  extends Observable {
         this.descripcion = descripcion;
         this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
-        this.estado = eventos.enEspera;
+        this.estado = eventos.finalizado;
     }
 
     public UnidadProcesadora getProcesadora() {

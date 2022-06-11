@@ -72,7 +72,6 @@ public class Mesa {
     }
 
     public void cerrarMesa() {
-        if(servicio.tieneCliente()) servicio.getCliente().setServicio(null);
         servicio.asignarCliente(null);
         servicio = new Servicio();
         servicio.setMesa(this);

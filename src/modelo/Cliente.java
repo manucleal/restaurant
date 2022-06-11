@@ -6,7 +6,6 @@ public class Cliente {
     private String nombre;
     private String email;
     private TipoCliente tipoCliente;
-    private Servicio servicio;
 
     public Cliente(String nombre, String email, TipoCliente tipoCliente) {
         this.nombre = nombre;
@@ -33,14 +32,6 @@ public class Cliente {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Servicio getServicio() {
-        return servicio;
-    }
-
-    public void setServicio(Servicio servicio) {
-        this.servicio = servicio;
     }
 
     public void obtenerMontoBeneficio(Servicio servicio) {
