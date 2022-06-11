@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import static utilidades.NumberUtils.esNumero;
 
 public class Servicio {
     
@@ -44,13 +45,16 @@ public class Servicio {
         ItemServicio itemServicio = new ItemServicio(producto, cant, descripcion,this);
         itemServicio.validar();
         itemsServicio.add(itemServicio);
+        producto.bajarStock(cant);
         itemServicio.agregarAUnidadProcesadora(itemServicio);
         return itemServicio;
     }
     
     public void asignarCliente(Cliente cliente) {
         this.cliente = cliente;
-        if(!cliente.equals(null))cliente.obtenerMontoBeneficio(this);
+        if(cliente != null) {
+            cliente.obtenerMontoBeneficio(this);
+        }        
     }
 
     public Mesa getMesa() {
@@ -63,15 +67,6 @@ public class Servicio {
     
     public boolean tieneCliente(){
         return cliente != null;
-    }
-    
-    private boolean esNumero(String num) {
-        try {
-            Integer.parseInt(num);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
     }
     
     public float obtenerMontoTotalServicio() {

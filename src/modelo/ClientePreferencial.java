@@ -1,12 +1,9 @@
 package modelo;
 
 public class ClientePreferencial extends TipoCliente {
-
-    private Producto producto;
     
-    public ClientePreferencial(Producto producto) {
+    public ClientePreferencial() {
         super("ClientePreferencial");
-        this.producto = producto;
     }
 
     //Pagan $0 por todas las aguas minerales consumidas en el servicio y si el 
@@ -15,7 +12,7 @@ public class ClientePreferencial extends TipoCliente {
     public void obtenerMontoBeneficio(Servicio servicio) {
 
         String beneficioAplicado = "Agua gratis + 5% según consumo";        
-        float totalBeneficioProducto = servicio.getTotalPorProducto(producto.getCodigo());
+        float totalBeneficioProducto = servicio.getTotalPorProducto("5A");
 
         float totalServicio = servicio.obtenerMontoTotalServicio();
         float totalBeneficio = 0;

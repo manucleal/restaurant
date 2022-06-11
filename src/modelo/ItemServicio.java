@@ -74,7 +74,7 @@ public class ItemServicio  extends Observable {
         procesadora.itemTomado(this);
     }
     
-    void agregarAUnidadProcesadora(ItemServicio itemServicio)throws  RestaurantException{
+    public void agregarAUnidadProcesadora(ItemServicio itemServicio)throws  RestaurantException{
          procesadora.agregarItem(this);
     }
     

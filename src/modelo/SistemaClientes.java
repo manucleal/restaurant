@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import static utilidades.NumberUtils.esNumero;
 
 public class SistemaClientes {
     
@@ -44,15 +45,6 @@ public class SistemaClientes {
     private int generarProximoId(){
         proximoId++;
         return proximoId;
-    }
-
-    private boolean esNumero(String id) {
-        try {
-            Integer.parseInt(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
     
 }

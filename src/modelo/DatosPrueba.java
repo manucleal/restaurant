@@ -42,7 +42,7 @@ public class DatosPrueba {
         Producto producto6 = new Producto("5A", "Agua", 50, 200, barra);
                 
 //    --------------------- ALTA TIPO CLIENTE  ---------------------
-        TipoCliente tipoClientePreferencial = new ClientePreferencial(producto6);
+        TipoCliente tipoClientePreferencial = new ClientePreferencial();
         TipoCliente tipoClienteCasa = new ClienteCasa();
         TipoCliente tipoClienteComun = new ClienteComun();
         
