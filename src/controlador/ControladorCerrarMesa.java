@@ -33,7 +33,6 @@ public class ControladorCerrarMesa {
         try {
             Cliente cliente = fachada.buscarCliente(idIngresado);
             modeloServicio.asignarCliente(cliente);
-            cliente.getTipoCliente().obtenerMontoBeneficio(modeloServicio);
             vistaCerrarMesa.cargarNombreCliente(cliente.getNombre());
             vistaCerrarMesa.mostrarNombreBeneficio(modeloServicio.getBeneficioAplicado());
             

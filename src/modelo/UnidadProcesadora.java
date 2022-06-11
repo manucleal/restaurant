@@ -11,7 +11,7 @@ public class UnidadProcesadora extends Observable {
     private ArrayList<ItemServicio> itemsSinSerTomados = new ArrayList<>();
 
 
-    public enum eventos{nuevoItem,itemTomado,itemFinalizado};
+    public enum eventos{nuevoItem, itemTomado };
 
     public UnidadProcesadora(String nombre) {
         this.nombre = nombre.toUpperCase();
@@ -61,9 +61,8 @@ public class UnidadProcesadora extends Observable {
     
     public void quitarItemServicio(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede quitar un item vacío");
-        if(!itemsServicio.contains(item)) throw new RestaurantException("no se encuentra item sin ser tomado.");
+        if(!itemsServicio.contains(item)) throw new RestaurantException("No se encuentra item sin ser tomado.");
         itemsServicio.remove(item);
-        avisar(eventos.itemFinalizado);
     }
 
     

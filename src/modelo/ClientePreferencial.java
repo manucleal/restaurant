@@ -1,7 +1,7 @@
 package modelo;
 
 public class ClientePreferencial extends TipoCliente {
-
+    
     public ClientePreferencial() {
         super("ClientePreferencial");
     }

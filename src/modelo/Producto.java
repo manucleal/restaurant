@@ -44,10 +44,6 @@ public class Producto {
         cantidadDisponible = cantidadDisponible - cantidad;
     }
     
-    public void agregarPedidoAUnidadProcesadora(ItemServicio item) throws RestaurantException {
-        unidadProcesadora.agregarItem(item);
-    }
-    
     @Override
     public String toString() {
         return  "("+codigo+") " + nombre;

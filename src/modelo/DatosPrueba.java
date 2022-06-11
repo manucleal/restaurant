@@ -13,21 +13,7 @@ public class DatosPrueba {
     public static void cargar() throws RestaurantException {
         
         Fachada fachada = Fachada.getInstancia();
-        
-//    --------------------- ALTA TIPO CLIENTE  ---------------------
-        TipoCliente tipoClientePreferencial = new ClientePreferencial();
-        TipoCliente tipoClienteCasa = new ClienteCasa();
-        TipoCliente tipoClienteComun = new ClienteComun();
-        
-//    --------------------- ALTA CLIENTE  ---------------------
-        Cliente clientePreferencial = new Cliente("Pedrito", "pedrito@gmail.com", tipoClientePreferencial );
-        Cliente clienteCasa = new Cliente("Claudia", "clau@gmail.com", tipoClienteCasa );
-        Cliente clienteComun = new Cliente("Egidio", "Egidio@gmail.com", tipoClienteComun );
-        
-        fachada.agregarCliente(clientePreferencial);
-        fachada.agregarCliente(clienteCasa);
-        fachada.agregarCliente(clienteComun);
-        
+
 //    --------------------- ALTA MESA  ---------------------
         Mesa mesa1 = new Mesa(1,true);
         Mesa mesa2 = new Mesa(2,true);
@@ -54,6 +40,20 @@ public class DatosPrueba {
         Producto producto4 = new Producto("4A", "Roll palta y salmón", 80, 300, sushibar);
         Producto producto5 = new Producto("3B", "Café", 75, 100, barra);
         Producto producto6 = new Producto("5A", "Agua", 50, 200, barra);
+                
+//    --------------------- ALTA TIPO CLIENTE  ---------------------
+        TipoCliente tipoClientePreferencial = new ClientePreferencial();
+        TipoCliente tipoClienteCasa = new ClienteCasa();
+        TipoCliente tipoClienteComun = new ClienteComun();
+        
+//    --------------------- ALTA CLIENTE  ---------------------
+        Cliente clientePreferencial = new Cliente("Pedrito", "pedrito@gmail.com", tipoClientePreferencial );
+        Cliente clienteCasa = new Cliente("Claudia", "clau@gmail.com", tipoClienteCasa );
+        Cliente clienteComun = new Cliente("Egidio", "Egidio@gmail.com", tipoClienteComun );
+        
+        fachada.agregarCliente(clientePreferencial);
+        fachada.agregarCliente(clienteCasa);
+        fachada.agregarCliente(clienteComun);
         
 //--------------------- ALTA MOZO ---------------------
              
