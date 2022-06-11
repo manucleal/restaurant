@@ -12,7 +12,7 @@ public class ItemServicio  extends Observable {
     private Gestor gestor;
     private eventos estado;
             
-    public enum eventos{enEspera, procesado, finalizado };
+    public enum eventos{en_espera, procesado, finalizado };
 
     public ItemServicio(Producto producto, int cantidad, String descripcion, Servicio servicio) {
         this.producto = producto;
@@ -20,7 +20,7 @@ public class ItemServicio  extends Observable {
         this.descripcion = descripcion;
         this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
-        this.estado = eventos.finalizado;
+        this.estado = eventos.en_espera;
     }
 
     public UnidadProcesadora getProcesadora() {
@@ -68,7 +68,7 @@ public class ItemServicio  extends Observable {
     
     public void agregarGestor (Gestor gestor)throws RestaurantException{
         if( this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
-        if(estado != eventos.enEspera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
+        if(estado != eventos.en_espera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
         this.gestor = gestor;
         this.estado = eventos.procesado;
         procesadora.itemTomado(this);
