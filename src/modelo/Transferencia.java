@@ -6,8 +6,8 @@ public class Transferencia {
     private Mozo mozoDestino;
     private Mesa mesa;
     
-    public enum eventos {nuevaTranferencia};
-
+    public enum eventos { nuevaTranferencia, transferenciaAceptada, transferenciaRechazada };
+ 
     public Transferencia(Mozo mozoOrigen, Mozo mozoDestino, Mesa mesa) {
         this.mozoOrigen = mozoOrigen;
         this.mozoDestino = mozoDestino;

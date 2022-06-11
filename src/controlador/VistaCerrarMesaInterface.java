@@ -24,4 +24,6 @@ public interface VistaCerrarMesaInterface {
     public void mostrarMensaje(String msg);
     
     public void mostrarTotalServicio(float monto);
+    
+    public void limpiarIdCliente();
 }

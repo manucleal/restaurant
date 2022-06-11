@@ -45,6 +45,7 @@ public class ControladorTransferencia {
                 Mozo mozoEmisorMesa = mesaATransferir.getMozo();
                 
                 mozoEmisorMesa.realizarTransferencia(mozoSeleccionado, modeloMesa);
+                vistaTransferencia.dispose();
             }
         } catch (RestaurantException e) {
             vistaTransferencia.mostrarMensaje(e.getMessage());

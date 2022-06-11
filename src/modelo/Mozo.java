@@ -54,6 +54,15 @@ public class Mozo extends Usuario {
         return false;
     }
     
+    public void reasingnarMesa(Transferencia transferencia) {
+        Mozo mozoOrigen = transferencia.getMozoOrigen();
+        Mesa mesaTransferencia = transferencia.getMesa();
+        mesaTransferencia.setMozo(mozoOrigen);
+        Mozo mozoDestino = transferencia.getMozoDestino();        
+        mozoDestino.agregarMesa(mesaTransferencia);
+        mozoOrigen.getMesas().remove(mesaTransferencia);
+    }
+    
     public Mesa bucarMesaPorNumero(int numero) {
         for(Mesa mesa : mesas) {
             if(mesa.getNumero() == numero) {

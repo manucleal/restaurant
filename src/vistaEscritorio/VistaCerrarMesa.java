@@ -237,4 +237,9 @@ public class VistaCerrarMesa extends javax.swing.JDialog implements VistaCerrarM
     public void mostrarMensaje(String msg) {
         JOptionPane.showMessageDialog(this, msg);
     }
+    
+    @Override
+    public void limpiarIdCliente() {
+        idCliente.setText("");
+    }
 }

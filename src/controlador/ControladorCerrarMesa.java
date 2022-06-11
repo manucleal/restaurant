@@ -47,6 +47,7 @@ public class ControladorCerrarMesa {
     private void limpiarDatos(){
         modeloServicio.asignarCliente(null);
         modeloServicio.setMontoDescuento(0);
+        vistaCerrarMesa.limpiarIdCliente();
         vistaCerrarMesa.cargarNombreCliente("");
         vistaCerrarMesa.mostrarNombreBeneficio("");
         vistaCerrarMesa.cargarTotalBeneficio(0);
