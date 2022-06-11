@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
 import modelo.Conexion;
 import modelo.ItemServicio;
 import modelo.Mesa;
-import modelo.Mozo;
 import modelo.Producto;
 import modelo.Servicio;
 import modelo.Transferencia;
+import static utilidades.StringUtils.formatEstadosPedidos;
 
 
 /**
@@ -351,7 +351,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
             modelTable.setValueAt(item.getDescripcion(), contador , 2);
             modelTable.setValueAt(item.getProducto().getPrecio(), contador , 3);
             modelTable.setValueAt(item.getSubTotal(), contador , 4);
-            modelTable.setValueAt(item.getEstado().toString(), contador , 5);
+            modelTable.setValueAt(formatEstadosPedidos(item), contador , 5);
             contador++;
         }
         tableDatosServicio.setModel(modelTable);
