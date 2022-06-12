@@ -1,5 +1,6 @@
 package modelo;
 
+import controlador.ControladorMozo;
 import java.util.ArrayList;
 
 public class Mozo extends Usuario {
@@ -8,7 +9,7 @@ public class Mozo extends Usuario {
     public static int cantidadMaxMesas = 5;
     private ArrayList<Mesa> mesas = new ArrayList();    
     private Transferencia transferencia;
-    
+
     public enum eventos { mesaCerrada };
 
     public Mozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
@@ -71,5 +72,21 @@ public class Mozo extends Usuario {
             mozoDestino.avisar(Transferencia.eventos.nuevaTranferencia);
         }
     }
+
+    public void agregarControladorObservadorItem(ControladorMozo controlador) {
+        if(!mesas.isEmpty()){            
+            for (Mesa m : mesas) {
+                m.agregarOservadorItemsServicio(controlador);
+            }
+        }
+    }
     
+    
+    public void quitarControladorObservadorItems(ControladorMozo controlador) {
+        if(!mesas.isEmpty()){            
+            for (Mesa m : mesas) {
+                m.getServicio().quitarOservadorItemsServicio(controlador);
+            }
+        }
+    }
 }

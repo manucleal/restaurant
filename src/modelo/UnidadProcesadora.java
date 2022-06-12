@@ -11,7 +11,7 @@ public class UnidadProcesadora extends Observable {
     private ArrayList<ItemServicio> itemsSinSerTomados = new ArrayList<>();
 
 
-    public enum eventos{nuevoItem, itemTomado };
+    public enum eventos{nuevoItem, itemTomado , itemCambioMozoUnidad};
 
     public UnidadProcesadora(String nombre) {
         this.nombre = nombre.toUpperCase();

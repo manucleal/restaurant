@@ -12,7 +12,7 @@ public class ItemServicio  extends Observable {
     private Gestor gestor;
     private eventos estado;
             
-    public enum eventos{en_espera, procesado, finalizado };
+    public enum eventos{en_espera, procesado, finalizado , itemCambioMozoGestorTomado};
 
     public ItemServicio(Producto producto, int cantidad, String descripcion, Servicio servicio) {
         this.producto = producto;
@@ -85,6 +85,6 @@ public class ItemServicio  extends Observable {
     
     public void finalizado() {
         estado = eventos.finalizado;
-        avisar(eventos.procesado);
+        avisar(eventos.finalizado);
     }
 }

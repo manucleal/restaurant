@@ -33,12 +33,12 @@ public class ControladorProcesadoraPedido implements Observador {
         this.vistaProcesadora.setLocationRelativeTo(null);
         this.procesadora.agregarObservador(this);
         iniciarItems();
-        procesadora.agregarObservador(this);
     }
 
     public void logout() {
         try {
             logica.logoutConexionGestor(conexion);
+            this.procesadora.quitarObservador(this);          
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }
@@ -60,6 +60,7 @@ public class ControladorProcesadoraPedido implements Observador {
     public void pedidoTomado(ItemServicio item) {
         try {
             ((Gestor) conexion.getUsuario()).agregarItem(item);
+            item.agregarObservador(this);
             iniciarItems();
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
@@ -82,6 +83,10 @@ public class ControladorProcesadoraPedido implements Observador {
             mostrarItemsSinProcesar();
         } else if (evento.equals(UnidadProcesadora.eventos.itemTomado)) {
             iniciarItems();
+        }else if(evento.equals(ItemServicio.eventos.itemCambioMozoGestorTomado)){
+            mostrarPedidosTomados();
+        }else if(evento.equals(UnidadProcesadora.eventos.itemCambioMozoUnidad)){
+            mostrarItemsSinProcesar();
         }
     }
 

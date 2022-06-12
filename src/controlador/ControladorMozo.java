@@ -32,6 +32,7 @@ public class ControladorMozo implements Observador {
         this.conexion = conexion;
         this.modeloMozo = (Mozo)conexion.getUsuario();
         this.modeloMozo.agregarObservador(this);
+        this.agregarObservadorItems();
         inicializarVista();
     }
 
@@ -91,6 +92,8 @@ public class ControladorMozo implements Observador {
     public void logout() {
         try {
             Fachada.getInstancia().logoutConexionMozo(conexion);
+            this.modeloMozo.quitarObservador(this);
+            this.quitarObservadorItems();
         } catch (RestaurantException e) {
             vistaMozo.mostrarMensaje(e.getMessage());
         }
@@ -98,6 +101,7 @@ public class ControladorMozo implements Observador {
 
     public void transferirMesa() {
         vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
+        //quitarObservadorItems();
     }    
     
     public void procesarRespuestaMozoDestino(int respuestaMozoDestino, Transferencia transferencia) {
@@ -107,6 +111,8 @@ public class ControladorMozo implements Observador {
                 // le agrega la mesa al mozo destino y se la quita al mozo origen
                 transferencia.getMozoDestino().reasingnarMesa(transferencia);
                 vistaMozo.mostrarMesas(transferencia.getMozoDestino().getMesas());
+                transferencia.getMesa().agregarOservadorItemsServicio(this);
+                modeloMozo.agregarObservador(this);
                 transferencia.getMozoOrigen().avisar(Transferencia.eventos.transferenciaAceptada);
                 break;
             case 1:
@@ -116,6 +122,14 @@ public class ControladorMozo implements Observador {
             default:
                 transferencia.getMozoOrigen().avisar(Transferencia.eventos.transferenciaRechazada);
         }
+    }
+    
+    private void agregarObservadorItems() {
+        this.modeloMozo.agregarControladorObservadorItem(this);
+    }
+
+    private void quitarObservadorItems(){
+        this.modeloMozo.quitarControladorObservadorItems(this);
     }
     
     @Override
@@ -132,19 +146,24 @@ public class ControladorMozo implements Observador {
             vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
         }else if(evento.equals(ItemServicio.eventos.finalizado)){
             ItemServicio item = (ItemServicio)origenEvento;
-            vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
-            vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
-                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");
-        }else if(evento.equals(ItemServicio.eventos.procesado)){
-            ItemServicio item = (ItemServicio)origenEvento;
             if(mesaSeleccionada.equals(item.getServicio().getMesa())){
                 vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             }
+            vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
+                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");
+            item.quitarObservador(this);
+        }else if(evento.equals(ItemServicio.eventos.procesado)){
+            ItemServicio item = (ItemServicio)origenEvento;
+            if(mesaSeleccionada != null && mesaSeleccionada.equals(item.getServicio().getMesa())){
+                vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
+            }
         } else if(evento.equals(Transferencia.eventos.transferenciaAceptada)) {
+            //vistaMozo.mostrarLabelMesa(-1);
+            mesaSeleccionada = null;
             vistaMozo.mostrarMensaje("La Transferencia fue aceptada !!");
             vistaMozo.mostrarMesas(modeloMozo.getMesas());
-            vistaMozo.mostrarLabelMesa(-1);
-            mesaSeleccionada = null;
+            modeloMozo.quitarControladorObservadorItems(this);
+            modeloMozo.quitarObservador(this);
         } else if(evento.equals(Transferencia.eventos.transferenciaRechazada)) {
             vistaMozo.mostrarMensaje("La Transferencia fue rechazada !!");
         }
