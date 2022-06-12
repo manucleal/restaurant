@@ -73,20 +73,20 @@ public class Mozo extends Usuario {
         }
     }
 
-    public void agregarControladorObservadorItem(ControladorMozo controlador) {
-        if(!mesas.isEmpty()){            
-            for (Mesa m : mesas) {
-                m.agregarOservadorItemsServicio(controlador);
-            }
-        }
-    }
+//    public void agregarControladorObservadorItem(ControladorMozo controlador) {
+//        if(!mesas.isEmpty()){            
+//            for (Mesa m : mesas) {
+//                m.agregarOservadorItemsServicio(controlador);
+//            }
+//        }
+//    }
     
     
-    public void quitarControladorObservadorItems(ControladorMozo controlador) {
-        if(!mesas.isEmpty()){            
-            for (Mesa m : mesas) {
-                m.getServicio().quitarOservadorItemsServicio(controlador);
-            }
-        }
-    }
+//    public void quitarControladorObservadorItems(ControladorMozo controlador) {
+//        if(!mesas.isEmpty()){            
+//            for (Mesa m : mesas) {
+//                m.getServicio().quitarOservadorItemsServicio(controlador);
+//            }
+//        }
+//    }
 }

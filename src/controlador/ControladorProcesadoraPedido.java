@@ -10,6 +10,7 @@ import modelo.Fachada;
 import modelo.Gestor;
 import modelo.RestaurantException;
 import modelo.ItemServicio;
+import modelo.Transferencia;
 import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;
@@ -84,9 +85,14 @@ public class ControladorProcesadoraPedido implements Observador {
         } else if (evento.equals(UnidadProcesadora.eventos.itemTomado)) {
             iniciarItems();
         }else if(evento.equals(ItemServicio.eventos.itemCambioMozoGestorTomado)){
-            mostrarPedidosTomados();
+//            mostrarPedidosTomados();
+            iniciarItems();
         }else if(evento.equals(UnidadProcesadora.eventos.itemCambioMozoUnidad)){
-            mostrarItemsSinProcesar();
+//            mostrarItemsSinProcesar();
+            iniciarItems();
+        } else if(evento.equals(Transferencia.eventos.transferenciaAceptada)) {
+//          mostrarItemsSinProcesar();
+            iniciarItems();
         }
     }
 

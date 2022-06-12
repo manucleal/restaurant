@@ -99,25 +99,31 @@ public class Servicio {
         return true;
     }
 
-    public void agregarOservadorItemsServicio(ControladorMozo controlador) {
-        if(!itemsServicio.isEmpty()){
-            for (ItemServicio iS : itemsServicio) {
-                iS.agregarObservador(controlador);
-                if(iS.getGestor() != null){
-                    iS.avisar(ItemServicio.eventos.itemCambioMozoGestorTomado);
-                }else{
-                    iS.getProcesadora().avisar(UnidadProcesadora.eventos.itemCambioMozoUnidad);
-                }
-            }
-        }
-    }
+//    public void agregarOservadorItemsServicio(ControladorMozo controlador) {
+//        if(!itemsServicio.isEmpty()){
+//            for (ItemServicio iS : itemsServicio) {
+//                iS.agregarObservador(controlador);
+//                if(iS.getGestor() != null){
+//                    iS.avisar(ItemServicio.eventos.itemCambioMozoGestorTomado);
+//                }else{
+//                    iS.getProcesadora().avisar(UnidadProcesadora.eventos.itemCambioMozoUnidad);
+//                }
+//            }
+//        }
+//    }
 
-    void quitarOservadorItemsServicio(ControladorMozo controlador) {
-        if(!itemsServicio.isEmpty()){
-            for (ItemServicio iS : itemsServicio) {
-                iS.quitarObservador(controlador);
-            }
-        }    
+//    void quitarOservadorItemsServicio(ControladorMozo controlador) {
+//        if(!itemsServicio.isEmpty()){
+//            for (ItemServicio iS : itemsServicio) {
+//                iS.quitarObservador(controlador);
+//            }
+//        }    
+//    }
+    
+    public void avisarUnidadesProcesadoras() {
+        for(ItemServicio item : itemsServicio) {
+            item.getProcesadora().avisar(Transferencia.eventos.transferenciaAceptada);
+        }
     }
 
 }
