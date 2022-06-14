@@ -25,8 +25,7 @@ public class Observable {
         observadores.remove(o);
     }
     
-    public void avisar(Object evento){
-        
+    public void avisar(Object evento){                
         ArrayList<Observador> copia = new ArrayList(observadores);
         
         for(Observador o : copia) {

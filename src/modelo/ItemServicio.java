@@ -1,8 +1,6 @@
 package modelo;
 
-import observador.Observable;
-
-public class ItemServicio  extends Observable {
+public class ItemServicio {
     
     private UnidadProcesadora procesadora;
     private Producto producto;
@@ -10,9 +8,8 @@ public class ItemServicio  extends Observable {
     private String descripcion;
     private Servicio servicio;
     private Gestor gestor;
-    private eventos estado;
-            
-    public enum eventos{en_espera, procesado, finalizado , itemCambioMozoGestorTomado};
+    private estados estado;
+    public enum estados { en_espera, procesado, finalizado };
 
     public ItemServicio(Producto producto, int cantidad, String descripcion, Servicio servicio) {
         this.producto = producto;
@@ -20,7 +17,7 @@ public class ItemServicio  extends Observable {
         this.descripcion = descripcion;
         this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
-        this.estado = eventos.en_espera;
+        this.estado = estados.en_espera;
     }
 
     public UnidadProcesadora getProcesadora() {
@@ -51,7 +48,7 @@ public class ItemServicio  extends Observable {
         return gestor;
     }
 
-    public eventos getEstado() {
+    public estados getEstado() {
         return estado;
     }
     
@@ -66,11 +63,11 @@ public class ItemServicio  extends Observable {
         return true;
     }    
     
-    public void agregarGestor (Gestor gestor)throws RestaurantException{
+    public void agregarGestor (Gestor gestor)throws RestaurantException {
         if( this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
-        if(estado != eventos.en_espera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
+        if(estado != estados.en_espera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
         this.gestor = gestor;
-        this.estado = eventos.procesado;
+        this.estado = estados.procesado;
         procesadora.itemTomado(this);
     }
     
@@ -78,13 +75,15 @@ public class ItemServicio  extends Observable {
          procesadora.agregarItem(this);
     }
     
-    public boolean pedidoFinalizado(){
-        return this.estado.equals(eventos.finalizado);
+    public boolean pedidoFinalizado() {
+        return this.estado.equals(estados.finalizado);
     }
  
     
-    public void finalizado() {
-        estado = eventos.finalizado;
-        avisar(eventos.finalizado);
+    public void finalizado() throws RestaurantException {
+        estado = estados.finalizado;
+        gestor.finalizarItem(this);
+        servicio.getMesa().getMozo().setItemFinalizado(this);
+        servicio.getMesa().getMozo().avisar(UnidadProcesadora.eventos.hubo_cambio);
     }
 }

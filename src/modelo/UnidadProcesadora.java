@@ -7,11 +7,10 @@ public class UnidadProcesadora extends Observable {
     
     private String nombre;
     private ArrayList<Gestor> gestores = new ArrayList();
-    private ArrayList<ItemServicio> itemsServicio = new ArrayList<>();
     private ArrayList<ItemServicio> itemsSinSerTomados = new ArrayList<>();
 
 
-    public enum eventos{nuevoItem, itemTomado , itemCambioMozoUnidad};
+    public enum eventos { hubo_cambio, finalizado };
 
     public UnidadProcesadora(String nombre) {
         this.nombre = nombre.toUpperCase();
@@ -19,10 +18,6 @@ public class UnidadProcesadora extends Observable {
 
     public String getNombre() {
         return nombre;
-    }        
-
-    public ArrayList<ItemServicio> getItemsServicio() {
-        return itemsServicio;
     }
 
     public ArrayList<Gestor> getGestores() {
@@ -36,7 +31,6 @@ public class UnidadProcesadora extends Observable {
     public void agregarGestor(Gestor gestor)throws RestaurantException{
         if(gestor == null) throw new RestaurantException("No se puede agregar un gestor null a unidad procesadora");
         gestores.add(gestor);
-        //gestor.agregarProcesadora(this);
     }
     
     public void quitarGestor(Gestor gestor)throws RestaurantException{
@@ -47,25 +41,16 @@ public class UnidadProcesadora extends Observable {
     
     public void agregarItem(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede agregar un item vacío a unidad procesadora");
-        itemsServicio.add(item);
         itemsSinSerTomados.add(item);
-        avisar(eventos.nuevoItem);
+        avisar(eventos.hubo_cambio);
     }
     
     public void itemTomado(ItemServicio item) throws RestaurantException{
         if(item == null) throw new RestaurantException("No se puede tomar un item vacío");
         if(!itemsSinSerTomados.contains(item)) throw new RestaurantException("no se encuentra item sin ser tomado.");
         itemsSinSerTomados.remove(item);
-        avisar(eventos.itemTomado);
-    }
-    
-    public void quitarItemServicio(ItemServicio item) throws RestaurantException {
-        if(item == null) throw new RestaurantException("No se puede quitar un item vacío");
-        if(!itemsServicio.contains(item)) throw new RestaurantException("No se encuentra item sin ser tomado.");
-        itemsServicio.remove(item);
-    }
-
-    
+        avisar(eventos.hubo_cambio);
+    }   
     
     @Override
     public String toString(){

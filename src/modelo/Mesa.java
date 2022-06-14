@@ -85,7 +85,4 @@ public class Mesa {
         return this.servicio.verificarPedidosFinalizados();
     }
 
-//    public void agregarOservadorItemsServicio(ControladorMozo controlador) {
-//        servicio.agregarOservadorItemsServicio(controlador);
-//    }
 }

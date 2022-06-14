@@ -10,7 +10,6 @@ import modelo.Fachada;
 import modelo.Gestor;
 import modelo.RestaurantException;
 import modelo.ItemServicio;
-import modelo.Transferencia;
 import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;
@@ -61,7 +60,6 @@ public class ControladorProcesadoraPedido implements Observador {
     public void pedidoTomado(ItemServicio item) {
         try {
             ((Gestor) conexion.getUsuario()).agregarItem(item);
-            item.agregarObservador(this);
             iniciarItems();
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
@@ -71,7 +69,7 @@ public class ControladorProcesadoraPedido implements Observador {
     public void pedidoFinalizado(ItemServicio item) {
         Gestor gestor = ((Gestor) conexion.getUsuario());
         try {
-            gestor.finalizarItem(item);
+            item.finalizado();
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }
@@ -80,20 +78,11 @@ public class ControladorProcesadoraPedido implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        if (evento.equals(UnidadProcesadora.eventos.nuevoItem)) {
-            mostrarItemsSinProcesar();
-        } else if (evento.equals(UnidadProcesadora.eventos.itemTomado)) {
-            iniciarItems();
-        }else if(evento.equals(ItemServicio.eventos.itemCambioMozoGestorTomado)){
-//            mostrarPedidosTomados();
-            iniciarItems();
-        }else if(evento.equals(UnidadProcesadora.eventos.itemCambioMozoUnidad)){
-//            mostrarItemsSinProcesar();
-            iniciarItems();
-        } else if(evento.equals(Transferencia.eventos.transferenciaAceptada)) {
-//          mostrarItemsSinProcesar();
+
+        if (evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {
             iniciarItems();
         }
+        
     }
 
 }

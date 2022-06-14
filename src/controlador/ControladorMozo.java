@@ -12,6 +12,7 @@ import modelo.Mozo;
 import modelo.Producto;
 import modelo.RestaurantException;
 import modelo.Transferencia;
+import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;
 import vistaEscritorio.VistaMozo;
@@ -32,8 +33,7 @@ public class ControladorMozo implements Observador {
         this.conexion = conexion;
         this.modeloMozo = (Mozo)conexion.getUsuario();
         this.modeloMozo.agregarObservador(this);
-        //this.agregarObservadorItems();
-        inicializarVista();
+        this.inicializarVista();
     }
 
     private void inicializarVista() {
@@ -74,7 +74,6 @@ public class ControladorMozo implements Observador {
         try {
             if(!mesaSeleccionada.estaCerrada("La mesa está cerrada")) {
                 ItemServicio item = mesaSeleccionada.getServicio().agregarItemServicio(producto, descripcion, cantidad);
-                item.agregarObservador(this);
                 accionesItemAgregado();
             }
         } catch (RestaurantException e) {
@@ -93,7 +92,6 @@ public class ControladorMozo implements Observador {
         try {
             Fachada.getInstancia().logoutConexionMozo(conexion);
             this.modeloMozo.quitarObservador(this);
-            //this.quitarObservadorItems();
         } catch (RestaurantException e) {
             vistaMozo.mostrarMensaje(e.getMessage());
         }
@@ -101,7 +99,6 @@ public class ControladorMozo implements Observador {
 
     public void transferirMesa() {
         vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
-        //quitarObservadorItems();
     }    
     
     public void procesarRespuestaMozoDestino(int respuestaMozoDestino, Transferencia transferencia) {
@@ -109,12 +106,9 @@ public class ControladorMozo implements Observador {
         switch (respuestaMozoDestino) {
             case 0:
                 // le agrega la mesa al mozo destino y se la quita al mozo origen
-                transferencia.getMozoDestino().reasingnarMesa(transferencia);
-                vistaMozo.mostrarMesas(transferencia.getMozoDestino().getMesas());
-                //transferencia.getMesa().agregarOservadorItemsServicio(this);
-                //modeloMozo.agregarObservador(this);
-                
+                transferencia.getMozoDestino().reasingnarMesa(transferencia);                                
                 transferencia.getMesa().getServicio().avisarUnidadesProcesadoras();
+                vistaMozo.mostrarMesas(transferencia.getMozoDestino().getMesas());
                 transferencia.getMozoOrigen().avisar(Transferencia.eventos.transferenciaAceptada);
                 break;
             case 1:
@@ -125,14 +119,6 @@ public class ControladorMozo implements Observador {
                 transferencia.getMozoOrigen().avisar(Transferencia.eventos.transferenciaRechazada);
         }
     }
-//    
-//    private void agregarObservadorItems() {
-//        this.modeloMozo.agregarControladorObservadorItem(this);
-//    }
-//
-//    private void quitarObservadorItems(){
-//        this.modeloMozo.quitarControladorObservadorItems(this);
-//    }
     
     @Override
     public void actualizar(Object evento, Observable origenEvento) {
@@ -140,32 +126,25 @@ public class ControladorMozo implements Observador {
             Mozo mozoDestino = (Mozo)origenEvento;
             Transferencia transferencia = mozoDestino.getTransferenciaRecibida();
             if(transferencia != null) {
-                vistaMozo.mostrarNotificaciónTranferencia(transferencia);                                      
+                vistaMozo.mostrarNotificaciónTransferencia(transferencia);                                      
             }            
 
         }else if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
-        }else if(evento.equals(ItemServicio.eventos.finalizado)){
-            ItemServicio item = (ItemServicio)origenEvento;
-            if(mesaSeleccionada.equals(item.getServicio().getMesa())){
-                vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
-            }
-            vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
-                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");
-            item.quitarObservador(this);
-        }else if(evento.equals(ItemServicio.eventos.procesado)){
-            ItemServicio item = (ItemServicio)origenEvento;
-            if(mesaSeleccionada != null && mesaSeleccionada.equals(item.getServicio().getMesa())){
-                vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
-            }
+        }else if(evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {            
+            vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
+            if(evento.equals(ItemServicio.estados.finalizado)) {
+                ItemServicio item = modeloMozo.getItemFinalizado();
+                vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
+                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");  
+                modeloMozo.setItemFinalizado(null);
+            }           
         } else if(evento.equals(Transferencia.eventos.transferenciaAceptada)) {
-            //vistaMozo.mostrarLabelMesa(-1);
+            vistaMozo.mostrarLabelMesa(-1);
             mesaSeleccionada = null;
             vistaMozo.mostrarMensaje("La Transferencia fue aceptada !!");
             vistaMozo.mostrarMesas(modeloMozo.getMesas());
-//            modeloMozo.quitarControladorObservadorItems(this);
-//            modeloMozo.quitarObservador(this);
         } else if(evento.equals(Transferencia.eventos.transferenciaRechazada)) {
             vistaMozo.mostrarMensaje("La Transferencia fue rechazada !!");
         }

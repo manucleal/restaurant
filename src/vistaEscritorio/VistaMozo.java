@@ -390,7 +390,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }
     
     @Override
-    public void mostrarNotificaciónTranferencia(Transferencia transferencia) {
+    public void mostrarNotificaciónTransferencia(Transferencia transferencia) {
         String estado = transferencia.getMesa().estaAbierta() ? "abierta" : "cerrada";
         int respuestaMozoDestino = JOptionPane.showConfirmDialog(null, 
                 "Desea aceptar la mesa " + estado + 

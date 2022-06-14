@@ -1,6 +1,5 @@
 package modelo;
 
-import controlador.ControladorMozo;
 import java.util.ArrayList;
 
 public class Mozo extends Usuario {
@@ -9,6 +8,7 @@ public class Mozo extends Usuario {
     public static int cantidadMaxMesas = 5;
     private ArrayList<Mesa> mesas = new ArrayList();    
     private Transferencia transferencia;
+    private ItemServicio itemFinalizado;
 
     public enum eventos { mesaCerrada };
 
@@ -20,6 +20,14 @@ public class Mozo extends Usuario {
     public ArrayList<Mesa> getMesas() {
         return mesas;
     }
+    
+    public ItemServicio getItemFinalizado() {
+        return itemFinalizado;
+    }
+
+    public void setItemFinalizado(ItemServicio itemFinalizado) {
+        this.itemFinalizado = itemFinalizado;
+    }        
     
     public static int getCantidadMaxMesas() {
         return cantidadMaxMesas;
@@ -73,20 +81,4 @@ public class Mozo extends Usuario {
         }
     }
 
-//    public void agregarControladorObservadorItem(ControladorMozo controlador) {
-//        if(!mesas.isEmpty()){            
-//            for (Mesa m : mesas) {
-//                m.agregarOservadorItemsServicio(controlador);
-//            }
-//        }
-//    }
-    
-    
-//    public void quitarControladorObservadorItems(ControladorMozo controlador) {
-//        if(!mesas.isEmpty()){            
-//            for (Mesa m : mesas) {
-//                m.getServicio().quitarOservadorItemsServicio(controlador);
-//            }
-//        }
-//    }
 }
