@@ -246,8 +246,10 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
         mostrarTablaPedidos(items, tPedidosTomados);
     }
 
-    private void mostrarTablaPedidos(ArrayList<ItemServicio> items, javax.swing.JTable tabla) {
-        DefaultTableModel datos = new DefaultTableModel();
+    private void mostrarTablaPedidos(ArrayList<ItemServicio> items, javax.swing.JTable tabla) {        
+        DefaultTableModel datos = new DefaultTableModel() {
+            @Override public boolean isCellEditable(int row, int column) { return false; }
+        };
         datos.addColumn("Producto");
         datos.addColumn("Cantidad");
         datos.addColumn("Observaciones");

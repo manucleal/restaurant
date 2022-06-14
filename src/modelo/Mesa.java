@@ -1,5 +1,7 @@
 package modelo;
 
+import controlador.ControladorMozo;
+
 public class Mesa {
     
     private int numero;
@@ -82,4 +84,5 @@ public class Mesa {
     private boolean sinPedidosPendientes(){
         return this.servicio.verificarPedidosFinalizados();
     }
+
 }

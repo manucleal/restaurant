@@ -4,6 +4,7 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.ItemServicio;
@@ -12,6 +13,7 @@ import modelo.Mozo;
 import modelo.Producto;
 import modelo.RestaurantException;
 import modelo.Transferencia;
+import modelo.UnidadProcesadora;
 import observador.Observable;
 import observador.Observador;
 import vistaEscritorio.VistaMozo;
@@ -32,7 +34,7 @@ public class ControladorMozo implements Observador {
         this.conexion = conexion;
         this.modeloMozo = (Mozo)conexion.getUsuario();
         this.modeloMozo.agregarObservador(this);
-        inicializarVista();
+        this.inicializarVista();
     }
 
     private void inicializarVista() {
@@ -52,8 +54,8 @@ public class ControladorMozo implements Observador {
     
     public void abrirMesa() {
         try{
-            String msg = mesaSeleccionada.abrirMesa();
-            vistaMozo.mostrarMensaje(msg);
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
+            vistaMozo.mostrarMensaje(mesaSeleccionada.abrirMesa());
         }catch(RestaurantException e){
             vistaMozo.mostrarMensaje(e.getMessage());
         }
@@ -61,6 +63,7 @@ public class ControladorMozo implements Observador {
     
     public void llamarVentanaCerrarMesa() {
         try{
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
             if(!mesaSeleccionada.estaCerrada("La mesa no está abierta") && !mesaSeleccionada.tienePedidosPendientes()){
                 vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
@@ -71,9 +74,9 @@ public class ControladorMozo implements Observador {
 
     public void agregarProducto(Producto producto, String descripcion, String cantidad) {
         try {
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
             if(!mesaSeleccionada.estaCerrada("La mesa está cerrada")) {
-                ItemServicio item = mesaSeleccionada.getServicio().agregarItemServicio(producto, descripcion, cantidad);
-                item.agregarObservador(this);
+                mesaSeleccionada.getServicio().agregarItemServicio(producto, descripcion, cantidad);
                 accionesItemAgregado();
             }
         } catch (RestaurantException e) {
@@ -91,13 +94,19 @@ public class ControladorMozo implements Observador {
     public void logout() {
         try {
             Fachada.getInstancia().logoutConexionMozo(conexion);
+            this.modeloMozo.quitarObservador(this);
         } catch (RestaurantException e) {
             vistaMozo.mostrarMensaje(e.getMessage());
         }
     }
 
     public void transferirMesa() {
-        vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
+        try {
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
+            vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
+        } catch(RestaurantException e) {
+            vistaMozo.mostrarMensaje(e.getMessage());        
+        }
     }    
     
     public void procesarRespuestaMozoDestino(int respuestaMozoDestino, Transferencia transferencia) {
@@ -105,7 +114,8 @@ public class ControladorMozo implements Observador {
         switch (respuestaMozoDestino) {
             case 0:
                 // le agrega la mesa al mozo destino y se la quita al mozo origen
-                transferencia.getMozoDestino().reasingnarMesa(transferencia);
+                transferencia.getMozoDestino().reasingnarMesa(transferencia);                                
+                transferencia.getMesa().getServicio().avisarUnidadesProcesadoras();
                 vistaMozo.mostrarMesas(transferencia.getMozoDestino().getMesas());
                 transferencia.getMozoOrigen().avisar(Transferencia.eventos.transferenciaAceptada);
                 break;
@@ -124,27 +134,26 @@ public class ControladorMozo implements Observador {
             Mozo mozoDestino = (Mozo)origenEvento;
             Transferencia transferencia = mozoDestino.getTransferenciaRecibida();
             if(transferencia != null) {
-                vistaMozo.mostrarNotificaciónTranferencia(transferencia);                                      
+                vistaMozo.mostrarNotificaciónTransferencia(transferencia);                                      
             }            
 
         }else if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
-        }else if(evento.equals(ItemServicio.eventos.finalizado)){
-            ItemServicio item = (ItemServicio)origenEvento;
+        }else if(evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
-            vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
-                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");
-        }else if(evento.equals(ItemServicio.eventos.procesado)){
-            ItemServicio item = (ItemServicio)origenEvento;
-            if(mesaSeleccionada.equals(item.getServicio().getMesa())){
-                vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
-            }
+            if(evento.equals(ItemServicio.estados.finalizado)) {
+                ItemServicio item = modeloMozo.getItemFinalizado();
+                vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
+                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");  
+                modeloMozo.setItemFinalizado(null);
+            }           
         } else if(evento.equals(Transferencia.eventos.transferenciaAceptada)) {
+            vistaMozo.mostrarLabelMesa(-1);
+            mesaSeleccionada = null;            
             vistaMozo.mostrarMensaje("La Transferencia fue aceptada !!");
             vistaMozo.mostrarMesas(modeloMozo.getMesas());
-            vistaMozo.mostrarLabelMesa(-1);
-            mesaSeleccionada = null;
+            vistaMozo.mostrarDatosServicio(new ArrayList<>());
         } else if(evento.equals(Transferencia.eventos.transferenciaRechazada)) {
             vistaMozo.mostrarMensaje("La Transferencia fue rechazada !!");
         }

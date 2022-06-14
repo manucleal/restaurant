@@ -37,6 +37,6 @@ public interface VistaMozoInterface {
     
     public void mostrarTotalServicio(float total);
     
-    public void mostrarNotificaciónTranferencia(Transferencia transferencia);
+    public void mostrarNotificaciónTransferencia(Transferencia transferencia);
     
 }

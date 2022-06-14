@@ -312,7 +312,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }
 
     @Override
-    public void mostrarMesas(ArrayList<Mesa> mesas) {        
+    public void mostrarMesas(ArrayList<Mesa> mesas) {
         panelButtons.setLayout(new GridLayout(2, 3));
         panelButtons.removeAll();
         for (Mesa mesa : mesas) {
@@ -335,7 +335,9 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     
     @Override
     public void mostrarDatosServicio(ArrayList<ItemServicio> items) {
-        DefaultTableModel modelTable = new DefaultTableModel();
+        DefaultTableModel modelTable = new DefaultTableModel() {
+            @Override public boolean isCellEditable(int row, int column) { return false; }
+        };
         modelTable.addColumn("Producto");
         modelTable.addColumn("Cantidad");
         modelTable.addColumn("Descripción");
@@ -390,7 +392,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
     }
     
     @Override
-    public void mostrarNotificaciónTranferencia(Transferencia transferencia) {
+    public void mostrarNotificaciónTransferencia(Transferencia transferencia) {
         String estado = transferencia.getMesa().estaAbierta() ? "abierta" : "cerrada";
         int respuestaMozoDestino = JOptionPane.showConfirmDialog(null, 
                 "Desea aceptar la mesa " + estado + 

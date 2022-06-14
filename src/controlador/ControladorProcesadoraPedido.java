@@ -33,12 +33,12 @@ public class ControladorProcesadoraPedido implements Observador {
         this.vistaProcesadora.setLocationRelativeTo(null);
         this.procesadora.agregarObservador(this);
         iniciarItems();
-        procesadora.agregarObservador(this);
     }
 
     public void logout() {
         try {
             logica.logoutConexionGestor(conexion);
+            this.procesadora.quitarObservador(this);          
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }
@@ -69,7 +69,7 @@ public class ControladorProcesadoraPedido implements Observador {
     public void pedidoFinalizado(ItemServicio item) {
         Gestor gestor = ((Gestor) conexion.getUsuario());
         try {
-            gestor.finalizarItem(item);
+            item.finalizado();
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }
@@ -78,11 +78,11 @@ public class ControladorProcesadoraPedido implements Observador {
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        if (evento.equals(UnidadProcesadora.eventos.nuevoItem)) {
-            mostrarItemsSinProcesar();
-        } else if (evento.equals(UnidadProcesadora.eventos.itemTomado)) {
+
+        if (evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {
             iniciarItems();
         }
+        
     }
 
 }

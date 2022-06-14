@@ -97,5 +97,11 @@ public class Servicio {
         }
         return true;
     }
+    
+    public void avisarUnidadesProcesadoras() {
+        for(ItemServicio item : itemsServicio) {
+            item.getProcesadora().avisar(UnidadProcesadora.eventos.hubo_cambio);
+        }
+    }
 
 }

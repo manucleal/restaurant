@@ -8,7 +8,8 @@ public class Mozo extends Usuario {
     public static int cantidadMaxMesas = 5;
     private ArrayList<Mesa> mesas = new ArrayList();    
     private Transferencia transferencia;
-    
+    private ItemServicio itemFinalizado;
+
     public enum eventos { mesaCerrada };
 
     public Mozo(String telefono, String nombreUsuario, String contrasena, String nombreCompleto) {
@@ -19,6 +20,14 @@ public class Mozo extends Usuario {
     public ArrayList<Mesa> getMesas() {
         return mesas;
     }
+    
+    public ItemServicio getItemFinalizado() {
+        return itemFinalizado;
+    }
+
+    public void setItemFinalizado(ItemServicio itemFinalizado) {
+        this.itemFinalizado = itemFinalizado;
+    }        
     
     public static int getCantidadMaxMesas() {
         return cantidadMaxMesas;
@@ -71,5 +80,5 @@ public class Mozo extends Usuario {
             mozoDestino.avisar(Transferencia.eventos.nuevaTranferencia);
         }
     }
-    
+
 }
