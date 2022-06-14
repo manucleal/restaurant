@@ -42,14 +42,14 @@ public class UnidadProcesadora extends Observable {
     public void agregarItem(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede agregar un item vacío a unidad procesadora");
         itemsSinSerTomados.add(item);
-        avisar(eventos.hubo_cambio);
+        item.getServicio().getMesa().getMozo().avisar(eventos.hubo_cambio);
     }
     
-    public void itemTomado(ItemServicio item) throws RestaurantException{
+    public void itemTomado(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede tomar un item vacío");
         if(!itemsSinSerTomados.contains(item)) throw new RestaurantException("no se encuentra item sin ser tomado.");
         itemsSinSerTomados.remove(item);
-        avisar(eventos.hubo_cambio);
+        item.getServicio().getMesa().getMozo().avisar(eventos.hubo_cambio);
     }   
     
     @Override

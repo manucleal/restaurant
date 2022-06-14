@@ -4,6 +4,7 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.ItemServicio;
@@ -53,8 +54,8 @@ public class ControladorMozo implements Observador {
     
     public void abrirMesa() {
         try{
-            String msg = mesaSeleccionada.abrirMesa();
-            vistaMozo.mostrarMensaje(msg);
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
+            vistaMozo.mostrarMensaje(mesaSeleccionada.abrirMesa());
         }catch(RestaurantException e){
             vistaMozo.mostrarMensaje(e.getMessage());
         }
@@ -62,6 +63,7 @@ public class ControladorMozo implements Observador {
     
     public void llamarVentanaCerrarMesa() {
         try{
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
             if(!mesaSeleccionada.estaCerrada("La mesa no está abierta") && !mesaSeleccionada.tienePedidosPendientes()){
                 vistaMozo.llamarVentanaCerrarMesa(mesaSeleccionada.getServicio());
             }
@@ -72,8 +74,9 @@ public class ControladorMozo implements Observador {
 
     public void agregarProducto(Producto producto, String descripcion, String cantidad) {
         try {
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
             if(!mesaSeleccionada.estaCerrada("La mesa está cerrada")) {
-                ItemServicio item = mesaSeleccionada.getServicio().agregarItemServicio(producto, descripcion, cantidad);
+                mesaSeleccionada.getServicio().agregarItemServicio(producto, descripcion, cantidad);
                 accionesItemAgregado();
             }
         } catch (RestaurantException e) {
@@ -98,7 +101,12 @@ public class ControladorMozo implements Observador {
     }
 
     public void transferirMesa() {
-        vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
+        try {
+            if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
+            vistaMozo.llamarVentanaTransferencia(mesaSeleccionada);
+        } catch(RestaurantException e) {
+            vistaMozo.mostrarMensaje(e.getMessage());        
+        }
     }    
     
     public void procesarRespuestaMozoDestino(int respuestaMozoDestino, Transferencia transferencia) {
@@ -132,7 +140,7 @@ public class ControladorMozo implements Observador {
         }else if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
-        }else if(evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {            
+        }else if(evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             if(evento.equals(ItemServicio.estados.finalizado)) {
                 ItemServicio item = modeloMozo.getItemFinalizado();
@@ -142,9 +150,10 @@ public class ControladorMozo implements Observador {
             }           
         } else if(evento.equals(Transferencia.eventos.transferenciaAceptada)) {
             vistaMozo.mostrarLabelMesa(-1);
-            mesaSeleccionada = null;
+            mesaSeleccionada = null;            
             vistaMozo.mostrarMensaje("La Transferencia fue aceptada !!");
             vistaMozo.mostrarMesas(modeloMozo.getMesas());
+            vistaMozo.mostrarDatosServicio(new ArrayList<>());
         } else if(evento.equals(Transferencia.eventos.transferenciaRechazada)) {
             vistaMozo.mostrarMensaje("La Transferencia fue rechazada !!");
         }
