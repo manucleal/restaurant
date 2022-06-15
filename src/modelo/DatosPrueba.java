@@ -17,7 +17,7 @@ public class DatosPrueba {
 //    --------------------- ALTA MESA  ---------------------
         Mesa mesa1 = new Mesa(1,true);
         Mesa mesa2 = new Mesa(2,true);
-        Mesa mesa3 = new Mesa(3,true);
+        Mesa mesa3 = new Mesa(3,false);
         Mesa mesa4 = new Mesa(4,false);
         Mesa mesa5 = new Mesa(5,false);
         Mesa mesa6 = new Mesa(6,false);
