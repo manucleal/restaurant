@@ -2,7 +2,6 @@ package modelo;
 
 public class ItemServicio {
     
-    //private UnidadProcesadora procesadora;
     private Producto producto;
     private int cantidad;
     private String descripcion;
@@ -15,14 +14,9 @@ public class ItemServicio {
         this.producto = producto;
         this.cantidad = cantidad;
         this.descripcion = descripcion;
-        //this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
         this.estado = estados.en_espera;
     }
-
-//    public UnidadProcesadora getProcesadora() {
-//        return procesadora;
-//    }
 
     public Producto getProducto() {
         return producto;
@@ -69,11 +63,9 @@ public class ItemServicio {
         this.gestor = gestor;
         this.estado = estados.procesado;
         this.producto.getUnidadProcesadora().itemTomado(this);
-        //procesadora.itemTomado(this);
     }
     
     public void agregarAUnidadProcesadora() throws  RestaurantException {
-        //procesadora.agregarItem(this);
         this.producto.getUnidadProcesadora().agregarItem(this);
     }
     

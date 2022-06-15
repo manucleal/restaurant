@@ -98,7 +98,6 @@ public class Servicio {
     
     public void avisarUnidadesProcesadoras() {
         for(ItemServicio item : itemsServicio) {
-//           item.getProcesadora().avisar(UnidadProcesadora.eventos.hubo_cambio);
             item.getProducto().getUnidadProcesadora().avisar(UnidadProcesadora.eventos.hubo_cambio);
         }
     }
