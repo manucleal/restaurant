@@ -69,7 +69,7 @@ public class ControladorProcesadoraPedido implements Observador {
     public void pedidoFinalizado(ItemServicio item) {
         Gestor gestor = ((Gestor) conexion.getUsuario());
         try {
-            item.finalizado();
+            gestor.finalizarItem(item);
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }

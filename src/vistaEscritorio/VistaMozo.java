@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import modelo.Conexion;
 import modelo.ItemServicio;
 import modelo.Mesa;
 import modelo.Producto;
 import modelo.Servicio;
 import modelo.Transferencia;
-import static utilidades.StringUtils.formatEstadosPedidos;
 
 
 /**
@@ -39,6 +39,7 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         initComponents();
         setSize(new Dimension(1000, 800));
         controladorMozo = new ControladorMozo(this, conexion);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -347,13 +348,18 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
         modelTable.setRowCount(items.size());
         int contador = 0;
         
+        
         for(ItemServicio item : items) {
+            String estadoPedido = item.getEstado().toString().replace("_", " ");
+            if("procesado".equals(estadoPedido)) {
+                estadoPedido += " (" + item.getGestor().getNombreCompleto() + ")";
+            }
             modelTable.setValueAt(item.getProducto().getNombre(), contador , 0);
             modelTable.setValueAt(item.getCantidad(), contador , 1);
             modelTable.setValueAt(item.getDescripcion(), contador , 2);
             modelTable.setValueAt(item.getProducto().getPrecio(), contador , 3);
             modelTable.setValueAt(item.getSubTotal(), contador , 4);
-            modelTable.setValueAt(formatEstadosPedidos(item), contador , 5);
+            modelTable.setValueAt(estadoPedido, contador , 5);
             contador++;
         }
         tableDatosServicio.setModel(modelTable);
@@ -400,6 +406,13 @@ public class VistaMozo extends javax.swing.JDialog implements VistaMozoInterface
                 " del mozo: " + transferencia.getMozoOrigen().getNombreCompleto() + " ?"
         );
         controladorMozo.procesarRespuestaMozoDestino(respuestaMozoDestino, transferencia);
+    }
+    
+    @Override
+    public void mostrarNotificacionPedidoFinalizado(ItemServicio item) {
+        String msg = "El pedido de la mesa " + item.getServicio().getMesa().getNumero() + " por " +
+                    item.getCantidad() + " " + item.getProducto().getNombre() + " está listo para ser retirado";
+        JOptionPane.showMessageDialog(this, msg);
     }
     
     private class Clicklistener implements ActionListener {        

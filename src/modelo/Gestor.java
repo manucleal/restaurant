@@ -51,6 +51,7 @@ public class Gestor extends Usuario {
     public void finalizarItem(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se selecciono item");
         if(!itemsProcesando.contains(item)) throw new RestaurantException("No se encuentra item en lista de pedidos tomados.");
+        item.finalizado();
         itemsProcesando.remove(item);
     }
 }

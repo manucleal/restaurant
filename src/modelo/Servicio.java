@@ -12,8 +12,6 @@ public class Servicio {
     private float montoDescuento;
     
     public Servicio() {}
-    
-    public Servicio(Mesa mesa) {}
 
     public ArrayList<ItemServicio> getItemsServicio() {
         return itemsServicio;
@@ -46,7 +44,7 @@ public class Servicio {
         itemServicio.validar();
         itemsServicio.add(itemServicio);
         producto.bajarStock(cant);
-        itemServicio.agregarAUnidadProcesadora(itemServicio);
+        itemServicio.agregarAUnidadProcesadora();
         return itemServicio;
     }
     
@@ -91,7 +89,7 @@ public class Servicio {
         return obtenerMontoTotalServicio() - montoDescuento;
     }
     
-    public boolean verificarPedidosFinalizados(){
+    public boolean tieneTodosLosPedidosFinalizados() {
         for(ItemServicio item : itemsServicio){
             if(!item.pedidoFinalizado()) return false;
         }
@@ -100,7 +98,8 @@ public class Servicio {
     
     public void avisarUnidadesProcesadoras() {
         for(ItemServicio item : itemsServicio) {
-            item.getProcesadora().avisar(UnidadProcesadora.eventos.hubo_cambio);
+//           item.getProcesadora().avisar(UnidadProcesadora.eventos.hubo_cambio);
+            item.getProducto().getUnidadProcesadora().avisar(UnidadProcesadora.eventos.hubo_cambio);
         }
     }
 

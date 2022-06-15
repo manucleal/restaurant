@@ -42,7 +42,7 @@ public class UnidadProcesadora extends Observable {
     public void agregarItem(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede agregar un item vacío a unidad procesadora");
         itemsSinSerTomados.add(item);
-        item.getServicio().getMesa().getMozo().avisar(eventos.hubo_cambio);
+          avisar(eventos.hubo_cambio);
     }
     
     public void itemTomado(ItemServicio item) throws RestaurantException {
@@ -50,7 +50,7 @@ public class UnidadProcesadora extends Observable {
         if(!itemsSinSerTomados.contains(item)) throw new RestaurantException("no se encuentra item sin ser tomado.");
         itemsSinSerTomados.remove(item);
         item.getServicio().getMesa().getMozo().avisar(eventos.hubo_cambio);
-    }   
+    }
     
     @Override
     public String toString(){
