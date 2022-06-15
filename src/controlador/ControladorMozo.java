@@ -93,8 +93,10 @@ public class ControladorMozo implements Observador {
 
     public void logout() {
         try {
+            if(this.modeloMozo.tienePedidoPendiente()) throw new RestaurantException("Debe cerrar las mesas abiertas antes de salir");
             Fachada.getInstancia().logoutConexionMozo(conexion);
             this.modeloMozo.quitarObservador(this);
+            vistaMozo.dispose();
         } catch (RestaurantException e) {
             vistaMozo.mostrarMensaje(e.getMessage());
         }
@@ -136,18 +138,16 @@ public class ControladorMozo implements Observador {
             if(transferencia != null) {
                 vistaMozo.mostrarNotificaciónTransferencia(transferencia);                                      
             }            
-
         }else if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
         }else if(evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
-            if(evento.equals(ItemServicio.estados.finalizado)) {
-                ItemServicio item = modeloMozo.getItemFinalizado();
-                vistaMozo.mostrarMensaje("El pedido de la mesa "+item.getServicio().getMesa().getNumero()+ " por "+
-                    item.getCantidad()+" "+ item.getProducto().getNombre()+" está listo para ser retirado");  
+            ItemServicio item = modeloMozo.getItemFinalizado();
+            if(item != null && item.getEstado().equals(ItemServicio.estados.finalizado)) {                
+                vistaMozo.mostrarNotificacionPedidoFinalizado(item);
                 modeloMozo.setItemFinalizado(null);
-            }           
+            }
         } else if(evento.equals(Transferencia.eventos.transferenciaAceptada)) {
             vistaMozo.mostrarLabelMesa(-1);
             mesaSeleccionada = null;            

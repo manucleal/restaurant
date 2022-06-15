@@ -6,7 +6,7 @@ public class Mozo extends Usuario {
     
     private String telefono;
     public static int cantidadMaxMesas = 5;
-    private ArrayList<Mesa> mesas = new ArrayList();    
+    private ArrayList<Mesa> mesas = new ArrayList<>();    
     private Transferencia transferencia;
     private ItemServicio itemFinalizado;
 
@@ -79,6 +79,13 @@ public class Mozo extends Usuario {
             mozoDestino.setTransferencia(transferenciaRealizada);          
             mozoDestino.avisar(Transferencia.eventos.nuevaTranferencia);
         }
+    }
+    
+    public boolean tienePedidoPendiente() {
+        for(Mesa mesa : mesas) {
+            if(!mesa.sinPedidosPendientes()) return true;                        
+        }
+        return false;
     }
 
 }

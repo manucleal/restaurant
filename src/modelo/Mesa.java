@@ -1,15 +1,11 @@
 package modelo;
 
-import controlador.ControladorMozo;
-
 public class Mesa {
     
     private int numero;
     private Mozo mozo;
     private Servicio servicio = new Servicio();
     private boolean estaAbierta;
-    private Transferencia transferencia;
-
 
     public Mesa(int numero, boolean estaAbierta) {
         this.numero = numero;
@@ -40,10 +36,6 @@ public class Mesa {
 
     public Servicio getServicio() {
         return servicio;
-    }
-
-    public Transferencia getTransferencia() {
-        return transferencia;
     }
 
     public boolean estaAbierta() {
@@ -81,8 +73,8 @@ public class Mesa {
         mozo.avisar(Mozo.eventos.mesaCerrada);
     }
     
-    private boolean sinPedidosPendientes(){
-        return this.servicio.verificarPedidosFinalizados();
+    public boolean sinPedidosPendientes() {
+        return this.servicio.tieneTodosLosPedidosFinalizados();
     }
 
 }

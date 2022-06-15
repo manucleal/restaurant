@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class SistemaPedidos {
     
-    ArrayList<UnidadProcesadora> procesadoras = new ArrayList();
-    ArrayList<Servicio> servicios = new ArrayList();
-    ArrayList<Producto> productos = new ArrayList();
+    ArrayList<UnidadProcesadora> procesadoras = new ArrayList<>();
+    ArrayList<Producto> productos = new ArrayList<>();
 
     protected SistemaPedidos() {}        
     

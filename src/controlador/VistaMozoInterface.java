@@ -39,4 +39,6 @@ public interface VistaMozoInterface {
     
     public void mostrarNotificaciónTransferencia(Transferencia transferencia);
     
+    public void mostrarNotificacionPedidoFinalizado(ItemServicio item);
+    
 }

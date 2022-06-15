@@ -2,7 +2,6 @@ package modelo;
 
 public class ItemServicio {
     
-    private UnidadProcesadora procesadora;
     private Producto producto;
     private int cantidad;
     private String descripcion;
@@ -15,13 +14,8 @@ public class ItemServicio {
         this.producto = producto;
         this.cantidad = cantidad;
         this.descripcion = descripcion;
-        this.procesadora = producto.getUnidadProcesadora();
         this.servicio = servicio;
         this.estado = estados.en_espera;
-    }
-
-    public UnidadProcesadora getProcesadora() {
-        return procesadora;
     }
 
     public Producto getProducto() {
@@ -63,26 +57,24 @@ public class ItemServicio {
         return true;
     }    
     
-    public void agregarGestor (Gestor gestor)throws RestaurantException {
-        if( this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
+    public void agregarGestor (Gestor gestor) throws RestaurantException {
+        if(this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
         if(estado != estados.en_espera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
         this.gestor = gestor;
         this.estado = estados.procesado;
-        procesadora.itemTomado(this);
+        this.producto.getUnidadProcesadora().itemTomado(this);
     }
     
-    public void agregarAUnidadProcesadora(ItemServicio itemServicio)throws  RestaurantException{
-         procesadora.agregarItem(this);
+    public void agregarAUnidadProcesadora() throws  RestaurantException {
+        this.producto.getUnidadProcesadora().agregarItem(this);
     }
     
     public boolean pedidoFinalizado() {
         return this.estado.equals(estados.finalizado);
     }
- 
-    
+   
     public void finalizado() throws RestaurantException {
-        estado = estados.finalizado;
-        gestor.finalizarItem(this);
+        estado = estados.finalizado;        
         servicio.getMesa().getMozo().setItemFinalizado(this);
         servicio.getMesa().getMozo().avisar(UnidadProcesadora.eventos.hubo_cambio);
     }
