@@ -9,7 +9,6 @@ public class UnidadProcesadora extends Observable {
     private ArrayList<Gestor> gestores = new ArrayList();
     private ArrayList<ItemServicio> itemsSinSerTomados = new ArrayList<>();
 
-
     public enum eventos { hubo_cambio, finalizado };
 
     public UnidadProcesadora(String nombre) {
@@ -33,19 +32,13 @@ public class UnidadProcesadora extends Observable {
         gestores.add(gestor);
     }
     
-    public void quitarGestor(Gestor gestor)throws RestaurantException{
-        if(gestor == null) throw new RestaurantException("No se puede quitar un gestor null a unidad procesadora");
-        if(!gestores.contains(gestor)) throw new RestaurantException("El gestor no se encuentra en la unidad -" + nombre+"-");
-        gestores.remove(gestor);
-    }
-    
     public void agregarItem(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede agregar un item vacío a unidad procesadora");
         itemsSinSerTomados.add(item);
-          avisar(eventos.hubo_cambio);
+        avisar(eventos.hubo_cambio);
     }
     
-    public void itemTomado(ItemServicio item) throws RestaurantException {
+    public void quitarItemTomado(ItemServicio item) throws RestaurantException {
         if(item == null) throw new RestaurantException("No se puede tomar un item vacío");
         if(!itemsSinSerTomados.contains(item)) throw new RestaurantException("no se encuentra item sin ser tomado.");
         itemsSinSerTomados.remove(item);

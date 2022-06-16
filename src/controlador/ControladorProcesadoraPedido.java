@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import modelo.Conexion;
 import modelo.Fachada;
 import modelo.Gestor;
@@ -24,6 +25,8 @@ public class ControladorProcesadoraPedido implements Observador {
     private Conexion conexion;
     private UnidadProcesadora procesadora;
     private VistaProcesadoraPedido vistaProcesadora;
+    private ArrayList<ItemServicio> itemsSinProcesar;
+    private ArrayList<ItemServicio> itemsTomados;
     Fachada logica = Fachada.getInstancia();
 
     public ControladorProcesadoraPedido(VistaProcesadoraPedido vista, Conexion conexionGestor) {
@@ -50,30 +53,38 @@ public class ControladorProcesadoraPedido implements Observador {
     }
 
     public void mostrarItemsSinProcesar() {
-        vistaProcesadora.mostrarItemsSinProcesar(procesadora.getItemsSinSerTomados());
+        this.itemsSinProcesar = procesadora.getItemsSinSerTomados();
+        vistaProcesadora.mostrarItemsSinProcesar(itemsSinProcesar);
     }
 
     public void mostrarPedidosTomados() {
-        vistaProcesadora.mostrarPedidosTomados(((Gestor) conexion.getUsuario()).getItemsProcesando());
+        this.itemsTomados = ((Gestor) conexion.getUsuario()).getItemsProcesando();
+        vistaProcesadora.mostrarPedidosTomados(itemsTomados);
     }
 
-    public void pedidoTomado(ItemServicio item) {
-        try {
-            ((Gestor) conexion.getUsuario()).agregarItem(item);
+    public void pedidoTomado(int posicion) {
+        try {            
+            if (posicion != -1) {
+                ItemServicio item = itemsSinProcesar.get(posicion);
+                ((Gestor) conexion.getUsuario()).tomarItem(item);            
+            }
             iniciarItems();
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
         }
     }
 
-    public void pedidoFinalizado(ItemServicio item) {
+    public void pedidoFinalizado(int posicion) {
         Gestor gestor = ((Gestor) conexion.getUsuario());
-        try {
-            gestor.finalizarItem(item);
+        try {            
+            if (posicion != -1) {
+                ItemServicio item = itemsTomados.get(posicion);
+                gestor.finalizarItem(item);
+            }
+            iniciarItems();
         } catch (RestaurantException ex) {
             vistaProcesadora.mostrarError(ex.getMessage());
-        }
-        iniciarItems();
+        }        
     }
 
     @Override

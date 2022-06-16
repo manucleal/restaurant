@@ -19,4 +19,6 @@ public interface VistaProcesadoraPedidoInterface {
     public void mostrarItemsSinProcesar(ArrayList<ItemServicio> items);
     
     public void mostrarPedidosTomados(ArrayList<ItemServicio> items);
+    
+    public void mostrarTablaPedidos(ArrayList<ItemServicio> items, javax.swing.JTable tabla);
 }

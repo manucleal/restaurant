@@ -57,12 +57,15 @@ public class ItemServicio {
         return true;
     }    
     
-    public void agregarGestor (Gestor gestor) throws RestaurantException {
-        if(this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");
-        if(estado != estados.en_espera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
+    public void agregarGestor(Gestor gestor) throws RestaurantException {
+        if(this.gestor != null) throw new RestaurantException("El item ya tiene un gestor asignado");        
         this.gestor = gestor;
+    }
+    
+    public void tomarItem() throws RestaurantException {
+        if(estado != estados.en_espera) throw new RestaurantException("El item no se encuentra disponible para ser tomado");
         this.estado = estados.procesado;
-        this.producto.getUnidadProcesadora().itemTomado(this);
+        this.producto.getUnidadProcesadora().quitarItemTomado(this);
     }
     
     public void agregarAUnidadProcesadora() throws  RestaurantException {
@@ -73,7 +76,7 @@ public class ItemServicio {
         return this.estado.equals(estados.finalizado);
     }
    
-    public void finalizado() throws RestaurantException {
+    public void finalizar() throws RestaurantException {
         estado = estados.finalizado;        
         servicio.getMesa().getMozo().setItemFinalizado(this);
         servicio.getMesa().getMozo().avisar(UnidadProcesadora.eventos.hubo_cambio);
