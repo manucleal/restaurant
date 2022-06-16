@@ -21,8 +21,6 @@ import modelo.ItemServicio;
 public class VistaProcesadoraPedido extends javax.swing.JDialog implements VistaProcesadoraPedidoInterface {
 
     private ControladorProcesadoraPedido controlador;
-    private ArrayList<ItemServicio> itemsSinProcesar;
-    private ArrayList<ItemServicio> itemsTomados;
 
     /**
      * Creates new form VistaProcesadoraPedido
@@ -200,22 +198,13 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
     }//GEN-LAST:event_formWindowClosing
 
     private void btnTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarPedidoActionPerformed
-        // TODO add your handling code here:
         int posItem = tPedidos.getSelectedRow();
-        if (posItem != -1) {
-            controlador.pedidoTomado(itemsSinProcesar.get(posItem));
-        } else {
-            controlador.pedidoTomado(null);
-        }
+        controlador.pedidoTomado(posItem);
     }//GEN-LAST:event_btnTomarPedidoActionPerformed
 
     private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
         int posItem = tPedidosTomados.getSelectedRow();
-        if (posItem != -1) {
-            controlador.pedidoFinalizado(itemsTomados.get(posItem));
-        } else {
-            controlador.pedidoFinalizado(null);
-        }
+        controlador.pedidoFinalizado(posItem);
      }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 
     @Override
@@ -225,7 +214,6 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
 
     @Override
     public void mostrarItemsSinProcesar(ArrayList<ItemServicio> items) {
-        itemsSinProcesar = items;
         mostrarTablaPedidos(items, tPedidos);
     }
     /**
@@ -242,11 +230,11 @@ public class VistaProcesadoraPedido extends javax.swing.JDialog implements Vista
 
     @Override
     public void mostrarPedidosTomados(ArrayList<ItemServicio> items) {
-        itemsTomados = items;
         mostrarTablaPedidos(items, tPedidosTomados);
     }
-
-    private void mostrarTablaPedidos(ArrayList<ItemServicio> items, javax.swing.JTable tabla) {        
+    
+    @Override
+    public void mostrarTablaPedidos(ArrayList<ItemServicio> items, javax.swing.JTable tabla) {        
         DefaultTableModel datos = new DefaultTableModel() {
             @Override public boolean isCellEditable(int row, int column) { return false; }
         };
