@@ -56,6 +56,7 @@ public class ControladorMozo implements Observador {
         try{
             if(mesaSeleccionada == null) throw new RestaurantException("No seleccionaste una mesa");
             vistaMozo.mostrarMensaje(mesaSeleccionada.abrirMesa());
+            vistaMozo.mostrarMesas(modeloMozo.getMesas());
         }catch(RestaurantException e){
             vistaMozo.mostrarMensaje(e.getMessage());
         }
@@ -141,6 +142,7 @@ public class ControladorMozo implements Observador {
         }else if(evento.equals(Mozo.eventos.mesaCerrada)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             vistaMozo.mostrarTotalServicio(mesaSeleccionada.getServicio().obtenerMontoTotalServicio());
+            vistaMozo.mostrarMesas(modeloMozo.getMesas());
         }else if(evento.equals(UnidadProcesadora.eventos.hubo_cambio)) {
             vistaMozo.mostrarDatosServicio(mesaSeleccionada.getServicio().getItemsServicio());
             ItemServicio item = modeloMozo.getItemFinalizado();
